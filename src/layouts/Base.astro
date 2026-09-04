@@ -1,0 +1,113 @@
+---
+import { SEO, PROJECT_NAME, CONTACT, SCHOOL_URL } from '../config/site.js';
+import '../styles/global.css';
+
+const { title = SEO.title, description = SEO.description } = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+const ogImage = new URL(SEO.ogImage, Astro.site);
+
+/* Structured data helps this project surface in search and gives grant and
+   corporate-giving researchers a machine-readable record of the campaign. */
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Project',
+  name: PROJECT_NAME,
+  description: SEO.description,
+  url: canonical.href,
+  location: {
+    '@type': 'Place',
+    name: 'Falls City High School',
+    address: {
+      '@type': 'PostalAddress',
+      streetAddress: CONTACT.street,
+      addressLocality: 'Falls City',
+      addressRegion: 'OR',
+      postalCode: '97344',
+      addressCountry: 'US',
+    },
+  },
+  parentOrganization: {
+    '@type': 'EducationalOrganization',
+    name: CONTACT.district,
+    url: SCHOOL_URL,
+  },
+};
+---
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+
+    <!-- FAVICON — replace public/favicon.svg with the real district mark -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="theme-color" content="#4B2E83" />
+
+    <!-- Open Graph / social sharing.
+         [ADD LATER] Replace public/og-image.svg with a real 1200x630 JPG
+         and update SEO.ogImage in src/config/site.js -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={PROJECT_NAME} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:locale" content={SEO.locale} />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <!-- Fonts: preconnect first so text paints fast. -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;700;800&family=Inter:wght@400;500;600;700&display=swap"
+    />
+
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+
+    <!-- Swap the no-js class immediately so reveal animations can run.
+         Inline and synchronous to avoid a flash of hidden content. -->
+    <script is:inline>
+      document.documentElement.classList.remove('no-js');
+    </script>
+  </head>
+
+  <body>
+    <a class="skip-link" href="#main">Skip to main content</a>
+    <slot />
+
+    <script is:inline>
+      /* Scroll reveal. Anything already on screen at load is shown at once;
+         everything else fades up as it enters. Honors reduced-motion by
+         simply revealing everything immediately. */
+      (function () {
+        var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        var items = document.querySelectorAll('[data-reveal]');
+
+        if (reduce || !('IntersectionObserver' in window)) {
+          items.forEach(function (el) { el.classList.add('is-visible'); });
+          return;
+        }
+
+        var io = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (!entry.isIntersecting) return;
+            entry.target.classList.add('is-visible');
+            io.unobserve(entry.target);
+          });
+        }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
+
+        items.forEach(function (el) { io.observe(el); });
+      })();
+    </script>
+  </body>
+</html>

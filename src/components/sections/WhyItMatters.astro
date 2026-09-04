@@ -1,0 +1,61 @@
+---
+import { WHY_IT_MATTERS } from '../../data/content.js';
+import MediaPlaceholder from '../MediaPlaceholder.astro';
+---
+
+<section class="section" id="why-it-matters">
+  <div class="shell">
+    <div class="why__head" data-reveal>
+      <p class="eyebrow">{WHY_IT_MATTERS.eyebrow}</p>
+      <h2 class="headline-lg">{WHY_IT_MATTERS.headline}</h2>
+    </div>
+
+    <div class="why__layout">
+      <div class="why__media" data-reveal>
+        <!-- [STUDENT ATHLETE PHOTO] -->
+        <MediaPlaceholder
+          label="[STUDENT ATHLETE PHOTO]"
+          note="A Falls City athlete mid-effort — running, jumping, or catching breath. Faces matter more than form here."
+          ratio="3 / 4"
+        />
+      </div>
+
+      <ul class="why__grid">
+        {WHY_IT_MATTERS.pillars.map((p) => (
+          <li class="why__card" data-reveal>
+            <span class="why__num" aria-hidden="true">{p.number}</span>
+            <h3 class="why__title">{p.title}</h3>
+            <p class="why__body">{p.body}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </div>
+</section>
+
+<style>
+  .why__head { margin-bottom: var(--space-xl); max-width: 26ch; }
+  .why__layout { display: grid; gap: var(--space-lg); }
+  .why__grid { display: grid; gap: var(--space-md); }
+
+  .why__card {
+    padding-top: var(--space-md);
+    border-top: 2px solid var(--purple);
+  }
+  .why__num {
+    display: block;
+    font-family: var(--font-display);
+    font-size: 0.8rem; font-weight: 700; letter-spacing: 0.14em;
+    color: var(--gold-deep);
+    margin-bottom: 0.6rem;
+  }
+  .why__title { font-size: var(--fs-h3); margin-bottom: 0.6rem; }
+  .why__body { color: var(--ink-soft); font-size: var(--fs-body); line-height: 1.55; }
+
+  @media (min-width: 800px) {
+    .why__grid { grid-template-columns: 1fr 1fr; gap: var(--space-lg) var(--space-md); }
+  }
+  @media (min-width: 1040px) {
+    .why__layout { grid-template-columns: 0.8fr 1.2fr; gap: var(--space-xl); align-items: start; }
+  }
+</style>

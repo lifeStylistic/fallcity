@@ -1,0 +1,86 @@
+---
+import { PARTNER_LOGOS, PARTNER_SECTION } from '../../config/site.js';
+/* The partner wall hides itself entirely while PARTNER_LOGOS is empty, so
+   the site never shows an empty "our partners" shell. */
+---
+
+{PARTNER_LOGOS.length > 0 && (
+  <section class="section partners" id="partners">
+    <div class="shell">
+      <div class="partners__head" data-reveal>
+        <p class="eyebrow">{PARTNER_SECTION.eyebrow}</p>
+        <h2 class="headline">{PARTNER_SECTION.headline}</h2>
+        <p class="lead partners__lead">{PARTNER_SECTION.intro}</p>
+      </div>
+
+      <ul class="partners__wall" data-reveal>
+        {PARTNER_LOGOS.map((p) => (
+          <li class="partners__item">
+            {p.url ? (
+              <a href={p.url} target="_blank" rel="noopener noreferrer" class="partners__link">
+                <img
+                  src={p.logo}
+                  alt={p.name}
+                  width={p.width}
+                  height={p.height}
+                  loading="lazy"
+                  style={`max-width:${p.width}px`}
+                />
+              </a>
+            ) : (
+              <img
+                src={p.logo}
+                alt={p.name}
+                width={p.width}
+                height={p.height}
+                loading="lazy"
+                style={`max-width:${p.width}px`}
+              />
+            )}
+            {p.role && <p class="partners__role">{p.role}</p>}
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+)}
+
+<style>
+  /* IMPORTANT: this section is deliberately plain white with no card, panel,
+     border or tint behind the logos. Partner lockups often carry their own
+     white background, and any container would make them look framed or
+     boxed in. Do not add a background colour or border here. */
+  .partners { background: var(--paper); padding-block: var(--space-xl); }
+
+  .partners__head { max-width: 62ch; margin-bottom: var(--space-lg); }
+  .partners__lead { margin-top: var(--space-md); }
+
+  .partners__wall {
+    display: flex; flex-wrap: wrap; align-items: flex-start;
+    gap: clamp(2rem, 5vw, 4.5rem);
+    padding-top: var(--space-lg);
+    border-top: 1px solid var(--line);
+  }
+
+  .partners__item { display: flex; flex-direction: column; gap: 0.85rem; }
+
+  .partners__link {
+    display: block;
+    transition: opacity var(--dur-fast) var(--ease);
+  }
+  .partners__link:hover { opacity: 0.72; }
+
+  .partners__item img {
+    width: 100%;
+    height: auto;
+    /* No filter, no border, no radius — the mark is shown as supplied. */
+  }
+
+  .partners__role {
+    font-size: var(--fs-eyebrow);
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+</style>

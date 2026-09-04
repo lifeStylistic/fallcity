@@ -1,0 +1,16 @@
+{
+  "name": "falls-city-four-lane-project",
+  "version": "1.0.0",
+  "description": "Public fundraising site for the Falls City Four-Lane Project — Falls City School District 57, Falls City, Oregon.",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview"
+  },
+  "dependencies": {
+    "astro": "^5.14.1"
+  }
+}

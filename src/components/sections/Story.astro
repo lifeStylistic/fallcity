@@ -1,0 +1,120 @@
+---
+import { STORY } from '../../data/content.js';
+import MediaPlaceholder from '../MediaPlaceholder.astro';
+---
+
+<section class="section section--ink on-dark" id="our-story">
+  <div class="shell">
+    <div class="story__head" data-reveal>
+      <p class="eyebrow">{STORY.eyebrow}</p>
+      <h2 class="headline-lg">{STORY.headline}</h2>
+    </div>
+
+    <div class="story__top">
+      <div class="story__lead" data-reveal>
+        <p class="lead">{STORY.lead}</p>
+      </div>
+      <div class="story__prose prose" data-reveal>
+        {STORY.body.map((p) => <p>{p}</p>)}
+      </div>
+    </div>
+
+    <!-- The campaign's central line, given the full width of the page. -->
+    <figure class="story__quote" data-reveal>
+      <div class="lanes lanes--onDark story__quoteLanes" aria-hidden="true">
+        <span></span><span></span><span></span><span></span>
+      </div>
+      <blockquote>
+        {STORY.bigQuote.map((line) => <span>{line}</span>)}
+      </blockquote>
+    </figure>
+
+    <div class="story__bottom">
+      <div class="story__media" data-reveal>
+        <!-- [COMMUNITY / FOOTBALL GAME PHOTO] -->
+        <MediaPlaceholder
+          label="[COMMUNITY / FOOTBALL GAME PHOTO]"
+          note="A home game crowd around the field — families, grandparents, folding chairs. This is the picture that proves the field is a gathering place."
+          ratio="16 / 10"
+          variant="dark"
+        />
+      </div>
+
+      <div class="story__commit" data-reveal>
+        <p class="story__after">{STORY.afterQuote}</p>
+        <p class="story__commitLabel">What Falls City brings</p>
+        <ul class="story__list">
+          {STORY.contributions.map((c) => <li>{c}</li>)}
+        </ul>
+      </div>
+    </div>
+
+    <p class="story__closing" data-reveal>{STORY.closingQuote}</p>
+  </div>
+</section>
+
+<style>
+  .story__head { margin-bottom: var(--space-xl); max-width: 24ch; }
+  .story__top { display: grid; gap: var(--space-lg); }
+
+  .story__quote {
+    margin: var(--space-2xl) 0;
+    padding: 0;
+    text-align: center;
+  }
+  .story__quoteLanes { max-width: 5rem; margin: 0 auto var(--space-lg); }
+  .story__quote blockquote {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: var(--fs-display);
+    font-weight: 800;
+    line-height: 1.02;
+    letter-spacing: -0.035em;
+    text-wrap: balance;
+  }
+  .story__quote blockquote span { display: block; }
+  .story__quote blockquote span:last-child { color: var(--gold); }
+
+  .story__bottom { display: grid; gap: var(--space-lg); align-items: center; }
+
+  .story__after { color: rgba(255,255,255,0.82); max-width: 50ch; }
+
+  .story__commitLabel {
+    margin-top: var(--space-lg);
+    font-size: var(--fs-eyebrow); font-weight: 700;
+    letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold);
+  }
+  .story__list {
+    margin-top: var(--space-sm);
+    display: grid; gap: 0;
+  }
+  .story__list li {
+    padding: 0.75rem 0;
+    border-bottom: 1px solid rgba(255,255,255,0.14);
+    color: rgba(255,255,255,0.9);
+    font-size: var(--fs-small);
+    display: flex; align-items: center; gap: 0.75rem;
+  }
+  .story__list li::before {
+    content: ''; flex: none; width: 0.65rem; height: 2px; background: var(--gold);
+  }
+
+  .story__closing {
+    margin-top: var(--space-2xl);
+    padding-top: var(--space-lg);
+    border-top: 1px solid rgba(255,255,255,0.16);
+    font-family: var(--font-display);
+    font-size: clamp(1.15rem, 2.2vw, 1.75rem);
+    font-weight: 600;
+    line-height: 1.35;
+    letter-spacing: -0.02em;
+    max-width: 46ch;
+    color: #fff;
+    text-wrap: pretty;
+  }
+
+  @media (min-width: 900px) {
+    .story__top { grid-template-columns: 1fr 1fr; gap: var(--space-xl); }
+    .story__bottom { grid-template-columns: 1.1fr 0.9fr; gap: var(--space-xl); }
+  }
+</style>

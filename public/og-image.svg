@@ -1,0 +1,26 @@
+<!-- SOCIAL SHARING IMAGE PLACEHOLDER (1200x630).
+     [ADD LATER] Replace with a real photo-based 1200x630 JPG:
+       1. Save it as  public/og-image.jpg
+       2. Change SEO.ogImage in src/config/site.js to '/og-image.jpg'
+     Note: some platforms (older Facebook/LinkedIn crawlers) will not render
+     an SVG preview, so a JPG or PNG is strongly preferred before launch. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <rect width="1200" height="630" fill="#2E1B52"/>
+  <g stroke="#FFFFFF" stroke-opacity="0.07" stroke-width="1">
+    <line x1="300" y1="0" x2="300" y2="630"/>
+    <line x1="600" y1="0" x2="600" y2="630"/>
+    <line x1="900" y1="0" x2="900" y2="630"/>
+  </g>
+  <text x="80" y="150" fill="#F2C94C" font-family="Helvetica,Arial,sans-serif"
+        font-size="22" font-weight="700" letter-spacing="4">FALLS CITY, OREGON</text>
+  <g fill="#FFFFFF" font-family="Helvetica,Arial,sans-serif" font-size="92" font-weight="bold">
+    <text x="80" y="270">50 Students.</text>
+    <text x="80" y="370">One Community.</text>
+    <text x="80" y="470" fill="#F2C94C">Four Lanes.</text>
+  </g>
+  <text x="80" y="545" fill="#FFFFFF" fill-opacity="0.75"
+        font-family="Helvetica,Arial,sans-serif" font-size="26">
+    Building a four-lane synthetic track at Falls City High School
+  </text>
+  <rect x="80" y="575" width="120" height="5" fill="#F2C94C"/>
+</svg>

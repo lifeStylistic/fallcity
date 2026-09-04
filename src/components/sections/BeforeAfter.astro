@@ -1,0 +1,94 @@
+---
+import { BEFORE_AFTER } from '../../data/content.js';
+import MediaPlaceholder from '../MediaPlaceholder.astro';
+const { today, vision } = BEFORE_AFTER;
+---
+
+<section class="section section--tint" id="the-vision">
+  <div class="shell">
+    <div class="ba__head" data-reveal>
+      <p class="eyebrow">{BEFORE_AFTER.eyebrow}</p>
+      <h2 class="headline-lg">{BEFORE_AFTER.headline}</h2>
+    </div>
+
+    <div class="ba__grid">
+      <!-- TODAY -->
+      <div class="ba__panel ba__panel--today" data-reveal>
+        <div class="ba__label">
+          <span class="ba__labelText">{today.label}</span>
+          <span class="ba__rule" aria-hidden="true"></span>
+        </div>
+        <!-- [CURRENT TRACK PHOTO] -->
+        <MediaPlaceholder
+          label="[CURRENT TRACK PHOTO]"
+          note="The existing oval, wide enough to read the whole site."
+          ratio="3 / 2"
+        />
+        <ul class="ba__list">
+          {today.items.map((item) => <li>{item}</li>)}
+        </ul>
+      </div>
+
+      <!-- THE VISION -->
+      <div class="ba__panel ba__panel--vision on-dark" data-reveal>
+        <div class="ba__label">
+          <span class="ba__labelText">{vision.label}</span>
+          <span class="ba__rule" aria-hidden="true"></span>
+        </div>
+        <!-- [PROPOSED TRACK RENDERING] -->
+        <MediaPlaceholder
+          label="[PROPOSED TRACK RENDERING]"
+          note="Rendering or concept drawing of the finished four-lane track. A drone photo with an overlay works too."
+          ratio="3 / 2"
+          variant="dark"
+        />
+        <ul class="ba__list">
+          {vision.items.map((item) => <li>{item}</li>)}
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .ba__head { margin-bottom: var(--space-xl); max-width: 30ch; }
+
+  .ba__grid { display: grid; gap: var(--space-md); }
+
+  .ba__panel { padding: clamp(1.5rem, 3vw, 2.5rem); border-radius: var(--radius); }
+  .ba__panel--today  { background: var(--paper); border: 1px solid var(--line); }
+  .ba__panel--vision { background: var(--purple-deep); color: #fff; }
+
+  .ba__label { display: flex; align-items: center; gap: var(--space-sm); margin-bottom: var(--space-md); }
+  .ba__labelText {
+    font-size: var(--fs-eyebrow); font-weight: 700; letter-spacing: 0.2em;
+    text-transform: uppercase; flex: none;
+  }
+  .ba__panel--today .ba__labelText  { color: var(--muted); }
+  .ba__panel--vision .ba__labelText { color: var(--gold); }
+  .ba__rule { flex: 1; height: 1px; background: currentColor; opacity: 0.18; }
+
+  .ba__list { margin-top: var(--space-md); display: grid; gap: 0.9rem; }
+  .ba__list li {
+    display: flex; align-items: flex-start; gap: 0.75rem;
+    font-size: var(--fs-body); line-height: 1.45;
+    padding-bottom: 0.9rem; border-bottom: 1px solid var(--line);
+  }
+  .ba__list li:last-child { border-bottom: 0; padding-bottom: 0; }
+  .ba__list li::before {
+    content: ''; flex: none; width: 1rem; height: 2px; margin-top: 0.7em; background: currentColor;
+  }
+  .ba__panel--today .ba__list li { color: var(--ink-soft); }
+  .ba__panel--today .ba__list li::before { background: var(--muted); opacity: 0.5; }
+  .ba__panel--vision .ba__list li { color: rgba(255,255,255,0.9); border-bottom-color: rgba(255,255,255,0.14); }
+  .ba__panel--vision .ba__list li::before { background: var(--gold); }
+
+  @media (min-width: 900px) {
+    .ba__grid { grid-template-columns: 1fr 1fr; gap: var(--space-lg); }
+    /* The vision panel sits slightly lower so the pair reads as a step up. */
+    .ba__panel--vision { transform: translateY(2.5rem); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .ba__panel--vision { transform: none; }
+  }
+</style>

@@ -1,0 +1,72 @@
+/* ===========================================================================
+   DESIGN TOKENS — The Falls City Four-Lane Project
+   ---------------------------------------------------------------------------
+   The campaign palette is taken directly from the project proposal document,
+   not approximated:
+       Purple  #4B2E83     Gold  #F2C94C
+       Ink     #252525     Tint  #F4F1F8
+   Change a value here and it changes everywhere on the site.
+
+   ACCESSIBILITY NOTE — please read before changing colours:
+   Gold (#F2C94C) has a contrast ratio of about 1.7:1 against white. It must
+   NEVER be used for text on a light background. It is used here only as a
+   graphic accent, as a rule/underline, and as text on dark ground (about
+   11:1 on ink, 6.5:1 on purple) where it is fully legible.
+   Purple on white is about 9.5:1 and carries text safely at any size.
+   =========================================================================== */
+
+:root {
+  /* --- Brand ----------------------------------------------------------- */
+  --purple:        #4B2E83;
+  --purple-deep:   #2E1B52;   /* darker purple for large fields + overlays */
+  --purple-soft:   #6B4DA8;
+  --gold:          #F2C94C;
+  --gold-deep:     #C99A16;   /* passes AA on white for small graphic text */
+
+  /* --- Neutrals -------------------------------------------------------- */
+  --ink:           #252525;
+  --ink-soft:      #4A4A4A;
+  --muted:         #666666;
+  --line:          #E4E1EA;
+  --tint:          #F4F1F8;   /* pale purple wash */
+  --paper:         #FFFFFF;
+  --paper-warm:    #FAFAF8;
+
+  /* --- Type ------------------------------------------------------------ */
+  --font-display: 'Archivo', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --font-body:    'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+
+  /* Fluid type scale — clamp(min, preferred, max) so it adapts without
+     breakpoints and never overflows small screens. */
+  --fs-hero:    clamp(2.75rem, 9vw, 7.5rem);
+  --fs-display: clamp(2.25rem, 5.5vw, 4.5rem);
+  --fs-h2:      clamp(1.875rem, 4vw, 3.25rem);
+  --fs-h3:      clamp(1.25rem, 2vw, 1.75rem);
+  --fs-stat:    clamp(3.5rem, 10vw, 8rem);
+  --fs-lead:    clamp(1.125rem, 1.6vw, 1.4rem);
+  --fs-body:    clamp(1rem, 1.1vw, 1.125rem);
+  --fs-small:   0.875rem;
+  --fs-eyebrow: 0.75rem;
+
+  /* --- Spacing --------------------------------------------------------- */
+  --space-2xs: 0.25rem;
+  --space-xs:  0.5rem;
+  --space-sm:  1rem;
+  --space-md:  1.75rem;
+  --space-lg:  3rem;
+  --space-xl:  5rem;
+  --space-2xl: clamp(4.5rem, 10vw, 9rem);   /* vertical section rhythm */
+
+  /* --- Layout ---------------------------------------------------------- */
+  --max-width:    1280px;
+  --max-text:     62ch;
+  --gutter:       clamp(1.25rem, 5vw, 4.5rem);
+  --radius:       2px;        /* deliberately near-square — no bubbly cards */
+  --radius-pill:  100px;
+
+  /* --- Motion ---------------------------------------------------------- */
+  --ease:      cubic-bezier(0.16, 1, 0.3, 1);
+  --dur-fast:  180ms;
+  --dur:       420ms;
+  --dur-slow:  760ms;
+}

@@ -1,0 +1,186 @@
+---
+import { NAV_LINKS } from '../data/content.js';
+import { DONATION_URL } from '../config/site.js';
+---
+
+<header class="nav" id="site-nav" data-nav>
+  <div class="shell nav__inner">
+    <a class="nav__brand" href="#top">
+      <span class="nav__mark" aria-hidden="true">
+        <span></span><span></span><span></span><span></span>
+      </span>
+      <span class="nav__brandText">
+        <strong>Falls City</strong>
+        <em>Four-Lane Project</em>
+      </span>
+    </a>
+
+    <nav class="nav__links" aria-label="Section navigation">
+      {NAV_LINKS.map((link) => <a href={link.href}>{link.label}</a>)}
+    </nav>
+
+    <div class="nav__actions">
+      {DONATION_URL
+        ? <a class="btn btn--purple nav__cta" href={DONATION_URL}>Donate</a>
+        : <a class="btn btn--purple nav__cta" href="#help">Help Out</a>}
+    </div>
+
+    <button
+      class="nav__toggle"
+      type="button"
+      aria-expanded="false"
+      aria-controls="mobile-menu"
+      data-menu-toggle
+    >
+      <span class="visually-hidden">Menu</span>
+      <span class="nav__bars" aria-hidden="true"><span></span><span></span><span></span></span>
+    </button>
+  </div>
+
+  <!-- Mobile menu — hidden from assistive tech until opened. -->
+  <div class="nav__mobile" id="mobile-menu" data-menu hidden>
+    <nav class="nav__mobileLinks" aria-label="Section navigation">
+      {NAV_LINKS.map((link) => <a href={link.href} data-menu-link>{link.label}</a>)}
+    </nav>
+    <div class="nav__mobileCta">
+      {DONATION_URL
+        ? <a class="btn btn--purple" href={DONATION_URL} data-menu-link>Donate</a>
+        : <a class="btn btn--purple" href="#help" data-menu-link>Help Out</a>}
+    </div>
+  </div>
+</header>
+
+<style>
+  .nav {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid transparent;
+    transition: border-color var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
+  }
+  /* .is-stuck is added by script once the page scrolls, so the bar only
+     grows a border when it is actually overlapping content. */
+  .nav.is-stuck { border-bottom-color: var(--line); box-shadow: 0 1px 24px rgba(37,37,37,0.05); }
+
+  .nav__inner {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: var(--space-md); min-height: 5rem;
+  }
+
+  .nav__brand { display: flex; align-items: center; gap: 0.75rem; text-decoration: none; }
+
+  /* The four-lane mark, rotated — a compact logo stand-in. */
+  .nav__mark { display: grid; gap: 3px; width: 1.5rem; flex: none; }
+  .nav__mark span { display: block; height: 2px; background: var(--purple); }
+  .nav__mark span:nth-child(1) { opacity: 0.3; }
+  .nav__mark span:nth-child(2) { opacity: 0.55; }
+  .nav__mark span:nth-child(3) { opacity: 0.8; }
+  .nav__mark span:nth-child(4) { background: var(--gold-deep); }
+
+  .nav__brandText { display: flex; flex-direction: column; line-height: 1.1; }
+  .nav__brandText strong {
+    font-family: var(--font-display); font-size: 1rem; font-weight: 700;
+    letter-spacing: -0.01em; color: var(--ink);
+  }
+  .nav__brandText em {
+    font-style: normal; font-size: 0.7rem; font-weight: 600;
+    letter-spacing: 0.13em; text-transform: uppercase; color: var(--purple);
+  }
+
+  .nav__links { display: none; gap: var(--space-md); }
+  .nav__links a {
+    font-size: 0.875rem; font-weight: 500; text-decoration: none; color: var(--ink-soft);
+    padding-block: 0.35rem; position: relative; transition: color var(--dur-fast) var(--ease);
+  }
+  .nav__links a::after {
+    content: ''; position: absolute; left: 0; bottom: 0; height: 2px; width: 0;
+    background: var(--gold); transition: width var(--dur) var(--ease);
+  }
+  .nav__links a:hover { color: var(--purple); }
+  .nav__links a:hover::after { width: 100%; }
+
+  .nav__actions { display: none; }
+  .nav__cta { padding: 0.8rem 1.5rem; font-size: 0.78rem; }
+
+  /* --- Mobile toggle --- */
+  .nav__toggle {
+    display: grid; place-items: center; width: 2.75rem; height: 2.75rem;
+    background: transparent; border: 1px solid var(--line); border-radius: var(--radius);
+    cursor: pointer;
+  }
+  .nav__bars { display: grid; gap: 4px; width: 1.1rem; }
+  .nav__bars span {
+    display: block; height: 2px; background: var(--ink);
+    transition: transform var(--dur-fast) var(--ease), opacity var(--dur-fast) var(--ease);
+  }
+  .nav__toggle[aria-expanded='true'] .nav__bars span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+  .nav__toggle[aria-expanded='true'] .nav__bars span:nth-child(2) { opacity: 0; }
+  .nav__toggle[aria-expanded='true'] .nav__bars span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+
+  .nav__mobile {
+    border-top: 1px solid var(--line);
+    background: var(--paper);
+    padding: var(--space-md) var(--gutter) var(--space-lg);
+  }
+  .nav__mobileLinks { display: grid; }
+  .nav__mobileLinks a {
+    padding: 1rem 0; text-decoration: none; font-family: var(--font-display);
+    font-size: 1.35rem; font-weight: 700; color: var(--ink);
+    border-bottom: 1px solid var(--line);
+  }
+  .nav__mobileCta { margin-top: var(--space-md); }
+  .nav__mobileCta .btn { width: 100%; }
+
+  @media (min-width: 900px) {
+    .nav__links, .nav__actions { display: flex; align-items: center; }
+    .nav__toggle, .nav__mobile { display: none; }
+  }
+</style>
+
+<script is:inline>
+  (function () {
+    var nav = document.querySelector('[data-nav]');
+    var toggle = document.querySelector('[data-menu-toggle]');
+    var menu = document.querySelector('[data-menu]');
+
+    /* Border only appears once the header is actually overlapping content. */
+    var onScroll = function () {
+      if (!nav) return;
+      nav.classList.toggle('is-stuck', window.scrollY > 8);
+    };
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+
+    if (!toggle || !menu) return;
+
+    var setOpen = function (open) {
+      toggle.setAttribute('aria-expanded', String(open));
+      menu.hidden = !open;
+      /* Stop the page behind the menu from scrolling while it is open. */
+      document.body.style.overflow = open ? 'hidden' : '';
+    };
+
+    toggle.addEventListener('click', function () {
+      setOpen(toggle.getAttribute('aria-expanded') !== 'true');
+    });
+
+    /* Close after tapping a link, otherwise the menu covers the target. */
+    menu.querySelectorAll('[data-menu-link]').forEach(function (link) {
+      link.addEventListener('click', function () { setOpen(false); });
+    });
+
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && toggle.getAttribute('aria-expanded') === 'true') {
+        setOpen(false);
+        toggle.focus();
+      }
+    });
+
+    /* If the viewport grows past the desktop breakpoint while the menu is
+       open, reset state so body scroll is not left locked. */
+    window.matchMedia('(min-width: 900px)').addEventListener('change', function (e) {
+      if (e.matches) setOpen(false);
+    });
+  })();
+</script>

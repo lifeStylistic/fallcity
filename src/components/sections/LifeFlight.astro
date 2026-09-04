@@ -1,0 +1,49 @@
+---
+import { LIFE_FLIGHT } from '../../data/content.js';
+---
+
+<section class="section lf on-dark" id="life-flight">
+  <div class="shell lf__inner">
+    <div class="lf__copy" data-reveal>
+      <p class="eyebrow">{LIFE_FLIGHT.eyebrow}</p>
+      <h2 class="headline">{LIFE_FLIGHT.headline}</h2>
+      <div class="prose lf__prose">
+        {LIFE_FLIGHT.body.map((p) => <p>{p}</p>)}
+      </div>
+      <p class="lf__emphasis">{LIFE_FLIGHT.emphasis}</p>
+    </div>
+
+    <!-- A simple landing-zone mark: restrained, not dramatised. -->
+    <div class="lf__mark" data-reveal aria-hidden="true">
+      <svg viewBox="0 0 200 200" role="presentation" focusable="false">
+        <circle cx="100" cy="100" r="88" fill="none" stroke="currentColor" stroke-width="1.5" opacity="0.25" />
+        <circle cx="100" cy="100" r="66" fill="none" stroke="currentColor" stroke-width="1.5" opacity="0.4" />
+        <path d="M76 62 v76 M124 62 v76 M76 100 h48" fill="none" stroke="currentColor" stroke-width="13" stroke-linecap="square" />
+      </svg>
+    </div>
+  </div>
+</section>
+
+<style>
+  .lf { background: var(--ink); color: #fff; }
+  .lf__inner { display: grid; gap: var(--space-lg); align-items: center; }
+  .lf__prose { margin-top: var(--space-md); }
+
+  .lf__emphasis {
+    margin-top: var(--space-md);
+    padding-left: var(--space-sm);
+    border-left: 3px solid var(--gold);
+    font-size: var(--fs-lead);
+    line-height: 1.5;
+    color: #fff;
+    max-width: 56ch;
+  }
+
+  .lf__mark { color: var(--gold); opacity: 0.55; max-width: 230px; justify-self: start; }
+  .lf__mark svg { width: 100%; height: auto; }
+
+  @media (min-width: 900px) {
+    .lf__inner { grid-template-columns: 1.35fr 0.65fr; gap: var(--space-xl); }
+    .lf__mark { justify-self: center; max-width: 260px; }
+  }
+</style>

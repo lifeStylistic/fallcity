@@ -1,0 +1,174 @@
+---
+import { STATUS } from '../../data/content.js';
+import { FUNDRAISING_GOAL, AMOUNT_RAISED } from '../../config/site.js';
+
+/* Funding figures appear ONLY when both are real numbers in site.js.
+   The site never displays an invented total, goal or percentage. */
+const hasFunding =
+  typeof FUNDRAISING_GOAL === 'number' && FUNDRAISING_GOAL > 0 &&
+  typeof AMOUNT_RAISED === 'number' && AMOUNT_RAISED >= 0;
+
+const pctFunded = hasFunding
+  ? Math.min(100, Math.round((AMOUNT_RAISED / FUNDRAISING_GOAL) * 100))
+  : null;
+
+const money = (n) =>
+  new Intl.NumberFormat('en-US', {
+    style: 'currency', currency: 'USD', maximumFractionDigits: 0,
+  }).format(n);
+---
+
+<section class="section section--tint" id="status">
+  <div class="shell">
+    <div class="status__head" data-reveal>
+      <p class="eyebrow">{STATUS.eyebrow}</p>
+      <h2 class="headline-lg">{STATUS.headline}</h2>
+    </div>
+
+    <div class="status__banner" data-reveal>
+      <div>
+        <p class="status__phaseLabel">Current Phase</p>
+        <p class="status__phase">{STATUS.phase}</p>
+      </div>
+      <p class="status__updated">{STATUS.updated}</p>
+    </div>
+
+    <ul class="status__grid">
+      {STATUS.items.map((item) => (
+        <li class={`track track--${item.state}`} data-reveal>
+          <span class="track__dot" aria-hidden="true"></span>
+          <span class="track__label">{item.label}</span>
+          <span class="track__value">{item.value}</span>
+        </li>
+      ))}
+    </ul>
+
+    {/* ------------------------------------------------------------------
+        FUNDRAISING PROGRESS
+        Hidden until FUNDRAISING_GOAL and AMOUNT_RAISED are both set to real
+        numbers in src/config/site.js. Percent funded is calculated, never
+        typed by hand. Until then, an honest "not yet published" note shows
+        in its place rather than a fabricated total.
+    ------------------------------------------------------------------ */}
+    {hasFunding ? (
+      <div class="fund" data-reveal>
+        <div class="fund__row">
+          <div>
+            <p class="fund__label">Raised to date</p>
+            <p class="fund__amount">{money(AMOUNT_RAISED)}</p>
+          </div>
+          <div class="fund__goal">
+            <p class="fund__label">Project goal</p>
+            <p class="fund__amount fund__amount--muted">{money(FUNDRAISING_GOAL)}</p>
+          </div>
+        </div>
+        <div
+          class="fund__bar"
+          role="progressbar"
+          aria-valuenow={pctFunded}
+          aria-valuemin="0"
+          aria-valuemax="100"
+          aria-label={`Fundraising progress: ${pctFunded} percent funded`}
+        >
+          <span class="fund__fill" style={`width:${pctFunded}%`}></span>
+        </div>
+        <p class="fund__pct">{pctFunded}% funded</p>
+      </div>
+    ) : (
+      <div class="fund fund--empty" data-reveal>
+        <p class="fund__label">Fundraising Progress</p>
+        <p class="fund__empty">
+          A published fundraising goal and running total will appear here once
+          professional assessment establishes the project’s scope and cost.
+        </p>
+        <!-- [PLACEHOLDER] $AMOUNT_RAISED · $PROJECT_GOAL · %_FUNDED
+             Set FUNDRAISING_GOAL and AMOUNT_RAISED in src/config/site.js
+             and this block becomes a live progress bar automatically. -->
+      </div>
+    )}
+  </div>
+</section>
+
+<style>
+  .status__head { margin-bottom: var(--space-lg); max-width: 30ch; }
+
+  .status__banner {
+    display: flex; flex-wrap: wrap; gap: var(--space-sm) var(--space-md);
+    align-items: flex-end; justify-content: space-between;
+    padding: var(--space-md);
+    background: var(--purple-deep); color: #fff;
+    margin-bottom: var(--space-lg);
+  }
+  .status__phaseLabel {
+    font-size: var(--fs-eyebrow); font-weight: 600;
+    letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold);
+    margin-bottom: 0.35rem;
+  }
+  .status__phase {
+    font-family: var(--font-display);
+    font-size: clamp(1.25rem, 3vw, 1.9rem); font-weight: 700;
+    letter-spacing: -0.02em; line-height: 1.1;
+  }
+  .status__updated { font-size: var(--fs-small); color: rgba(255,255,255,0.65); }
+
+  .status__grid { display: grid; gap: 0; background: var(--paper); border: 1px solid var(--line); }
+
+  .track {
+    display: grid; grid-template-columns: auto 1fr auto;
+    align-items: center; gap: 0.85rem;
+    padding: var(--space-sm) var(--space-md);
+    border-bottom: 1px solid var(--line);
+  }
+  .track:last-child { border-bottom: 0; }
+
+  .track__dot { width: 0.6rem; height: 0.6rem; border-radius: 50%; background: var(--line); }
+  .track__label { font-weight: 600; color: var(--ink); }
+  .track__value {
+    font-size: var(--fs-small); font-weight: 600;
+    letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted);
+    text-align: right;
+  }
+
+  .track--active .track__dot {
+    background: var(--gold); box-shadow: 0 0 0 4px rgba(242,201,76,0.3);
+  }
+  .track--active .track__value { color: var(--gold-deep); }
+  .track--complete .track__dot { background: var(--purple); }
+  .track--complete .track__value { color: var(--purple); }
+  .track--future .track__dot { background: var(--line); opacity: 0.6; }
+  .track--future .track__label { color: var(--muted); }
+
+  /* --- Funding --- */
+  .fund { margin-top: var(--space-lg); padding: var(--space-md); background: var(--paper); border: 1px solid var(--line); }
+  .fund__row { display: flex; flex-wrap: wrap; gap: var(--space-md); justify-content: space-between; margin-bottom: var(--space-md); }
+  .fund__label {
+    font-size: var(--fs-eyebrow); font-weight: 600;
+    letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted);
+    margin-bottom: 0.35rem;
+  }
+  .fund__amount {
+    font-family: var(--font-display); font-size: clamp(1.6rem, 4vw, 2.5rem);
+    font-weight: 700; letter-spacing: -0.03em; color: var(--purple);
+    font-variant-numeric: tabular-nums;
+  }
+  .fund__amount--muted { color: var(--ink); }
+  .fund__goal { text-align: right; }
+
+  .fund__bar { height: 0.65rem; background: var(--tint); border-radius: var(--radius-pill); overflow: hidden; }
+  .fund__fill {
+    display: block; height: 100%; border-radius: var(--radius-pill);
+    background: linear-gradient(90deg, var(--purple), var(--gold));
+  }
+  .fund__pct {
+    margin-top: 0.6rem; font-size: var(--fs-small); font-weight: 600; color: var(--ink);
+  }
+
+  .fund--empty { border-style: dashed; }
+  .fund__empty { font-size: var(--fs-small); color: var(--muted); max-width: 62ch; line-height: 1.6; }
+
+  @media (min-width: 700px) {
+    .status__grid { grid-template-columns: repeat(2, 1fr); }
+    .track:nth-child(odd) { border-right: 1px solid var(--line); }
+    .track:nth-last-child(-n+2) { border-bottom: 0; }
+  }
+</style>

@@ -1,0 +1,91 @@
+---
+import { UNLOCK_CHAIN } from '../../data/content.js';
+---
+
+<section class="section section--warm" id="unlock">
+  <div class="shell">
+    <div class="chain__head" data-reveal>
+      <p class="eyebrow">{UNLOCK_CHAIN.eyebrow}</p>
+      <h2 class="headline-lg">{UNLOCK_CHAIN.headline}</h2>
+      <p class="lead chain__intro">{UNLOCK_CHAIN.intro}</p>
+    </div>
+
+    <!-- Cascade: each link is offset slightly further along on wide screens,
+         so the eye travels the same path the project does. On mobile it
+         collapses to a clean vertical stack with connectors. -->
+    <ol class="chain">
+      {UNLOCK_CHAIN.steps.map((s, i) => (
+        <li
+          class={`link ${s.terminal ? 'link--terminal' : ''}`}
+          style={`--i:${i}`}
+          data-reveal
+        >
+          <div class="link__inner">
+            <span class="link__label">{s.label}</span>
+            <span class="link__body">{s.body}</span>
+          </div>
+          {!s.terminal && (
+            <span class="link__arrow" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" focusable="false">
+                <path d="M12 4v16m0 0l-6-6m6 6l6-6" stroke="currentColor" stroke-width="2"
+                      stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </span>
+          )}
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>
+
+<style>
+  .chain__head { max-width: 54ch; margin-bottom: var(--space-xl); }
+  .chain__intro { margin-top: var(--space-md); }
+
+  .chain { display: grid; gap: 0; max-width: 760px; }
+
+  .link { display: grid; justify-items: start; }
+
+  .link__inner {
+    width: 100%;
+    padding: var(--space-md);
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-left: 3px solid var(--purple);
+  }
+
+  .link__label {
+    display: block;
+    font-family: var(--font-display);
+    font-size: clamp(1.15rem, 2.2vw, 1.5rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+  }
+  .link__body {
+    display: block; margin-top: 0.25rem;
+    font-size: var(--fs-small); color: var(--muted);
+  }
+
+  .link__arrow {
+    display: block; color: var(--gold-deep); width: 1.5rem; height: 1.5rem;
+    margin: 0.5rem 0 0.5rem var(--space-md);
+  }
+  .link__arrow svg { width: 100%; height: 100%; }
+
+  /* The payoff link is the one that changes colour — arriving somewhere. */
+  .link--terminal .link__inner {
+    background: var(--purple-deep);
+    border-color: var(--purple-deep);
+    border-left-color: var(--gold);
+  }
+  .link--terminal .link__label { color: var(--gold); }
+  .link--terminal .link__body { color: rgba(255,255,255,0.78); }
+
+  @media (min-width: 760px) {
+    /* Progressive indent makes the cascade legible as a descent. */
+    .link { padding-left: calc(var(--i) * 2.75rem); }
+    .link__inner { max-width: 34rem; }
+    .link__arrow { margin-left: var(--space-md); }
+  }
+</style>

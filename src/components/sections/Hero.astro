@@ -1,0 +1,149 @@
+---
+import { HERO } from '../../data/content.js';
+import MediaPlaceholder from '../MediaPlaceholder.astro';
+import ActionButton from '../ActionButton.astro';
+import { DONATION_URL } from '../../config/site.js';
+---
+
+<section class="hero on-dark" id="top">
+  <!-- Four lanes running the full height of the hero, behind everything. -->
+  <div class="hero__lanes" aria-hidden="true">
+    <span></span><span></span><span></span><span></span>
+  </div>
+
+  <div class="shell hero__inner">
+    <div class="hero__copy">
+      <p class="hero__location">{HERO.location}</p>
+
+      <h1 class="hero__headline">
+        {HERO.headlineLines.map((line) => <span class="hero__line">{line}</span>)}
+      </h1>
+
+      <div class="hero__standfirst">
+        {HERO.standfirst.map((line) => <p>{line}</p>)}
+      </div>
+
+      <p class="hero__body">{HERO.body}</p>
+
+      <div class="btn-row hero__actions">
+        <!-- Primary CTA activates automatically once DONATION_URL is set. -->
+        <ActionButton href={DONATION_URL} variant="primary" label={HERO.primaryCta} />
+        <a class="btn btn--ghost" href="#the-vision">{HERO.secondaryCta}</a>
+      </div>
+    </div>
+
+    <div class="hero__media">
+      <!-- [HERO IMAGE – CURRENT FALLS CITY TRACK] -->
+      <MediaPlaceholder
+        label="[HERO IMAGE – CURRENT FALLS CITY TRACK]"
+        note="Wide, dramatic shot of the existing dirt-and-gravel track. Overcast or wet weather is ideal — the mud is the story. Landscape, minimum 2000px wide."
+        ratio="4 / 5"
+        variant="dark"
+      />
+    </div>
+  </div>
+
+  <div class="shell">
+    <p class="hero__scroll" aria-hidden="true">Scroll</p>
+  </div>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    background: var(--purple-deep);
+    color: #fff;
+    padding-block: clamp(3rem, 8vw, 6rem) clamp(2.5rem, 5vw, 4rem);
+    overflow: hidden;
+  }
+
+  /* Deep purple gradient wash so the section never reads as a flat block. */
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(120% 90% at 85% 0%, rgba(107, 77, 168, 0.55) 0%, transparent 55%),
+      radial-gradient(90% 70% at 0% 100%, rgba(242, 201, 76, 0.10) 0%, transparent 60%);
+    pointer-events: none;
+  }
+
+  .hero__lanes {
+    position: absolute; inset: 0;
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    max-width: var(--max-width); margin-inline: auto;
+    padding-inline: var(--gutter);
+    pointer-events: none;
+  }
+  .hero__lanes span { border-right: 1px solid rgba(255, 255, 255, 0.07); }
+  .hero__lanes span:last-child { border-right: 0; }
+
+  .hero__inner {
+    position: relative;
+    display: grid;
+    gap: clamp(2.5rem, 5vw, 4rem);
+    align-items: center;
+  }
+
+  .hero__location {
+    font-size: var(--fs-eyebrow);
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: var(--space-md);
+  }
+
+  .hero__headline {
+    font-size: var(--fs-hero);
+    font-weight: 800;
+    line-height: 0.92;
+    letter-spacing: -0.04em;
+    text-wrap: balance;
+  }
+  .hero__line { display: block; }
+  /* The third line — "Four Lanes." — is the payoff, so it carries the gold. */
+  .hero__line:last-child { color: var(--gold); }
+
+  .hero__standfirst {
+    margin-top: var(--space-lg);
+    padding-left: var(--space-md);
+    border-left: 3px solid var(--gold);
+    max-width: 34ch;
+  }
+  .hero__standfirst p {
+    font-family: var(--font-display);
+    font-size: clamp(1.05rem, 1.9vw, 1.5rem);
+    font-weight: 600;
+    line-height: 1.32;
+    letter-spacing: -0.015em;
+    color: #fff;
+  }
+
+  .hero__body {
+    margin-top: var(--space-md);
+    max-width: 52ch;
+    color: rgba(255, 255, 255, 0.78);
+    font-size: var(--fs-body);
+  }
+
+  .hero__actions { margin-top: var(--space-lg); }
+
+  .hero__scroll {
+    position: relative;
+    margin-top: clamp(2.5rem, 6vw, 4.5rem);
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.45);
+    display: flex; align-items: center; gap: 0.75rem;
+  }
+  .hero__scroll::after {
+    content: ''; height: 1px; width: 3.5rem; background: rgba(255, 255, 255, 0.28);
+  }
+
+  @media (min-width: 960px) {
+    .hero__inner { grid-template-columns: 1.15fr 0.85fr; }
+    .hero__copy { padding-block: var(--space-lg); }
+  }
+</style>

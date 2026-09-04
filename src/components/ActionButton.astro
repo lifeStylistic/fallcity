@@ -1,0 +1,24 @@
+---
+/* ===========================================================================
+   ACTION BUTTON
+   ---------------------------------------------------------------------------
+   Renders a real <a> when the URL exists in src/config/site.js, and a clearly
+   disabled placeholder when it is still null. This is why no button on this
+   site is ever a dead link — set the URL in the config file and the button
+   activates itself.
+=========================================================================== */
+const { href = null, variant = 'primary', label, class: className = '' } = Astro.props;
+const cls = `btn btn--${variant} ${className}`;
+---
+
+{href
+  ? <a class={cls} href={href}>{label}</a>
+  : (
+    <span
+      class={`${cls} is-placeholder`}
+      role="link"
+      aria-disabled="true"
+      title="Link coming soon — add the URL in src/config/site.js"
+    >{label}</span>
+  )
+}

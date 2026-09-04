@@ -1,0 +1,79 @@
+---
+import { HOW_TO_HELP } from '../../data/content.js';
+import ActionButton from '../ActionButton.astro';
+import { DONATION_URL, PARTNER_FORM_URL, VOLUNTEER_URL } from '../../config/site.js';
+---
+
+<section class="section" id="how-to-help">
+  <div class="shell">
+    <div class="help__head" data-reveal>
+      <p class="eyebrow">{HOW_TO_HELP.eyebrow}</p>
+      <h2 class="headline-lg">{HOW_TO_HELP.headline}</h2>
+      <p class="lead help__intro">{HOW_TO_HELP.intro}</p>
+    </div>
+
+    <ul class="help__grid">
+      {HOW_TO_HELP.categories.map((c) => (
+        <li class="help__card" data-reveal>
+          <div class="lanes lanes--purple help__lanes" aria-hidden="true">
+            <span></span><span></span><span></span><span></span>
+          </div>
+          <h3 class="help__title">{c.title}</h3>
+          <p class="help__body">{c.body}</p>
+        </li>
+      ))}
+    </ul>
+
+    <div class="help__anchor" data-reveal>
+      <p class="help__anchorText">{HOW_TO_HELP.anchorNote}</p>
+    </div>
+
+    <!-- CTA buttons activate automatically once URLs are set in
+         src/config/site.js — see DONATION_URL / PARTNER_FORM_URL /
+         VOLUNTEER_URL. -->
+    <div class="btn-row help__actions" id="help" data-reveal>
+      <ActionButton href={PARTNER_FORM_URL} variant="purple" label="Become a Project Partner" />
+      <ActionButton href={DONATION_URL} variant="primary" label="Make a Donation" />
+      <ActionButton href={VOLUNTEER_URL} variant="outline" label="Volunteer" />
+    </div>
+  </div>
+</section>
+
+<style>
+  .help__head { max-width: 56ch; margin-bottom: var(--space-xl); }
+  .help__intro { margin-top: var(--space-md); }
+
+  .help__grid { display: grid; gap: var(--space-md); }
+
+  .help__card {
+    padding: var(--space-md);
+    background: var(--paper);
+    border: 1px solid var(--line);
+    transition: border-color var(--dur) var(--ease), transform var(--dur) var(--ease);
+  }
+  .help__card:hover { border-color: var(--purple); transform: translateY(-3px); }
+
+  .help__lanes { max-width: 2rem; margin-bottom: var(--space-sm); }
+  .help__title { font-size: 1.15rem; margin-bottom: 0.4rem; }
+  .help__body { font-size: var(--fs-small); color: var(--ink-soft); line-height: 1.55; }
+
+  .help__anchor {
+    margin-top: var(--space-lg);
+    padding: var(--space-md);
+    background: var(--tint);
+    border-left: 3px solid var(--gold);
+  }
+  .help__anchorText { max-width: 72ch; color: var(--ink); font-size: var(--fs-body); }
+
+  .help__actions { margin-top: var(--space-lg); }
+
+  @media (min-width: 620px) {
+    .help__grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (min-width: 1000px) {
+    .help__grid { grid-template-columns: repeat(3, 1fr); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .help__card:hover { transform: none; }
+  }
+</style>

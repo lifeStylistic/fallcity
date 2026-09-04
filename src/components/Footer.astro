@@ -1,0 +1,153 @@
+---
+import {
+  CONTACT, SCHOOL_URL, FACEBOOK_URL, INSTAGRAM_URL,
+  DONATION_URL, PARTNER_FORM_URL, VOLUNTEER_URL,
+  TAX_LANGUAGE, PROJECT_NAME, PARTNER_LOGOS,
+} from '../config/site.js';
+import { NAV_LINKS } from '../data/content.js';
+
+const year = new Date().getFullYear();
+
+/* Only render social links that actually exist. */
+const socials = [
+  { label: 'Facebook', url: FACEBOOK_URL },
+  { label: 'Instagram', url: INSTAGRAM_URL },
+].filter((s) => s.url);
+
+const actions = [
+  { label: 'Donate', url: DONATION_URL },
+  { label: 'Become a Partner', url: PARTNER_FORM_URL },
+  { label: 'Volunteer', url: VOLUNTEER_URL },
+];
+---
+
+<footer class="footer" id="contact">
+  <div class="shell">
+    <div class="footer__top">
+      <!-- CONTACT -->
+      <div class="footer__block">
+        <p class="footer__label">Contact</p>
+        <address class="footer__address">
+          <strong>{CONTACT.name}</strong>
+          <span>{CONTACT.district}</span>
+          <span>{CONTACT.school}</span>
+          <span>{CONTACT.street}</span>
+          <span>{CONTACT.cityStateZip}</span>
+          <a href={`mailto:${CONTACT.email}`}>{CONTACT.email}</a>
+          <a href={`tel:${CONTACT.phoneHref}`}>{CONTACT.phone}</a>
+        </address>
+      </div>
+
+      <!-- NAVIGATE -->
+      <div class="footer__block">
+        <p class="footer__label">Explore</p>
+        <ul class="footer__list">
+          {NAV_LINKS.map((l) => <li><a href={l.href}>{l.label}</a></li>)}
+        </ul>
+      </div>
+
+      <!-- TAKE ACTION -->
+      <div class="footer__block">
+        <p class="footer__label">Take Action</p>
+        <ul class="footer__list">
+          {actions.map((a) => (
+            <li>
+              {a.url
+                ? <a href={a.url}>{a.label}</a>
+                : <span class="footer__pending">{a.label} <em>coming soon</em></span>}
+            </li>
+          ))}
+        </ul>
+
+        <p class="footer__label footer__label--spaced">Connect</p>
+        <ul class="footer__list">
+          <li><a href={SCHOOL_URL} target="_blank" rel="noopener noreferrer">Falls City School District 57</a></li>
+          {socials.length > 0
+            ? socials.map((s) => (
+                <li><a href={s.url} target="_blank" rel="noopener noreferrer">{s.label}</a></li>
+              ))
+            : <li><span class="footer__pending">Social media <em>coming soon</em></span></li>}
+        </ul>
+      </div>
+    </div>
+
+    {/* Partner logos, on plain white — no card, border or tint behind them. */}
+    {PARTNER_LOGOS.length > 0 && (
+      <div class="footer__partners">
+        <p class="footer__label">Project Partners</p>
+        <ul class="footer__partnerWall">
+          {PARTNER_LOGOS.map((p) => (
+            <li>
+              <a href={p.url} target="_blank" rel="noopener noreferrer">
+                <img src={p.logo} alt={p.name} width="240" height="90" loading="lazy" />
+              </a>
+            </li>
+          ))}
+        </ul>
+        <!-- [PLACEHOLDER] PARTNER_LOGOS — add more in src/config/site.js -->
+      </div>
+    )}
+
+    <div class="footer__bottom">
+      <div class="lanes lanes--purple footer__lanes" aria-hidden="true">
+        <span></span><span></span><span></span><span></span>
+      </div>
+
+      {/* Tax language is intentionally absent until the district confirms it.
+          Set TAX_LANGUAGE in src/config/site.js once verified. */}
+      {TAX_LANGUAGE
+        ? <p class="footer__legal">{TAX_LANGUAGE}</p>
+        : <p class="footer__legal footer__legal--pending">
+            <!-- [ADD LATER] Tax-deductibility language, once confirmed by the
+                 district business office. Do not publish a tax claim until then. -->
+            Giving and tax-deductibility details will be published here alongside
+            the project’s donation page.
+          </p>}
+
+      <p class="footer__copy">
+        &copy; {year} {PROJECT_NAME} · {CONTACT.district}
+      </p>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .footer { background: var(--paper); border-top: 1px solid var(--line); padding-block: var(--space-xl) var(--space-lg); }
+
+  .footer__top { display: grid; gap: var(--space-lg); }
+
+  .footer__label {
+    font-size: var(--fs-eyebrow); font-weight: 700;
+    letter-spacing: 0.18em; text-transform: uppercase; color: var(--purple);
+    margin-bottom: var(--space-sm);
+  }
+  .footer__label--spaced { margin-top: var(--space-md); }
+
+  .footer__address { font-style: normal; display: grid; gap: 0.3rem; font-size: var(--fs-small); color: var(--ink-soft); }
+  .footer__address strong { color: var(--ink); font-size: var(--fs-body); }
+  .footer__address a { color: var(--purple); text-decoration: none; }
+  .footer__address a:hover { text-decoration: underline; }
+
+  .footer__list { display: grid; gap: 0.5rem; font-size: var(--fs-small); }
+  .footer__list a { color: var(--ink-soft); text-decoration: none; }
+  .footer__list a:hover { color: var(--purple); text-decoration: underline; }
+  .footer__pending { color: var(--muted); }
+  .footer__pending em { font-style: normal; font-size: 0.75rem; opacity: 0.7; }
+
+  /* Plain white behind partner marks — never a card or tinted panel. */
+  .footer__partners { margin-top: var(--space-xl); padding-top: var(--space-lg); border-top: 1px solid var(--line); background: var(--paper); }
+  .footer__partnerWall { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-lg); }
+  .footer__partnerWall img { width: 220px; max-width: 100%; height: auto; }
+  .footer__partnerWall a { display: block; transition: opacity var(--dur-fast) var(--ease); }
+  .footer__partnerWall a:hover { opacity: 0.72; }
+
+  .footer__bottom { margin-top: var(--space-xl); padding-top: var(--space-md); border-top: 1px solid var(--line); }
+  .footer__lanes { max-width: 3rem; margin-bottom: var(--space-md); }
+  .footer__legal { font-size: 0.8125rem; color: var(--muted); max-width: 70ch; line-height: 1.6; }
+  .footer__legal--pending { font-style: italic; }
+  .footer__copy { margin-top: var(--space-sm); font-size: 0.8125rem; color: var(--muted); }
+
+  @media (min-width: 720px) {
+    .footer__top { grid-template-columns: 1.2fr 0.8fr 1fr; gap: var(--space-xl); }
+  }
+</style>

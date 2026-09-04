@@ -1,0 +1,139 @@
+---
+import { CTA } from '../../data/content.js';
+import ActionButton from '../ActionButton.astro';
+import MediaPlaceholder from '../MediaPlaceholder.astro';
+import { DONATION_URL, PARTNER_FORM_URL, VOLUNTEER_URL } from '../../config/site.js';
+---
+
+<section class="cta on-dark" id="get-involved">
+  <div class="cta__lanes" aria-hidden="true">
+    <span></span><span></span><span></span><span></span>
+  </div>
+
+  <div class="shell cta__inner">
+    <div class="cta__copy" data-reveal>
+      <h2 class="cta__headline">{CTA.headline}</h2>
+      <div class="cta__body">
+        {CTA.body.map((line) => <p>{line}</p>)}
+      </div>
+      <div class="btn-row cta__actions">
+        <ActionButton href={DONATION_URL} variant="primary" label="Donate" />
+        <ActionButton href={PARTNER_FORM_URL} variant="ghost" label="Become a Partner" />
+        <ActionButton href={VOLUNTEER_URL} variant="ghost" label="Volunteer" />
+      </div>
+    </div>
+
+    <div class="cta__videos" data-reveal>
+      <!-- [STUDENT QUOTE VIDEO] -->
+      <MediaPlaceholder
+        label="[STUDENT QUOTE VIDEO]"
+        note="30–60s. One student answering: what would a real track change for you?"
+        ratio="16 / 9"
+        variant="dark"
+        kind="video"
+      />
+      <!-- [COMMUNITY QUOTE VIDEO] -->
+      <MediaPlaceholder
+        label="[COMMUNITY QUOTE VIDEO]"
+        note="30–60s. A parent, coach or longtime resident on what the field means to Falls City."
+        ratio="16 / 9"
+        variant="dark"
+        kind="video"
+      />
+    </div>
+  </div>
+
+  <div class="shell">
+    <div class="cta__close" data-reveal>
+      <p class="cta__closeLines">
+        {CTA.closingLines.map((l) => <span>{l}</span>)}
+      </p>
+      <div class="cta__payoff">
+        <p class="cta__payoffText">{CTA.payoff}</p>
+        <p class="cta__payoffContext">{CTA.payoffContext}</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .cta {
+    position: relative;
+    background: var(--purple-deep);
+    color: #fff;
+    padding-block: var(--space-2xl);
+    overflow: hidden;
+  }
+  .cta::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(100% 80% at 20% 0%, rgba(107,77,168,0.5) 0%, transparent 60%);
+    pointer-events: none;
+  }
+
+  .cta__lanes {
+    position: absolute; inset: 0;
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    max-width: var(--max-width); margin-inline: auto; padding-inline: var(--gutter);
+    pointer-events: none;
+  }
+  .cta__lanes span { border-right: 1px solid rgba(255,255,255,0.06); }
+  .cta__lanes span:last-child { border-right: 0; }
+
+  .cta__inner { position: relative; display: grid; gap: var(--space-xl); align-items: center; }
+
+  .cta__headline {
+    font-size: var(--fs-display);
+    font-weight: 800;
+    letter-spacing: -0.035em;
+    line-height: 1.0;
+    text-wrap: balance;
+  }
+  .cta__body { margin-top: var(--space-md); max-width: 44ch; }
+  .cta__body p { color: rgba(255,255,255,0.85); font-size: var(--fs-lead); line-height: 1.5; }
+  .cta__actions { margin-top: var(--space-lg); }
+
+  .cta__videos { display: grid; gap: var(--space-md); }
+
+  .cta__close {
+    position: relative;
+    margin-top: var(--space-2xl);
+    padding-top: var(--space-lg);
+    border-top: 1px solid rgba(255,255,255,0.18);
+    display: grid; gap: var(--space-lg);
+  }
+
+  .cta__closeLines {
+    font-family: var(--font-display);
+    font-size: var(--fs-display);
+    font-weight: 800;
+    line-height: 0.98;
+    letter-spacing: -0.04em;
+  }
+  .cta__closeLines span { display: block; }
+  .cta__closeLines span:last-child { color: var(--gold); }
+
+  .cta__payoff { align-self: end; }
+  .cta__payoffText {
+    font-family: var(--font-display);
+    font-size: clamp(1.4rem, 3vw, 2.1rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    color: var(--gold);
+    padding-left: var(--space-md);
+    border-left: 3px solid var(--gold);
+  }
+  .cta__payoffContext {
+    margin-top: 0.75rem;
+    padding-left: var(--space-md);
+    font-size: var(--fs-small);
+    color: rgba(255,255,255,0.7);
+    max-width: 40ch;
+  }
+
+  @media (min-width: 960px) {
+    .cta__inner { grid-template-columns: 1fr 1fr; }
+    .cta__close { grid-template-columns: 1fr 1fr; align-items: end; }
+  }
+</style>

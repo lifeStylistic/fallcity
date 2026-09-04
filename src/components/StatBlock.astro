@@ -1,0 +1,54 @@
+---
+/* Oversized numeral used for the statistic storytelling in "The Need". */
+const { value, unit = '', label, note = '' } = Astro.props;
+---
+
+<div class="stat" data-reveal>
+  <div class="lanes lanes--gold stat__lanes" aria-hidden="true">
+    <span></span><span></span><span></span><span></span>
+  </div>
+  <p class="stat__value">
+    {value}{unit && <span class="stat__unit">{unit}</span>}
+  </p>
+  <p class="stat__label">{label}</p>
+  {note && <p class="stat__note">{note}</p>}
+</div>
+
+<style>
+  .stat { padding-top: var(--space-md); }
+  .stat__lanes { margin-bottom: var(--space-md); max-width: 3.5rem; }
+
+  .stat__value {
+    font-family: var(--font-display);
+    font-size: var(--fs-stat);
+    font-weight: 700;
+    line-height: 0.85;
+    letter-spacing: -0.045em;
+    color: var(--purple);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .stat__unit {
+    display: block;
+    font-size: clamp(0.9rem, 1.4vw, 1.15rem);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--ink);
+    margin-top: 0.75rem;
+  }
+
+  .stat__label {
+    margin-top: var(--space-sm);
+    font-weight: 600;
+    font-size: 1rem;
+    line-height: 1.35;
+    color: var(--ink);
+  }
+
+  .stat__note {
+    margin-top: 0.35rem;
+    font-size: var(--fs-small);
+    color: var(--muted);
+    line-height: 1.45;
+  }
+</style>
