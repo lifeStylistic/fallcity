@@ -1,14 +1,18 @@
 ---
 import { NAV_LINKS } from '../data/content.js';
-import { DONATION_URL } from '../config/site.js';
+import { DONATION_URL, SCHOOL_LOGO } from '../config/site.js';
 ---
 
 <header class="nav" id="site-nav" data-nav>
   <div class="shell nav__inner">
     <a class="nav__brand" href="#top">
-      <span class="nav__mark" aria-hidden="true">
-        <span></span><span></span><span></span><span></span>
-      </span>
+      {SCHOOL_LOGO
+        ? <img class="nav__crest" src={SCHOOL_LOGO} alt="Falls City Mountaineers" width="254" height="288" />
+        : (
+          <span class="nav__mark" aria-hidden="true">
+            <span></span><span></span><span></span><span></span>
+          </span>
+        )}
       <span class="nav__brandText">
         <strong>Falls City</strong>
         <em>Four-Lane Project</em>
@@ -77,6 +81,11 @@ import { DONATION_URL } from '../config/site.js';
   .nav__mark span:nth-child(2) { opacity: 0.55; }
   .nav__mark span:nth-child(3) { opacity: 0.8; }
   .nav__mark span:nth-child(4) { background: var(--gold-deep); }
+
+  /* The crest is only ever placed on white. Its wordmark is purple, so it
+     must not be used on the purple sections. */
+  .nav__crest { width: 2.5rem; height: auto; flex: none; }
+  @media (min-width: 900px) { .nav__crest { width: 3rem; } }
 
   .nav__brandText { display: flex; flex-direction: column; line-height: 1.1; }
   .nav__brandText strong {

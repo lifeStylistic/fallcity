@@ -26,10 +26,31 @@ export const PARTNER_FORM_URL = null;  // [ADD LATER] Project partner inquiry fo
 export const VOLUNTEER_URL = null;     // [ADD LATER] Volunteer sign-up form
 
 /* ---------------------------------------------------------------------------
+   SCHOOL CREST / CAMPAIGN LOGO
+   ---------------------------------------------------------------------------
+   The Falls City Mountaineers crest.
+
+   The supplied JPG had a white background, which would have shown as a white
+   box against any coloured surface. It was converted to a transparent PNG by
+   flood-filling from the edges inward, which clears the white AROUND the
+   crest while preserving the white INSIDE the artwork.
+
+   IMPORTANT — this crest must only be placed on LIGHT backgrounds. Its
+   wordmark ("FALLS CITY MOUNTAINEERS") is purple, so on a purple section the
+   lettering would disappear. It is used in the header and footer, both white.
+   If you ever need it on purple, ask the district for a reversed
+   (white/gold) version of the mark rather than recolouring this one.
+
+   To replace it, save a new file to the same path. An SVG would be better
+   still if the district has one.
+--------------------------------------------------------------------------- */
+export const SCHOOL_LOGO = '/images/mountaineers-crest.png';
+
+/* ---------------------------------------------------------------------------
    ORGANIZATION LINKS
 --------------------------------------------------------------------------- */
 export const SCHOOL_URL = 'https://www.fallscity.k12.or.us';  // [VERIFY] district website
-export const FACEBOOK_URL = null;   // [ADD LATER]
+export const FACEBOOK_URL = 'https://www.facebook.com/fallscityschools/';  // Falls City School District
 export const INSTAGRAM_URL = null;  // [ADD LATER]
 
 /* ---------------------------------------------------------------------------

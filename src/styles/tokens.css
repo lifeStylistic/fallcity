@@ -29,8 +29,9 @@
   --muted:         #666666;
   --line:          #E4E1EA;
   --tint:          #F4F1F8;   /* pale purple wash */
+  --tint-deep:     #EBE5F3;   /* second purple wash, for alternating bands */
   --paper:         #FFFFFF;
-  --paper-warm:    #FAFAF8;
+  --paper-warm:    #FBFAFD;   /* faintest purple-white — never warm grey */
 
   /* --- Type ------------------------------------------------------------ */
   --font-display: 'Archivo', 'Helvetica Neue', Helvetica, Arial, sans-serif;
@@ -38,7 +39,7 @@
 
   /* Fluid type scale — clamp(min, preferred, max) so it adapts without
      breakpoints and never overflows small screens. */
-  --fs-hero:    clamp(2.75rem, 9vw, 7.5rem);
+  --fs-hero:    clamp(2.6rem, 7.4vw, 6rem);
   --fs-display: clamp(2.25rem, 5.5vw, 4.5rem);
   --fs-h2:      clamp(1.875rem, 4vw, 3.25rem);
   --fs-h3:      clamp(1.25rem, 2vw, 1.75rem);
