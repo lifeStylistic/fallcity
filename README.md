@@ -188,8 +188,15 @@ wording and agree to it first**, including the reference to leaving a previous
 district and the period working in dentistry. Publishing is her call, not the
 project's.
 
-Add her portrait at `public/images/` and replace the `[PORTRAIT – JENNIFER
-FLORES]` placeholder in `src/components/sections/Personal.astro`.
+**The section is text-only by design.** There is no portrait and no empty
+photo slot — it is laid out as an editorial spread, with the headline and
+signature in a left rail against a wider column of her words, and the pull
+quote sized up to carry the visual weight a portrait otherwise would. It
+reads as finished, not as a page waiting for an image.
+
+If a portrait is added later, give it its own column and widen the shell
+rather than dropping it into the existing grid, which would crush the measure
+of the prose.
 
 ---
 

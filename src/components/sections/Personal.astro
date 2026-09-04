@@ -1,53 +1,54 @@
 ---
 import { PERSONAL } from '../../data/content.js';
-import MediaPlaceholder from '../MediaPlaceholder.astro';
 
 /* This section renders ONLY once PERSONAL.approved is true in
    src/data/content.js. It is a personal account on a public page, so it stays
    off until Jennifer has read the exact wording and agreed to publish it.
    Everything below is built and live-ready — flipping that one flag is the
-   whole job. */
+   whole job.
+
+   TEXT-ONLY BY DESIGN. There is deliberately no portrait here. The layout is
+   built as an editorial spread — a left rail carrying the headline and
+   signature against a wider column of her words — so it reads as intentional
+   rather than as a page waiting for an image. If a portrait is added later,
+   do not drop it into this grid: give it its own column and widen the shell,
+   otherwise the measure of the prose gets crushed. */
 const { approved, attribution } = PERSONAL;
 ---
 
 {approved && (
   <section class="section personal" id="why-me">
     <div class="shell personal__inner">
-      <div class="personal__portrait" data-reveal>
-        <!-- [PORTRAIT – JENNIFER FLORES]
-             Replace with a real photograph. A working portrait at the school
-             reads far better here than a formal headshot. -->
-        <MediaPlaceholder
-          label="[PORTRAIT – JENNIFER FLORES]"
-          note="Natural portrait, ideally at the school or beside the field. Warm and unposed — this section is the human face of the campaign."
-          ratio="4 / 5"
-        />
+      <!-- Three grid areas, not two nested columns. On mobile the signature
+           must fall AFTER her words — a signature closes a passage, it does
+           not open one — while on desktop it belongs in the left rail under
+           the headline. Grid areas give both from one DOM order. -->
+      <div class="personal__head" data-reveal>
+        <p class="eyebrow">{PERSONAL.eyebrow}</p>
+        <h2 class="headline personal__headline">{PERSONAL.headline}</h2>
       </div>
 
       <div class="personal__copy">
-        <div data-reveal>
-          <p class="eyebrow">{PERSONAL.eyebrow}</p>
-          <h2 class="headline personal__headline">{PERSONAL.headline}</h2>
-        </div>
-
         <div class="personal__prose" data-reveal>
           {PERSONAL.paragraphs.map((p) => <p>{p}</p>)}
         </div>
 
-        <!-- The line the whole section is built around. -->
+        <!-- The pull quote is the visual anchor of the section, standing in
+             for the portrait that is deliberately not here. -->
         <blockquote class="personal__quote" data-reveal>
           {PERSONAL.pullQuote}
         </blockquote>
 
         <p class="personal__closing" data-reveal>{PERSONAL.closing}</p>
+      </div>
 
-        <!-- Signature-style attribution, not a byline. -->
-        <div class="personal__sign" data-reveal>
-          <span class="personal__rule" aria-hidden="true"></span>
-          <p class="personal__name">{attribution.name}</p>
-          <p class="personal__role">{attribution.role}</p>
-          <p class="personal__org">{attribution.org}</p>
+      <div class="personal__sign" data-reveal>
+        <div class="lanes lanes--purple personal__lanes" aria-hidden="true">
+          <span></span><span></span><span></span><span></span>
         </div>
+        <p class="personal__name">{attribution.name}</p>
+        <p class="personal__role">{attribution.role}</p>
+        <p class="personal__org">{attribution.org}</p>
       </div>
     </div>
   </section>
@@ -59,24 +60,52 @@ const { approved, attribution } = PERSONAL;
      its quiet. Please do not fill it in. */
   .personal { background: var(--paper); }
 
-  .personal__inner { display: grid; gap: var(--space-lg); align-items: start; }
+  .personal__inner {
+    display: grid;
+    gap: var(--space-lg);
+    align-items: start;
+    grid-template-areas:
+      "head"
+      "copy"
+      "sign";
+  }
+  .personal__head { grid-area: head; }
+  .personal__copy { grid-area: copy; }
+  .personal__sign { grid-area: sign; }
 
-  .personal__headline { margin-bottom: var(--space-md); }
+  .personal__headline { text-wrap: balance; }
 
-  .personal__prose p { color: var(--ink-soft); max-width: 54ch; }
+  .personal__lanes { max-width: 3rem; margin-bottom: var(--space-sm); }
+  .personal__name {
+    font-family: var(--font-display);
+    font-size: 1.15rem; font-weight: 700; letter-spacing: -0.01em; color: var(--ink);
+  }
+  .personal__role {
+    margin-top: 0.25rem; font-size: var(--fs-small);
+    color: var(--muted); max-width: 34ch; line-height: 1.45;
+  }
+  .personal__org {
+    margin-top: 0.2rem; font-size: var(--fs-small);
+    font-weight: 600; color: var(--purple);
+  }
+
+  /* --- Her words --- */
+  .personal__prose p { color: var(--ink-soft); max-width: 56ch; }
   .personal__prose p + p { margin-top: var(--space-sm); }
 
+  /* The section's visual anchor, standing in for the portrait that is not
+     here. Sized up accordingly — do not shrink this to a normal quote. */
   .personal__quote {
     margin: var(--space-lg) 0;
-    padding-left: clamp(1.25rem, 2.5vw, 2rem);
-    border-left: 3px solid var(--gold);
+    padding-left: clamp(1.25rem, 2.5vw, 2.25rem);
+    border-left: 4px solid var(--gold);
     font-family: var(--font-display);
-    font-size: clamp(1.35rem, 2.8vw, 2.1rem);
+    font-size: clamp(1.5rem, 3.4vw, 2.6rem);
     font-weight: 700;
-    line-height: 1.24;
-    letter-spacing: -0.025em;
+    line-height: 1.18;
+    letter-spacing: -0.03em;
     color: var(--purple);
-    max-width: 22em;
+    max-width: 20em;
     text-wrap: pretty;
   }
 
@@ -84,24 +113,18 @@ const { approved, attribution } = PERSONAL;
     color: var(--ink);
     font-size: var(--fs-lead);
     line-height: 1.5;
-    max-width: 50ch;
+    max-width: 52ch;
   }
-
-  .personal__sign { margin-top: var(--space-lg); }
-  .personal__rule { display: block; width: 3rem; height: 2px; background: var(--purple); margin-bottom: var(--space-sm); }
-  .personal__name {
-    font-family: var(--font-display);
-    font-size: 1.15rem; font-weight: 700; letter-spacing: -0.01em; color: var(--ink);
-  }
-  .personal__role { margin-top: 0.2rem; font-size: var(--fs-small); color: var(--muted); max-width: 40ch; line-height: 1.45; }
-  .personal__org  { margin-top: 0.15rem; font-size: var(--fs-small); font-weight: 600; color: var(--purple); }
 
   @media (min-width: 900px) {
-    .personal__inner { grid-template-columns: 0.8fr 1.2fr; gap: var(--space-xl); }
-    /* The portrait sticks while her words scroll past it. */
-    .personal__portrait { position: sticky; top: 7rem; }
-  }
-  @media (prefers-reduced-motion: reduce) {
-    .personal__portrait { position: static; }
+    .personal__inner {
+      grid-template-columns: 0.72fr 1.28fr;
+      grid-template-rows: auto 1fr;
+      grid-template-areas:
+        "head copy"
+        "sign copy";
+      column-gap: var(--space-xl);
+      row-gap: var(--space-lg);
+    }
   }
 </style>
