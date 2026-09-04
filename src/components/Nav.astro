@@ -1,5 +1,9 @@
 ---
-import { NAV_LINKS } from '../data/content.js';
+import { NAV_LINKS, PERSONAL } from '../data/content.js';
+
+/* Drop the personal section's anchor while that section is unpublished, so
+   the menu never links to something that is not rendered. */
+const links = NAV_LINKS.filter((l) => l.href !== '#why-me' || PERSONAL.approved);
 import { DONATION_URL, SCHOOL_LOGO } from '../config/site.js';
 ---
 
@@ -20,7 +24,7 @@ import { DONATION_URL, SCHOOL_LOGO } from '../config/site.js';
     </a>
 
     <nav class="nav__links" aria-label="Section navigation">
-      {NAV_LINKS.map((link) => <a href={link.href}>{link.label}</a>)}
+      {links.map((link) => <a href={link.href}>{link.label}</a>)}
     </nav>
 
     <div class="nav__actions">
@@ -44,7 +48,7 @@ import { DONATION_URL, SCHOOL_LOGO } from '../config/site.js';
   <!-- Mobile menu — hidden from assistive tech until opened. -->
   <div class="nav__mobile" id="mobile-menu" data-menu hidden>
     <nav class="nav__mobileLinks" aria-label="Section navigation">
-      {NAV_LINKS.map((link) => <a href={link.href} data-menu-link>{link.label}</a>)}
+      {links.map((link) => <a href={link.href} data-menu-link>{link.label}</a>)}
     </nav>
     <div class="nav__mobileCta">
       {DONATION_URL

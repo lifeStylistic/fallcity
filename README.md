@@ -16,6 +16,7 @@ District 57, Falls City, Oregon.
 - [Where to edit content](#where-to-edit-content)
 - [Where to add images](#where-to-add-images)
 - [Where to add donation links](#where-to-add-donation-links)
+- [Publishing the "Why I'm Asking" section](#publishing-the-why-im-asking-section)
 - [How to update fundraising progress](#how-to-update-fundraising-progress)
 - [How to update project status](#how-to-update-project-status)
 - [Partner logos](#partner-logos)
@@ -161,6 +162,34 @@ text and its `state`, which controls the indicator colour:
 
 Also update `phase` (the current headline phase) and `updated` (the date
 stamp) at the same time.
+
+---
+
+## Publishing the "Why I'm Asking" section
+
+The site includes a personal section in Jennifer Flores's own voice, condensed
+from the "Why This Matters to Me" passage on page 3 of the executive summary.
+It sits between the Falls City story and the project plan.
+
+**It is built but not published.** In `src/data/content.js`, find:
+
+```js
+export const PERSONAL = {
+  approved: false,
+```
+
+Change `false` to `true` and the section appears, along with its navigation
+link in the header and footer. Nothing else needs editing.
+
+It is gated because this is a personal account on a public, indexed,
+permanently shareable page — a different decision from including it in a
+proposal sent to a named funder. **Jennifer should read the exact published
+wording and agree to it first**, including the reference to leaving a previous
+district and the period working in dentistry. Publishing is her call, not the
+project's.
+
+Add her portrait at `public/images/` and replace the `[PORTRAIT – JENNIFER
+FLORES]` placeholder in `src/components/sections/Personal.astro`.
 
 ---
 

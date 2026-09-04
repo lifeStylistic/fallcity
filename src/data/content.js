@@ -17,6 +17,7 @@ export const NAV_LINKS = [
   { label: 'The Need', href: '#the-need' },
   { label: 'The Vision', href: '#the-vision' },
   { label: 'Our Story', href: '#our-story' },
+  { label: 'Why I’m Asking', href: '#why-me' },  // hidden until PERSONAL.approved
   { label: 'The Plan', href: '#the-plan' },
   { label: 'How to Help', href: '#how-to-help' },
   { label: 'Status', href: '#status' },
@@ -344,4 +345,36 @@ export const PROCESS = {
 
   note:
     'Permitting, land use and stormwater approval through Polk County, utility locates, and any wetland or floodplain review sit alongside this sequence. The civil engineer identifies which apply once the survey is complete.',
+};
+
+/* --- 5b. WHY THIS MATTERS TO ME — JENNIFER FLORES ----------------------
+   Condensed from the "Why This Matters to Me" passage on page 3 of the
+   executive summary. These are Jennifer's own sentences, shortened — not
+   rewritten. If you edit this, keep it in her first-person voice.
+
+   PUBLICATION CONSENT: this is a personal account on a public, indexed,
+   permanently shareable page — a different decision from including it in a
+   proposal sent to a named funder. It stays hidden until `approved` below
+   is set to true. Jennifer should read the exact wording and agree to it,
+   including the reference to leaving a previous district and the period
+   working in dentistry, before that flag is flipped.                      */
+export const PERSONAL = {
+  /* [ACTION REQUIRED] Set to true only after Jennifer approves this wording. */
+  approved: false,
+
+  eyebrow: 'Why This Matters to Me',
+  headline: 'This Project Is Personal.',
+  paragraphs: [
+    'I came to Falls City after leaving another district where I had begun to feel as though I was drowning in a sea of apathy. I left education altogether and went back to dentistry. I did not last a year.',
+    'I realized I needed to be back with kids — especially the kids who had already been underestimated. The ones who might be difficult to reach, and who often needed someone to believe in them more than they knew.',
+  ],
+  /* The line the section is built around. */
+  pullQuote: 'Then I found Falls City. I fell in love with the feeling of being home while I was at work.',
+  closing:
+    'That is why I am willing to ask people outside our community to look at Falls City and see what we see: not a dead end, but a beginning.',
+  attribution: {
+    name: 'Jennifer Flores',
+    role: 'Instructional Assistant & Administrative Assistant to the Director of Special Education',
+    org: 'Falls City School District 57',
+  },
 };

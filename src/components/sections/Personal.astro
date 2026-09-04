@@ -1,0 +1,107 @@
+---
+import { PERSONAL } from '../../data/content.js';
+import MediaPlaceholder from '../MediaPlaceholder.astro';
+
+/* This section renders ONLY once PERSONAL.approved is true in
+   src/data/content.js. It is a personal account on a public page, so it stays
+   off until Jennifer has read the exact wording and agreed to publish it.
+   Everything below is built and live-ready — flipping that one flag is the
+   whole job. */
+const { approved, attribution } = PERSONAL;
+---
+
+{approved && (
+  <section class="section personal" id="why-me">
+    <div class="shell personal__inner">
+      <div class="personal__portrait" data-reveal>
+        <!-- [PORTRAIT – JENNIFER FLORES]
+             Replace with a real photograph. A working portrait at the school
+             reads far better here than a formal headshot. -->
+        <MediaPlaceholder
+          label="[PORTRAIT – JENNIFER FLORES]"
+          note="Natural portrait, ideally at the school or beside the field. Warm and unposed — this section is the human face of the campaign."
+          ratio="4 / 5"
+        />
+      </div>
+
+      <div class="personal__copy">
+        <div data-reveal>
+          <p class="eyebrow">{PERSONAL.eyebrow}</p>
+          <h2 class="headline personal__headline">{PERSONAL.headline}</h2>
+        </div>
+
+        <div class="personal__prose" data-reveal>
+          {PERSONAL.paragraphs.map((p) => <p>{p}</p>)}
+        </div>
+
+        <!-- The line the whole section is built around. -->
+        <blockquote class="personal__quote" data-reveal>
+          {PERSONAL.pullQuote}
+        </blockquote>
+
+        <p class="personal__closing" data-reveal>{PERSONAL.closing}</p>
+
+        <!-- Signature-style attribution, not a byline. -->
+        <div class="personal__sign" data-reveal>
+          <span class="personal__rule" aria-hidden="true"></span>
+          <p class="personal__name">{attribution.name}</p>
+          <p class="personal__role">{attribution.role}</p>
+          <p class="personal__org">{attribution.org}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+)}
+
+<style>
+  /* Deliberately white. It sits between two purple bands (the Falls City
+     story and the plan) and the break in colour is what gives this section
+     its quiet. Please do not fill it in. */
+  .personal { background: var(--paper); }
+
+  .personal__inner { display: grid; gap: var(--space-lg); align-items: start; }
+
+  .personal__headline { margin-bottom: var(--space-md); }
+
+  .personal__prose p { color: var(--ink-soft); max-width: 54ch; }
+  .personal__prose p + p { margin-top: var(--space-sm); }
+
+  .personal__quote {
+    margin: var(--space-lg) 0;
+    padding-left: clamp(1.25rem, 2.5vw, 2rem);
+    border-left: 3px solid var(--gold);
+    font-family: var(--font-display);
+    font-size: clamp(1.35rem, 2.8vw, 2.1rem);
+    font-weight: 700;
+    line-height: 1.24;
+    letter-spacing: -0.025em;
+    color: var(--purple);
+    max-width: 22em;
+    text-wrap: pretty;
+  }
+
+  .personal__closing {
+    color: var(--ink);
+    font-size: var(--fs-lead);
+    line-height: 1.5;
+    max-width: 50ch;
+  }
+
+  .personal__sign { margin-top: var(--space-lg); }
+  .personal__rule { display: block; width: 3rem; height: 2px; background: var(--purple); margin-bottom: var(--space-sm); }
+  .personal__name {
+    font-family: var(--font-display);
+    font-size: 1.15rem; font-weight: 700; letter-spacing: -0.01em; color: var(--ink);
+  }
+  .personal__role { margin-top: 0.2rem; font-size: var(--fs-small); color: var(--muted); max-width: 40ch; line-height: 1.45; }
+  .personal__org  { margin-top: 0.15rem; font-size: var(--fs-small); font-weight: 600; color: var(--purple); }
+
+  @media (min-width: 900px) {
+    .personal__inner { grid-template-columns: 0.8fr 1.2fr; gap: var(--space-xl); }
+    /* The portrait sticks while her words scroll past it. */
+    .personal__portrait { position: sticky; top: 7rem; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .personal__portrait { position: static; }
+  }
+</style>
