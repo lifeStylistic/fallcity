@@ -440,10 +440,14 @@ export const TRACK_TODAY = {
    photograph of the existing surface. Replaced by the Falls City rendering
    when that is ready — at which point this can move to a reference slot. */
 export const VISION_IMAGE = {
-  src: null,               // e.g. 'four-lane-aerial'
-  alt: 'Aerial view of a completed four-lane synthetic running track at another school, with lanes marked and numbered.',
+  src: 'finished-track-sjcc',
+  alt: 'A finished purple synthetic running track with white lane markings and gold chevrons, curving past a green turf field and metal bleachers.',
+  /* IMPORTANT: this facility is larger than the Falls City project — it has
+     eight lanes, Falls City is asking for four. The caption must keep both
+     that difference and the unconfirmed layout explicit. Do not shorten it
+     to something that reads as a depiction of the finished Falls City site. */
   caption:
-    'A completed four-lane track at another school. Falls City’s final layout will be set by professional survey and engineering.',
+    'A finished synthetic track at San Jose City College. Falls City’s project is four lanes, and its final layout will be set by professional survey and engineering.',
 };
 
 /* Sits in the Track Surfacing step of the order-of-operations section, to
@@ -458,11 +462,13 @@ export const SURFACE_IMAGE = {
 };
 
 
-/* Full-width band at the head of the closing call to action. A runner
-   mid-stride under "Help Build the Starting Line" is the payoff image.
-   Like the others, this shows a finished track elsewhere, not Falls City. */
-export const RUNNER_IMAGE = {
-  src: null,               // e.g. 'runner'
-  alt: 'A runner mid-stride in a marked lane on a synthetic running track, seen from behind.',
-  caption: 'What a finished track makes possible.',
+/* Full-width band at the head of the closing call to action — named for the
+   slot, not the subject, since what sits here may change. Currently a
+   finished purple surface; swap `src` for the runner photograph when that
+   file is available. Like the others, this is a track elsewhere, not Falls
+   City. */
+export const CTA_IMAGE = {
+  src: 'finished-track-western',
+  alt: 'Close view of lane markings on a finished purple synthetic running track, with lane numbers and distance markings painted in white.',
+  caption: 'A finished synthetic surface at Western University. This is what four lanes in Falls City could feel like underfoot.',
 };

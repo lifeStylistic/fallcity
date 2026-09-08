@@ -93,11 +93,19 @@ required caption saying so. The executive summary makes no claim about Falls
 City's final layout until survey and engineering are done, and these captions
 are what keep the imagery consistent with that. Do not remove them.
 
-| Slot | Where it appears | Set in `content.js` | Files needed |
+| Slot | Where it appears | Set in `content.js` | Status |
 | --- | --- | --- | --- |
-| Four-lane aerial | "The Vision" panel, before/after | `VISION_IMAGE.src` | `<stem>-800.jpg`, `<stem>-1200.jpg` |
-| Surface sample | Track Surfacing step, how-it-works | `SURFACE_IMAGE.src` | `<stem>-800.jpg` |
-| Runner | Band above the closing call to action | `RUNNER_IMAGE.src` | `<stem>-800.jpg`, `<stem>-1600.jpg` |
+| Finished track | "The Vision" panel, before/after | `VISION_IMAGE.src` | **Live** — San Jose City College |
+| Surface sample | Track Surfacing step, how-it-works | `SURFACE_IMAGE.src` | Awaiting file |
+| CTA band | Above the closing call to action | `CTA_IMAGE.src` | **Live** — Western University |
+
+`CTA_IMAGE` is named for its position, not its subject. To swap the runner
+photograph in later, add its files and change that one `src`.
+
+All supplied source files carried GPS coordinates in EXIF. **Strip metadata
+before publishing any new photograph** — re-encoding through a fresh RGB
+image in Pillow does it, and the originals are 3–5MB each, so they need
+resizing anyway.
 
 Files go in `public/images/reference/`. Set `src` to the filename **stem**
 only — no width, no extension. While a `src` is `null` the labelled
