@@ -1,6 +1,5 @@
 ---
 import { PROBLEM } from '../../data/content.js';
-import MediaPlaceholder from '../MediaPlaceholder.astro';
 import StatBlock from '../StatBlock.astro';
 ---
 
@@ -14,15 +13,6 @@ import StatBlock from '../StatBlock.astro';
       <div class="problem__copy prose" data-reveal>
         {PROBLEM.body.map((p) => <p>{p}</p>)}
       </div>
-    </div>
-
-    <div class="problem__media" data-reveal>
-      <!-- [CURRENT TRACK / MUD / DRAINAGE PHOTO] -->
-      <MediaPlaceholder
-        label="[CURRENT TRACK / MUD / DRAINAGE PHOTO]"
-        note="Close, honest detail — standing water, ruts, gravel, a churned lane edge. This photo carries the argument, so it should not be flattering."
-        ratio="21 / 9"
-      />
     </div>
 
     <div class="problem__stats">
@@ -42,7 +32,6 @@ import StatBlock from '../StatBlock.astro';
     display: grid; gap: var(--space-lg); align-items: start;
     margin-bottom: var(--space-xl);
   }
-  .problem__media { margin-bottom: var(--space-xl); }
 
   .problem__stats {
     display: grid; gap: var(--space-lg) var(--space-md);

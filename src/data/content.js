@@ -378,3 +378,44 @@ export const PERSONAL = {
     org: 'Falls City School District 57',
   },
 };
+
+/* --- 2b. THE TRACK TODAY — PHOTOGRAPHY ---------------------------------
+   Real photographs of the existing surface, taken during rainfall.
+
+   CAPTION RULE: captions describe only what is visible in the frame. They do
+   not estimate depth, frequency, cost or dates. The photographs carry the
+   argument on their own — overstating them would undercut it.
+
+   Files live in public/images/track/ at two widths (600w and 1000w) and are
+   served responsively via srcset.                                         */
+export const TRACK_TODAY = {
+  eyebrow: 'The Track Today',
+  headline: 'This Is the Running Surface.',
+  intro:
+    'These photographs were taken during rainfall at Falls City High School. This is the surface students are asked to train and compete on.',
+  photos: [
+    {
+      src: 'track-standing-water',
+      alt: 'Standing water covering the full width of the gravel running surface, with further water pooled on the grass field beyond it, during rainfall.',
+      caption: 'Water stands across the full width of the running surface.',
+    },
+    {
+      src: 'track-drainage-curve',
+      alt: 'The gravel running path curving around the edge of the grass field in the rain, with water pooled along its length and irrigation pipe laid across it.',
+      caption: 'The surface is gravel, with no defined lanes and no formal drainage.',
+    },
+    {
+      src: 'track-mud-school',
+      alt: 'Wet mud and loose gravel on the running surface beside a school building, with the scoreboard, bleachers and field buildings visible in the distance.',
+      caption: 'Loose gravel and mud where the surface passes the school buildings.',
+    },
+    {
+      src: 'track-field-deer',
+      alt: 'Deer standing at the far end of the athletic field beside the bleachers, with water pooled on the running surface in the foreground.',
+      caption: 'Deer at the far end of the field. Water pools in the foreground.',
+    },
+  ],
+  /* Ties the photographs back to the facts already stated in The Need. */
+  note:
+    'The surface has never been synthetic, and to our knowledge there has never been a major track improvement. It cannot host track-and-field competition, so every meet is an away meet.',
+};

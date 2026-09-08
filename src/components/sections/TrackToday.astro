@@ -1,0 +1,124 @@
+---
+import { TRACK_TODAY } from '../../data/content.js';
+
+/* Real photographs of the existing surface. Portrait-orientation phone
+   photos, served responsively: 600w covers the grid at 2x, 1000w exists for
+   the lead image which renders larger.
+
+   The section runs on a dark purple ground so the wet, grey photographs read
+   as evidence rather than as a bright gallery. */
+const [lead, ...rest] = TRACK_TODAY.photos;
+const path = (name, w) => `/images/track/${name}-${w}.jpg`;
+---
+
+<section class="section today on-dark" id="track-today">
+  <div class="shell">
+    <div class="today__head" data-reveal>
+      <p class="eyebrow">{TRACK_TODAY.eyebrow}</p>
+      <h2 class="headline-lg">{TRACK_TODAY.headline}</h2>
+      <p class="lead today__intro">{TRACK_TODAY.intro}</p>
+    </div>
+
+    <div class="today__grid">
+      <!-- Lead image runs larger — it is the clearest single frame of the
+           drainage problem, so it carries the section. -->
+      <figure class="shot shot--lead" data-reveal>
+        <img
+          src={path(lead.src, 1000)}
+          srcset={`${path(lead.src, 600)} 600w, ${path(lead.src, 1000)} 1000w`}
+          sizes="(min-width: 900px) 90vw, 92vw"
+          alt={lead.alt}
+          width="1000"
+          height="1333"
+          loading="lazy"
+          decoding="async"
+        />
+        <figcaption>{lead.caption}</figcaption>
+      </figure>
+
+      <div class="today__rest">
+        {rest.map((p) => (
+          <figure class="shot" data-reveal>
+            <img
+              src={path(p.src, 600)}
+              srcset={`${path(p.src, 600)} 600w, ${path(p.src, 1000)} 1000w`}
+              sizes="(min-width: 900px) 28vw, 46vw"
+              alt={p.alt}
+              width="600"
+              height="800"
+              loading="lazy"
+              decoding="async"
+            />
+            <figcaption>{p.caption}</figcaption>
+          </figure>
+        ))}
+      </div>
+    </div>
+
+    <p class="today__note" data-reveal>{TRACK_TODAY.note}</p>
+  </div>
+</section>
+
+<style>
+  /* Dark purple ground. The photographs are grey, wet and overcast — on white
+     they read as a bright gallery, which is the wrong register for evidence. */
+  .today { background: var(--purple-deep); color: #fff; }
+
+  .today__head { max-width: 44rem; margin-bottom: var(--space-xl); }
+  .today__intro { margin-top: var(--space-md); }
+
+  .today__grid { display: grid; gap: var(--space-lg); }
+
+  /* Two across on mobile so the portrait frames do not become a very tall
+     single-file stack. A third item leaves one empty cell, which reads as
+     whitespace in a photo grid rather than as a broken row. */
+  .today__rest { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-md); }
+
+  /* The lead runs full width and is cropped from portrait to a banner. These
+     are phone photos in portrait, so without the crop the lead towers over
+     the row beneath it. object-position favours the lower-middle of the
+     frame, which is where the standing water sits. */
+  .shot--lead img {
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    object-position: center 60%;
+  }
+
+  .shot { margin: 0; }
+  .shot img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: var(--radius);
+    /* A hairline keeps the darker photographs from bleeding into the ground. */
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.1);
+  }
+
+  .shot figcaption {
+    margin-top: 0.75rem;
+    font-size: var(--fs-small);
+    line-height: 1.45;
+    color: rgba(255, 255, 255, 0.72);
+    padding-left: 0.75rem;
+    border-left: 2px solid var(--gold);
+  }
+
+  .today__note {
+    margin-top: var(--space-xl);
+    padding-top: var(--space-md);
+    border-top: 1px solid rgba(255, 255, 255, 0.18);
+    max-width: 66ch;
+    color: rgba(255, 255, 255, 0.8);
+    font-size: var(--fs-body);
+  }
+
+  @media (min-width: 700px) {
+    .today__rest { grid-template-columns: repeat(3, 1fr); }
+  }
+
+  @media (min-width: 900px) {
+    /* Wider crop on desktop, where the extra width is available. */
+    .shot--lead img { aspect-ratio: 21 / 9; }
+    .shot--lead figcaption { font-size: var(--fs-body); }
+  }
+</style>

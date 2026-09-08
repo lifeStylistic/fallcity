@@ -18,11 +18,16 @@ const { today, vision } = BEFORE_AFTER;
           <span class="ba__labelText">{today.label}</span>
           <span class="ba__rule" aria-hidden="true"></span>
         </div>
-        <!-- [CURRENT TRACK PHOTO] -->
-        <MediaPlaceholder
-          label="[CURRENT TRACK PHOTO]"
-          note="The existing oval, wide enough to read the whole site."
-          ratio="3 / 2"
+        <img
+          class="ba__photo"
+          src="/images/track/track-mud-school-600.jpg"
+          srcset="/images/track/track-mud-school-600.jpg 600w, /images/track/track-mud-school-1000.jpg 1000w"
+          sizes="(min-width: 900px) 44vw, 88vw"
+          alt="Wet mud and loose gravel on the running surface beside the school buildings, with the scoreboard and bleachers visible in the distance."
+          width="600"
+          height="800"
+          loading="lazy"
+          decoding="async"
         />
         <ul class="ba__list">
           {today.items.map((item) => <li>{item}</li>)}
@@ -67,6 +72,18 @@ const { today, vision } = BEFORE_AFTER;
   .ba__panel--today .ba__labelText  { color: var(--muted); }
   .ba__panel--vision .ba__labelText { color: var(--gold); }
   .ba__rule { flex: 1; height: 1px; background: currentColor; opacity: 0.18; }
+
+  /* The photo is portrait and the facing panel still holds a 3:2 placeholder,
+     so crop the photo to match rather than letting the two panels diverge in
+     height. Remove the aspect-ratio once the rendering replaces it. */
+  .ba__photo {
+    width: 100%;
+    aspect-ratio: 3 / 2;
+    object-fit: cover;
+    object-position: center 62%;
+    border-radius: var(--radius);
+    display: block;
+  }
 
   .ba__list { margin-top: var(--space-md); display: grid; gap: 0.9rem; }
   .ba__list li {
