@@ -1,5 +1,5 @@
 ---
-import { BEFORE_AFTER } from '../../data/content.js';
+import { BEFORE_AFTER, VISION_IMAGE } from '../../data/content.js';
 import MediaPlaceholder from '../MediaPlaceholder.astro';
 const { today, vision } = BEFORE_AFTER;
 ---
@@ -40,13 +40,31 @@ const { today, vision } = BEFORE_AFTER;
           <span class="ba__labelText">{vision.label}</span>
           <span class="ba__rule" aria-hidden="true"></span>
         </div>
-        <!-- [PROPOSED TRACK RENDERING] -->
-        <MediaPlaceholder
-          label="[PROPOSED TRACK RENDERING]"
-          note="Rendering or concept drawing of the finished four-lane track. A drone photo with an overlay works too."
-          ratio="3 / 2"
-          variant="dark"
-        />
+        {VISION_IMAGE.src ? (
+          <figure class="ba__figure">
+            <img
+              class="ba__photo"
+              src={`/images/reference/${VISION_IMAGE.src}-1200.jpg`}
+              srcset={`/images/reference/${VISION_IMAGE.src}-800.jpg 800w, /images/reference/${VISION_IMAGE.src}-1200.jpg 1200w`}
+              sizes="(min-width: 900px) 44vw, 88vw"
+              alt={VISION_IMAGE.alt}
+              width="1200"
+              height="800"
+              loading="lazy"
+              decoding="async"
+            />
+            {/* The caption is required, not decorative: this shows another
+                school's track, and the panel heading says "The Vision". */}
+            <figcaption class="ba__caption">{VISION_IMAGE.caption}</figcaption>
+          </figure>
+        ) : (
+          <MediaPlaceholder
+            label="[PROPOSED TRACK RENDERING]"
+            note="Rendering of the finished Falls City track. Until then, set VISION_IMAGE.src in content.js to show a reference photo of a completed four-lane track."
+            ratio="3 / 2"
+            variant="dark"
+          />
+        )}
         <ul class="ba__list">
           {vision.items.map((item) => <li>{item}</li>)}
         </ul>
@@ -83,6 +101,16 @@ const { today, vision } = BEFORE_AFTER;
     object-position: center 62%;
     border-radius: var(--radius);
     display: block;
+  }
+
+  .ba__figure { margin: 0; }
+  .ba__caption {
+    margin-top: 0.65rem;
+    font-size: var(--fs-small);
+    line-height: 1.45;
+    color: rgba(255, 255, 255, 0.72);
+    padding-left: 0.7rem;
+    border-left: 2px solid var(--gold);
   }
 
   .ba__list { margin-top: var(--space-md); display: grid; gap: 0.9rem; }

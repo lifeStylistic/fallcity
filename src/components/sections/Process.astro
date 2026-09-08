@@ -1,5 +1,5 @@
 ---
-import { PROCESS } from '../../data/content.js';
+import { PROCESS, SURFACE_IMAGE } from '../../data/content.js';
 import MediaPlaceholder from '../MediaPlaceholder.astro';
 const { scope, diligence } = PROCESS;
 ---
@@ -21,6 +21,23 @@ const { scope, diligence } = PROCESS;
             <h3 class="step__title">{s.title}</h3>
             <p class="step__text">{s.body}</p>
             <p class="step__why">{s.why}</p>
+
+            {/* One reference sample, on the surfacing step only. A row of
+                samples would read as a product selection the district has
+                not made. */}
+            {SURFACE_IMAGE.src && s.number === '5' && (
+              <figure class="step__figure">
+                <img
+                  src={`/images/reference/${SURFACE_IMAGE.src}-800.jpg`}
+                  alt={SURFACE_IMAGE.alt}
+                  width="800"
+                  height="400"
+                  loading="lazy"
+                  decoding="async"
+                />
+                <figcaption>{SURFACE_IMAGE.caption}</figcaption>
+              </figure>
+            )}
           </div>
         </li>
       ))}
@@ -111,6 +128,20 @@ const { scope, diligence } = PROCESS;
     color: var(--muted);
     max-width: 62ch;
     padding-left: 0.85rem;
+    border-left: 2px solid var(--gold);
+  }
+
+  .step__figure { margin: var(--space-md) 0 0; max-width: 32rem; }
+  .step__figure img {
+    width: 100%; height: auto; display: block;
+    border-radius: var(--radius);
+    box-shadow: 0 0 0 1px var(--line);
+  }
+  .step__figure figcaption {
+    margin-top: 0.55rem;
+    font-size: var(--fs-small);
+    color: var(--muted);
+    padding-left: 0.7rem;
     border-left: 2px solid var(--gold);
   }
 

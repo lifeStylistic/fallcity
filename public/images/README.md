@@ -82,3 +82,26 @@ Resize to 600px and 1000px wide, quality ~78, progressive JPEG, and name them
 with `src` set to the stem (no width, no extension). The originals were
 1536x2048 and roughly 1.2MB each; shipping them unprocessed would have made
 the page unusable on a phone.
+
+---
+
+## Reference imagery (Tarkett Sports / Beynon Sports)
+
+Three slots are wired and waiting for files. Each shows a **finished track
+elsewhere, or a product sample — not Falls City**, and each renders a
+required caption saying so. The executive summary makes no claim about Falls
+City's final layout until survey and engineering are done, and these captions
+are what keep the imagery consistent with that. Do not remove them.
+
+| Slot | Where it appears | Set in `content.js` | Files needed |
+| --- | --- | --- | --- |
+| Four-lane aerial | "The Vision" panel, before/after | `VISION_IMAGE.src` | `<stem>-800.jpg`, `<stem>-1200.jpg` |
+| Surface sample | Track Surfacing step, how-it-works | `SURFACE_IMAGE.src` | `<stem>-800.jpg` |
+| Runner | Band above the closing call to action | `RUNNER_IMAGE.src` | `<stem>-800.jpg`, `<stem>-1600.jpg` |
+
+Files go in `public/images/reference/`. Set `src` to the filename **stem**
+only — no width, no extension. While a `src` is `null` the labelled
+placeholder shows instead, so the page never breaks.
+
+When the Falls City rendering arrives it takes the Vision panel, and the
+aerial moves to a reference slot elsewhere.

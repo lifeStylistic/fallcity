@@ -419,3 +419,50 @@ export const TRACK_TODAY = {
   note:
     'The surface has never been synthetic, and to our knowledge there has never been a major track improvement. It cannot host track-and-field competition, so every meet is an away meet.',
 };
+
+
+/* --- REFERENCE IMAGERY -------------------------------------------------
+   Photographs of finished track surfaces, supplied by Tarkett Sports /
+   Beynon Sports, who hold the rights and have authorised this use.
+
+   These show OTHER schools' completed facilities and a product sample —
+   not Falls City. That distinction is load-bearing: the executive summary
+   deliberately makes no claim about Falls City's final layout until survey
+   and engineering are complete, so every caption here must make clear the
+   image is a reference, never a depiction of the finished Falls City track.
+   Please keep that framing if you edit these.
+
+   TO ACTIVATE: drop the file into public/images/reference/ and set `src` to
+   the filename stem. While `src` is null the labelled placeholder shows
+   instead, so nothing breaks in the meantime.                             */
+
+/* Sits in the "The Vision" panel of the before/after section, opposite the
+   photograph of the existing surface. Replaced by the Falls City rendering
+   when that is ready — at which point this can move to a reference slot. */
+export const VISION_IMAGE = {
+  src: null,               // e.g. 'four-lane-aerial'
+  alt: 'Aerial view of a completed four-lane synthetic running track at another school, with lanes marked and numbered.',
+  caption:
+    'A completed four-lane track at another school. Falls City’s final layout will be set by professional survey and engineering.',
+};
+
+/* Sits in the Track Surfacing step of the order-of-operations section, to
+   show what a synthetic system physically is next to gravel. One sample
+   only — a row of them would read as a product selection the district has
+   not made. */
+export const SURFACE_IMAGE = {
+  src: null,               // e.g. 'surface-sample'
+  alt: 'Cross-section of a synthetic running track surface: a textured red running layer bonded to a black rubber base.',
+  caption:
+    'A synthetic track system: a bonded running surface over a resilient base. Shown for reference.',
+};
+
+
+/* Full-width band at the head of the closing call to action. A runner
+   mid-stride under "Help Build the Starting Line" is the payoff image.
+   Like the others, this shows a finished track elsewhere, not Falls City. */
+export const RUNNER_IMAGE = {
+  src: null,               // e.g. 'runner'
+  alt: 'A runner mid-stride in a marked lane on a synthetic running track, seen from behind.',
+  caption: 'What a finished track makes possible.',
+};
