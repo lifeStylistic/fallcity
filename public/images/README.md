@@ -96,11 +96,19 @@ are what keep the imagery consistent with that. Do not remove them.
 | Slot | Where it appears | Set in `content.js` | Status |
 | --- | --- | --- | --- |
 | Finished track | "The Vision" panel, before/after | `VISION_IMAGE.src` | **Live** — San Jose City College |
-| Surface sample | Track Surfacing step, how-it-works | `SURFACE_IMAGE.src` | Awaiting file |
-| CTA band | Above the closing call to action | `CTA_IMAGE.src` | **Live** — Western University |
+| Surface sample | Track Surfacing step, how-it-works | `SURFACE_IMAGE.src` | **Live** — Western University close view |
+| CTA band | Above the closing call to action | `CTA_IMAGE.src` | **Live** — B&W starting line, 2016 shoot |
 
-`CTA_IMAGE` is named for its position, not its subject. To swap the runner
-photograph in later, add its files and change that one `src`.
+`CTA_IMAGE` is named for its position, not its subject — change that one
+`src` to swap what sits there.
+
+**On the black and white frame:** every colour photograph on this site is
+Falls City. The CTA image is not, and monochrome is what keeps that
+distinction readable without a disclaimer. If you add more images from the
+2016 shoot, keep them black and white for the same reason — and use them
+sparingly. They are polished commercial photographs of adult athletes, and
+scattered through a campaign about fifty rural high school students they
+tip the register from community campaign to brand campaign.
 
 All supplied source files carried GPS coordinates in EXIF. **Strip metadata
 before publishing any new photograph** — re-encoding through a fresh RGB

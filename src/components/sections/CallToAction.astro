@@ -102,9 +102,12 @@ import { CTA_IMAGE } from '../../data/content.js';
   .cta__banner { position: relative; margin: 0 0 var(--space-xl); }
   .cta__banner img {
     width: 100%;
-    aspect-ratio: 16 / 7;
+    aspect-ratio: 16 / 9;
     object-fit: cover;
-    object-position: center 45%;
+    /* Source is 1.52:1, so even 16/9 crops vertically. Favour the upper
+       middle so the athletes' heads stay in frame and the line at the
+       bottom edge still reads. */
+    object-position: center 38%;
     display: block;
     border-radius: var(--radius);
   }

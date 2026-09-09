@@ -455,10 +455,10 @@ export const VISION_IMAGE = {
    only — a row of them would read as a product selection the district has
    not made. */
 export const SURFACE_IMAGE = {
-  src: null,               // e.g. 'surface-sample'
-  alt: 'Cross-section of a synthetic running track surface: a textured red running layer bonded to a black rubber base.',
+  src: 'surface-detail',
+  alt: 'Close view of a finished purple synthetic running track surface, showing its granular texture and painted white lane lines.',
   caption:
-    'A synthetic track system: a bonded running surface over a resilient base. Shown for reference.',
+    'A finished synthetic surface up close. Shown for reference — this is a completed installation elsewhere.',
 };
 
 
@@ -468,7 +468,10 @@ export const SURFACE_IMAGE = {
    file is available. Like the others, this is a track elsewhere, not Falls
    City. */
 export const CTA_IMAGE = {
-  src: 'finished-track-western',
-  alt: 'Close view of lane markings on a finished purple synthetic running track, with lane numbers and distance markings painted in white.',
-  caption: 'A finished synthetic surface at Western University. This is what four lanes in Falls City could feel like underfoot.',
+  src: 'starting-line-bw',
+  alt: 'Black and white photograph of three runners crouched at a starting line with their hands on the track, waiting to start.',
+  /* Black and white deliberately. The colour photographs on this page are
+     Falls City; this one is not, and monochrome keeps that distinction
+     legible without a disclaimer doing the work. */
+  caption: 'Athletes on the line. Falls City has never been able to host a start of its own.',
 };
