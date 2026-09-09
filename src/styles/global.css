@@ -220,17 +220,44 @@ a { color: inherit; }
    SCROLL REVEAL — restrained: 12px rise + fade, once, on enter.
    Fully disabled for anyone who prefers reduced motion.
    =========================================================================== */
-/* Reveal now carries a slight lift and scale rather than a flat slide, and
-   honours an optional --d delay so grids stagger instead of snapping in as
-   one block. */
+/* ---------------------------------------------------------------------------
+   REVEAL
+   Default is a lift with a slight scale. Directional variants let section
+   headings enter from the side, and `--d` staggers grids so they build rather
+   than snapping in as one block.
+
+     data-reveal            lift up
+     data-reveal="left"     enter from the left
+     data-reveal="right"    enter from the right
+
+   Every variant lands on transform:none, so one `.is-visible` rule finishes
+   all of them.
+--------------------------------------------------------------------------- */
 [data-reveal] {
   opacity: 0;
   transform: translateY(22px) scale(0.985);
   transition:
     opacity var(--dur-slow) var(--ease-out) var(--d, 0ms),
     transform var(--dur-slow) var(--ease-out) var(--d, 0ms);
+  /* Hints the compositor without leaving hundreds of promoted layers behind:
+     cleared on .is-visible below. */
+  will-change: opacity, transform;
 }
-[data-reveal].is-visible { opacity: 1; transform: none; }
+[data-reveal='left']  { transform: translateX(-44px); }
+[data-reveal='right'] { transform: translateX(44px); }
+
+[data-reveal].is-visible { opacity: 1; transform: none; will-change: auto; }
+
+/* Section headings move as a unit but not in lockstep: the eyebrow arrives
+   first and the headline follows, which reads as one gesture rather than two
+   elements happening to animate together. */
+.reveal-head .eyebrow { transition-delay: 0ms; }
+.reveal-head .headline,
+.reveal-head .headline-lg { transition-delay: 90ms; }
+
+/* Horizontal entrances would otherwise widen the page while they play. */
+body { overflow-x: clip; }
+@supports not (overflow: clip) { body { overflow-x: hidden; } }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }

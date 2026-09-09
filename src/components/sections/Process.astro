@@ -1,12 +1,11 @@
 ---
 import { PROCESS, SURFACE_IMAGE } from '../../data/content.js';
-import SiteSchematic from '../SiteSchematic.astro';
 const { scope, diligence } = PROCESS;
 ---
 
 <section class="section" id="how-it-works">
   <div class="shell">
-    <div class="proc__head" data-reveal>
+    <div class="proc__head" class:list={["reveal-head"]} data-reveal="right">
       <p class="eyebrow">{PROCESS.eyebrow}</p>
       <h2 class="headline-lg">{PROCESS.headline}</h2>
       <p class="lead proc__intro">{PROCESS.intro}</p>
@@ -65,19 +64,11 @@ const { scope, diligence } = PROCESS;
     </div>
 
     <div class="proc__lower">
-      <div class="proc__media" data-reveal>
-        <!-- Original schematic, not traced from mapping imagery. Replace with
-             a drone photograph or the civil engineer's drawing when one
-             exists — see the component for why it must stay not-to-scale. -->
-        <SiteSchematic />
-      </div>
-
-      <!-- DUE DILIGENCE -->
       <div class="proc__diligence" data-reveal>
         <h3 class="proc__diligenceTitle">{diligence.title}</h3>
         <ul class="proc__qa">
-          {diligence.items.map((d) => (
-            <li>
+          {diligence.items.map((d, i) => (
+            <li style={`--d:${i * 70}ms`}>
               <p class="qa__q">{d.q}</p>
               <p class="qa__a">{d.a}</p>
             </li>
@@ -190,9 +181,10 @@ const { scope, diligence } = PROCESS;
   }
 
   /* --- Due diligence --- */
-  .proc__lower { display: grid; gap: var(--space-lg); align-items: start; }
+  .proc__lower { display: grid; gap: var(--space-lg); }
   .proc__diligenceTitle { font-size: var(--fs-h3); margin-bottom: var(--space-md); }
   .proc__qa { display: grid; gap: var(--space-md); }
+  @media (min-width: 760px) { .proc__qa { grid-template-columns: 1fr 1fr; gap: var(--space-lg) var(--space-xl); } }
   .proc__qa li { padding-left: var(--space-sm); border-left: 2px solid var(--purple); }
   .qa__q { font-weight: 600; color: var(--ink); margin-bottom: 0.25rem; }
   .qa__a { font-size: var(--fs-small); color: var(--muted); line-height: 1.55; }
@@ -212,6 +204,5 @@ const { scope, diligence } = PROCESS;
   @media (min-width: 900px) {
     .step { grid-template-columns: 5rem 1fr; gap: var(--space-lg); align-items: baseline; }
     .proc__figures { grid-template-columns: repeat(4, 1fr); gap: var(--space-lg); }
-    .proc__lower { grid-template-columns: 0.9fr 1.1fr; gap: var(--space-xl); }
   }
 </style>

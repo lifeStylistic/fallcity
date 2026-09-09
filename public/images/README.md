@@ -14,7 +14,7 @@ names exactly which photo belongs in it.
 | `[PROPOSED TRACK RENDERING]`              | `src/components/sections/BeforeAfter.astro` | `track-rendering.jpg`    |
 | `[STUDENT ATHLETE PHOTO]`                 | `src/components/sections/WhyItMatters.astro` | `student-athlete.jpg`   |
 | `[COMMUNITY / FOOTBALL GAME PHOTO]`       | `src/components/sections/Story.astro`     | `community-game.jpg`       |
-| ~~`[AERIAL SITE IMAGE]`~~                 | **Replaced** by `SiteSchematic.astro` — see below | drone shot still wanted |
+| ~~`[AERIAL SITE IMAGE]`~~                 | **Slot removed** — section rebalanced | drone shot would reinstate it |
 | `[STUDENT QUOTE VIDEO]`                   | `src/components/sections/CallToAction.astro` | video embed             |
 | `[COMMUNITY QUOTE VIDEO]`                 | `src/components/sections/CallToAction.astro` | video embed             |
 
@@ -124,6 +124,59 @@ aerial moves to a reference slot elsewhere.
 
 
 ---
+
+## Falls City students
+
+`falls-city-graduates-*.jpg` — the graduating class outside the 1921
+building, shown in **Why It Matters**. Controlled by `STUDENTS_IMAGE` in
+`content.js`.
+
+**Photo release.** These are identifiable students on a public fundraising
+page. The district having posted the photograph on its own channels is not
+by itself permission for this use. Confirm the releases cover it. To pull the
+photograph, set `STUDENTS_IMAGE.approved` to `false` — the labelled
+placeholder returns and nothing breaks.
+
+The same standard applies to any future photograph of a student.
+
+## Minimum usable resolution
+
+Anything published full-width needs to be **at least 1600px wide**; a
+half-column image needs about 1000px. Web thumbnails pulled from a listing
+site or a search result — typically 400–650px — will look soft at any size
+this layout uses, and their ownership is usually unclear. Re-shoot rather
+than upscale.
+
+
+## Hero image
+
+`hero-school-dawn-*.jpg` — a student arriving at the 1921 building at first
+light. Controlled by `HERO_IMAGE` in `content.js`.
+
+It is the only image on the site loaded eagerly with high fetch priority,
+because it sits above the fold. Keep those attributes on whatever replaces
+it, and keep an explicit `width`/`height` so the layout does not shift while
+it loads.
+
+When the Falls City rendering is ready, it can take the hero — but **move
+this photograph somewhere else rather than deleting it.** It is the strongest
+place-and-people image on the site.
+
+
+## The aerial slot
+
+The How It Works section no longer holds a large image. The schematic that
+stood in for one was removed when the drafters' concept overlay took the
+vision panel — two drawings of the same site was duplication, and the
+overlay is the better of the two.
+
+**A drone photograph is what would earn the slot back**: straight down or a
+low oblique over the field and existing oval. It remains the most useful
+single image on the site for contractors and engineers, because it shows real
+proportions and real conditions rather than an interpretation of them.
+
+Do not substitute a mapping screenshot. Satellite imagery in Google Maps and
+similar services is licensed from third parties and is not yours to publish.
 
 ## Falls City students
 

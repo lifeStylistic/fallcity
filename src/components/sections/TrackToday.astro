@@ -13,7 +13,7 @@ const path = (name, w) => `/images/track/${name}-${w}.jpg`;
 
 <section class="section today on-dark" id="track-today">
   <div class="shell">
-    <div class="today__head" data-reveal>
+    <div class="today__head" class:list={["reveal-head"]} data-reveal="left">
       <p class="eyebrow">{TRACK_TODAY.eyebrow}</p>
       <h2 class="headline-lg">{TRACK_TODAY.headline}</h2>
       <p class="lead today__intro">{TRACK_TODAY.intro}</p>
