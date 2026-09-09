@@ -1,5 +1,5 @@
 ---
-import { HERO } from '../../data/content.js';
+import { HERO, HERO_IMAGE } from '../../data/content.js';
 import MediaPlaceholder from '../MediaPlaceholder.astro';
 import ActionButton from '../ActionButton.astro';
 import { DONATION_URL } from '../../config/site.js';
@@ -33,13 +33,29 @@ import { DONATION_URL } from '../../config/site.js';
     </div>
 
     <div class="hero__media">
-      <!-- [HERO IMAGE – CURRENT FALLS CITY TRACK] -->
-      <MediaPlaceholder
-        label="[HERO IMAGE – CURRENT FALLS CITY TRACK]"
-        note="Wide, dramatic shot of the existing dirt-and-gravel track. Overcast or wet weather is ideal — the mud is the story. Landscape, minimum 2000px wide."
-        ratio="4 / 5"
-        variant="dark"
-      />
+      {HERO_IMAGE.src ? (
+        <img
+          class="hero__photo"
+          src={`/images/${HERO_IMAGE.src}-1400.jpg`}
+          srcset={`/images/${HERO_IMAGE.src}-800.jpg 800w, /images/${HERO_IMAGE.src}-1400.jpg 1400w`}
+          sizes="(min-width: 960px) 40vw, 92vw"
+          alt={HERO_IMAGE.alt}
+          width="1400"
+          height="1867"
+          /* Above the fold — load it eagerly and early rather than lazily,
+             so it is not the thing holding up the first impression. */
+          loading="eager"
+          fetchpriority="high"
+          decoding="async"
+        />
+      ) : (
+        <MediaPlaceholder
+          label="[HERO IMAGE – CURRENT FALLS CITY TRACK]"
+          note="Wide, dramatic shot of the existing dirt-and-gravel track. Overcast or wet weather is ideal — the mud is the story."
+          ratio="4 / 5"
+          variant="dark"
+        />
+      )}
     </div>
   </div>
 
@@ -127,6 +143,16 @@ import { DONATION_URL } from '../../config/site.js';
   }
 
   .hero__actions { margin-top: var(--space-lg); }
+
+  .hero__photo {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: var(--radius);
+    /* Faint warm ring so the dark edges of the photograph do not dissolve
+       into the purple ground behind it. */
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.14), 0 24px 60px rgba(0, 0, 0, 0.28);
+  }
 
   .hero__scroll {
     position: relative;

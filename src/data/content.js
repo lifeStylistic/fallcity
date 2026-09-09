@@ -494,3 +494,22 @@ export const STUDENTS_IMAGE = {
   caption:
     'A graduating class outside the 1921 building. The school has been the constant in Falls City for a century.',
 };
+
+
+/* --- HERO IMAGE ---------------------------------------------------------
+   A student arriving at the 1921 building at first light. This is the hero
+   rather than a photograph of the mud because the campaign's position is
+   "this community is worth investing in", not "look how bad we have it" —
+   and the mud now has a section of its own that makes that case far better.
+
+   The person is distant and turned away, so no one is identifiable and the
+   release question that applies to the graduating-class photograph does not
+   arise here.
+
+   When the Falls City rendering is ready, either replace `src` or move this
+   photograph elsewhere. It is the strongest place-and-people image on the
+   site, so do not simply discard it.                                       */
+export const HERO_IMAGE = {
+  src: 'hero-school-dawn',
+  alt: 'A student with a backpack walking toward the lit entrance of Falls City High School’s 1921 building at dawn, beneath a sky of pink and orange clouds.',
+};

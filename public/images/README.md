@@ -8,7 +8,7 @@ names exactly which photo belongs in it.
 
 | Placeholder label                      | Section component                        | Suggested filename         |
 | -------------------------------------- | ---------------------------------------- | -------------------------- |
-| `[HERO IMAGE – CURRENT FALLS CITY TRACK]` | `src/components/sections/Hero.astro`      | `hero-current-track.jpg`   |
+| ~~`[HERO IMAGE – CURRENT FALLS CITY TRACK]`~~ | **Done** — `hero-school-dawn-*.jpg` | see below |
 | ~~`[CURRENT TRACK / MUD / DRAINAGE PHOTO]`~~ | **Done** — superseded by the photo gallery | `track/` |
 | ~~`[CURRENT TRACK PHOTO]`~~               | **Done** — `BeforeAfter.astro` uses a real photo | `track/track-mud-school-*.jpg` |
 | `[PROPOSED TRACK RENDERING]`              | `src/components/sections/BeforeAfter.astro` | `track-rendering.jpg`    |
@@ -146,3 +146,18 @@ half-column image needs about 1000px. Web thumbnails pulled from a listing
 site or a search result — typically 400–650px — will look soft at any size
 this layout uses, and their ownership is usually unclear. Re-shoot rather
 than upscale.
+
+
+## Hero image
+
+`hero-school-dawn-*.jpg` — a student arriving at the 1921 building at first
+light. Controlled by `HERO_IMAGE` in `content.js`.
+
+It is the only image on the site loaded eagerly with high fetch priority,
+because it sits above the fold. Keep those attributes on whatever replaces
+it, and keep an explicit `width`/`height` so the layout does not shift while
+it loads.
+
+When the Falls City rendering is ready, it can take the hero — but **move
+this photograph somewhere else rather than deleting it.** It is the strongest
+place-and-people image on the site.
