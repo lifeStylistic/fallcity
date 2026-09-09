@@ -475,3 +475,22 @@ export const CTA_IMAGE = {
      legible without a disclaimer doing the work. */
   caption: 'Athletes on the line. Falls City has never been able to host a start of its own.',
 };
+
+
+/* --- FALLS CITY STUDENTS ------------------------------------------------
+   The graduating class outside the 1921 school building. This is the only
+   photograph on the site showing the students the campaign is actually
+   about, which is why it sits in "Why It Matters" rather than lower down.
+
+   PHOTO RELEASE: these are identifiable students. Confirm the district holds
+   releases covering use on a public fundraising site before this stays up
+   long-term — publication by the district on its own channels is not by
+   itself permission for this use. Set `approved` to false to pull it; the
+   labelled placeholder returns and nothing breaks.                        */
+export const STUDENTS_IMAGE = {
+  approved: true,
+  src: 'falls-city-graduates',
+  alt: 'Falls City High School graduates in caps and gowns walking together along the path in front of the school’s 1921 building, beneath a sign reading Falls City High Mountaineers.',
+  caption:
+    'A graduating class outside the 1921 building. The school has been the constant in Falls City for a century.',
+};

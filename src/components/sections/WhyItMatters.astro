@@ -1,5 +1,5 @@
 ---
-import { WHY_IT_MATTERS } from '../../data/content.js';
+import { WHY_IT_MATTERS, STUDENTS_IMAGE } from '../../data/content.js';
 import MediaPlaceholder from '../MediaPlaceholder.astro';
 ---
 
@@ -12,12 +12,27 @@ import MediaPlaceholder from '../MediaPlaceholder.astro';
 
     <div class="why__layout">
       <div class="why__media" data-reveal>
-        <!-- [STUDENT ATHLETE PHOTO] -->
-        <MediaPlaceholder
-          label="[STUDENT ATHLETE PHOTO]"
-          note="A Falls City athlete mid-effort — running, jumping, or catching breath. Faces matter more than form here."
-          ratio="3 / 4"
-        />
+        {STUDENTS_IMAGE.approved && STUDENTS_IMAGE.src ? (
+          <figure class="why__figure">
+            <img
+              src={`/images/${STUDENTS_IMAGE.src}-1000.jpg`}
+              srcset={`/images/${STUDENTS_IMAGE.src}-600.jpg 600w, /images/${STUDENTS_IMAGE.src}-1000.jpg 1000w`}
+              sizes="(min-width: 1040px) 34vw, 92vw"
+              alt={STUDENTS_IMAGE.alt}
+              width="1000"
+              height="1250"
+              loading="lazy"
+              decoding="async"
+            />
+            <figcaption>{STUDENTS_IMAGE.caption}</figcaption>
+          </figure>
+        ) : (
+          <MediaPlaceholder
+            label="[STUDENT ATHLETE PHOTO]"
+            note="A Falls City athlete mid-effort — running, jumping, or catching breath. Faces matter more than form here."
+            ratio="3 / 4"
+          />
+        )}
       </div>
 
       <ul class="why__grid">
@@ -35,6 +50,17 @@ import MediaPlaceholder from '../MediaPlaceholder.astro';
 
 <style>
   .why__head { margin-bottom: var(--space-xl); max-width: 30rem; }
+
+  .why__figure { margin: 0; }
+  .why__figure img { width: 100%; height: auto; display: block; border-radius: var(--radius); }
+  .why__figure figcaption {
+    margin-top: 0.7rem;
+    font-size: var(--fs-small);
+    line-height: 1.45;
+    color: var(--muted);
+    padding-left: 0.7rem;
+    border-left: 2px solid var(--gold);
+  }
   .why__layout { display: grid; gap: var(--space-lg); }
   .why__grid { display: grid; gap: var(--space-md); }
 
