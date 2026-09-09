@@ -1,5 +1,7 @@
 ---
 /* Oversized numeral used for the statistic storytelling in "The Need". */
+import Counter from './Counter.astro';
+
 const { value, unit = '', label, note = '' } = Astro.props;
 ---
 
@@ -8,7 +10,7 @@ const { value, unit = '', label, note = '' } = Astro.props;
     <span></span><span></span><span></span><span></span>
   </div>
   <p class="stat__value">
-    {value}{unit && <span class="stat__unit">{unit}</span>}
+    <Counter value={value} />{unit && <span class="stat__unit">{unit}</span>}
   </p>
   <p class="stat__label">{label}</p>
   {note && <p class="stat__note">{note}</p>}

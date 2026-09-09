@@ -109,5 +109,87 @@ const jsonLd = {
         items.forEach(function (el) { io.observe(el); });
       })();
     </script>
+
+    <script is:inline>
+      /* Count figures up as they enter view. Runs independently of the reveal
+         observer above so a counter still animates if its wrapper was already
+         on screen at load. */
+      (function () {
+        var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        var nodes = document.querySelectorAll('[data-count]');
+        if (!nodes.length) return;
+
+        /* Reduced motion, or no observer: leave the server-rendered value be.
+           It is already the correct final figure. */
+        if (reduce || !('IntersectionObserver' in window)) return;
+
+        var DURATION = 1400;
+
+        function run(el) {
+          var raw = el.getAttribute('data-count') || '';
+          var display = el.querySelector('.counter__display');
+          if (!display) return;
+
+          /* Split on numeric tokens, keeping the separators, so "548 x 272"
+             becomes ['', '548', ' x ', '272', ''] and both halves animate
+             while the character between them stays put. */
+          var parts = raw.split(/(\d[\d,]*\.?\d*)/);
+          var targets = [];
+          parts.forEach(function (part, i) {
+            if (!/^\d/.test(part)) return;
+            targets.push({
+              i: i,
+              value: parseFloat(part.replace(/,/g, '')),
+              decimals: (part.split('.')[1] || '').length,
+              comma: part.indexOf(',') !== -1,
+            });
+          });
+
+          /* Nothing numeric, or the figure is zero — no animation to run. */
+          if (!targets.length) return;
+          if (targets.every(function (t) { return !t.value; })) return;
+
+          var start = null;
+          function frame(now) {
+            if (start === null) start = now;
+            var p = Math.min(1, (now - start) / DURATION);
+            var eased = 1 - Math.pow(1 - p, 4);   /* easeOutQuart */
+
+            var out = parts.slice();
+            targets.forEach(function (t) {
+              var v = t.value * eased;
+              var str = t.decimals ? v.toFixed(t.decimals) : String(Math.round(v));
+              if (t.comma) str = Number(str).toLocaleString('en-US');
+              out[t.i] = str;
+            });
+            display.textContent = out.join('');
+
+            if (p < 1) requestAnimationFrame(frame);
+            /* Restore the original string verbatim rather than trusting the
+               formatter to reproduce it. */
+            else display.textContent = raw;
+          }
+
+          /* Start from zero so the first painted frame is not the answer. */
+          var zero = parts.slice();
+          targets.forEach(function (t) {
+            zero[t.i] = t.decimals ? (0).toFixed(t.decimals) : '0';
+          });
+          display.textContent = zero.join('');
+
+          requestAnimationFrame(frame);
+        }
+
+        var io = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (!entry.isIntersecting) return;
+            io.unobserve(entry.target);
+            run(entry.target);
+          });
+        }, { rootMargin: '0px 0px -12% 0px', threshold: 0.4 });
+
+        nodes.forEach(function (el) { io.observe(el); });
+      })();
+    </script>
   </body>
 </html>

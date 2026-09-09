@@ -1,5 +1,6 @@
 ---
 import { PROCESS, SURFACE_IMAGE } from '../../data/content.js';
+import Counter from '../Counter.astro';
 const { scope, diligence } = PROCESS;
 ---
 
@@ -56,7 +57,7 @@ const { scope, diligence } = PROCESS;
           <div class="figure">
             <dt class="figure__label">{f.label}</dt>
             <dd class="figure__value">
-              {f.value}<span class="figure__unit">{f.unit}</span>
+              <Counter value={f.value} /><span class="figure__unit">{f.unit}</span>
             </dd>
           </div>
         ))}

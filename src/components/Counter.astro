@@ -1,0 +1,33 @@
+---
+/* ===========================================================================
+   COUNTER
+   ---------------------------------------------------------------------------
+   Counts a figure up when it scrolls into view.
+
+   The final value is rendered server-side, so with JavaScript disabled the
+   number is simply correct and static. The script in Base.astro only ever
+   overwrites it temporarily and always restores the exact original string.
+
+   ACCESSIBILITY: the animating span is hidden from assistive technology and
+   a visually hidden copy carries the real value, so a screen reader never
+   reads a half-counted number — "twenty-one thousand four hundred and two"
+   is worse than useless when the figure is 21,717.
+
+   FORMATS: the script animates every numeric token it finds in the string
+   and preserves the surrounding characters, so all of these work unchanged:
+       50          21,717 (keeps the comma)      3.4 (keeps one decimal)
+       548 × 272   (animates both numbers)       90
+   A value of zero is left alone — counting up to nothing is not an effect.
+=========================================================================== */
+const { value, class: className = '' } = Astro.props;
+---
+
+<span class={`counter ${className}`} data-count={value}>
+  <span class="counter__display" aria-hidden="true">{value}</span>
+  <span class="visually-hidden">{value}</span>
+</span>
+
+<style>
+  /* Tabular figures so the width does not jitter while digits change. */
+  .counter { font-variant-numeric: tabular-nums; }
+</style>

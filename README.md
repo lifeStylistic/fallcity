@@ -336,9 +336,21 @@ generic school page.
 
 ### Motion
 
-A 12px rise and fade as elements enter the viewport, once. Fully disabled
-under `prefers-reduced-motion`, and content stays visible if JavaScript never
-runs.
+Three layers, all disabled under `prefers-reduced-motion` and all safe if
+JavaScript never runs:
+
+- **Reveal.** Elements rise and fade in as they enter view. Section headings
+  use directional variants (`data-reveal="left"` / `"right"`), alternating
+  down the page. Grids stagger via a `--d` delay.
+- **Counters.** Large figures count up (`src/components/Counter.astro`). The
+  final value is rendered server-side, so the number is correct even with
+  scripting off.
+- **Hover.** Cards lift, shadows deepen, a gold edge wipes across the
+  contribution cards.
+
+To animate a new figure, wrap it: `<Counter value="1,234" />`. The script
+handles commas, decimals and multi-number strings like `548 × 272`
+automatically. A value of zero is deliberately left static.
 
 ---
 
