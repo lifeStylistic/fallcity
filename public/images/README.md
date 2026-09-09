@@ -95,7 +95,7 @@ are what keep the imagery consistent with that. Do not remove them.
 
 | Slot | Where it appears | Set in `content.js` | Status |
 | --- | --- | --- | --- |
-| Finished track | "The Vision" panel, before/after | `VISION_IMAGE.src` | **Live** — San Jose City College |
+| Concept rendering | "The Vision" panel, before/after | `VISION_IMAGE.src` | **Live** — `vision-rendering-*.jpg`, the Falls City overlay |
 | Surface sample | Track Surfacing step, how-it-works | `SURFACE_IMAGE.src` | **Live** — Western University close view |
 | CTA band | Above the closing call to action | `CTA_IMAGE.src` | **Live** — B&W starting line, 2016 shoot |
 
@@ -183,3 +183,23 @@ drawing once one exists.
 and similar services is licensed from third parties, and a screenshot of it
 is not yours to publish — quite apart from the visible map pin making it
 obvious how it was made.
+
+
+## The concept rendering
+
+`vision-rendering-*.jpg` — Beynon Sports' conceptual overlay of the planned
+four-lane loop on the Falls City site, in the Mountaineers' purple.
+
+**Keep the caveats.** The drawing has a legend baked into it stating that it
+is conceptual, that no survey has been performed, that it was scaled from a
+map scale bar rather than measured, and that 400m is a goal subject to site
+and river constraints. If you swap in a newer version, it must carry the same
+statements, and the alt text in `content.js` must keep describing them —
+someone using a screen reader cannot read text rendered into a bitmap.
+
+Once a survey exists and a real layout is confirmed, this can be replaced
+with the engineer's drawing and the caveats revised to match what is then
+actually known.
+
+`finished-track-sjcc-*.jpg` (San Jose City College) is retained but no longer
+used on the page — the Falls City rendering supersedes it.

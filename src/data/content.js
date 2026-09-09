@@ -440,14 +440,21 @@ export const TRACK_TODAY = {
    photograph of the existing surface. Replaced by the Falls City rendering
    when that is ready — at which point this can move to a reference slot. */
 export const VISION_IMAGE = {
-  src: 'finished-track-sjcc',
-  alt: 'A finished purple synthetic running track with white lane markings and gold chevrons, curving past a green turf field and metal bleachers.',
-  /* IMPORTANT: this facility is larger than the Falls City project — it has
-     eight lanes, Falls City is asking for four. The caption must keep both
-     that difference and the unconfirmed layout explicit. Do not shorten it
-     to something that reads as a depiction of the finished Falls City site. */
+  src: 'vision-rendering',
+  /* Conceptual overlay produced by Beynon Sports' drafting team, showing the
+     planned four-lane loop on the actual Falls City site. Purple surface,
+     matching the Mountaineers colours.
+
+     The drawing carries its own legend stating that it is conceptual, that
+     no survey has been performed, that it was scaled from a map scale bar
+     rather than measured, and that 400m remains a goal subject to site and
+     river constraints. That is exactly the framing the executive summary
+     requires, so the caption below does not need to repeat it at length —
+     but the alt text does, because a screen-reader user cannot read the
+     legend. Do not replace this with a version lacking those caveats. */
+  alt: 'Conceptual overlay of the planned four-lane running track on an aerial view of the Falls City High School site. A purple oval traces the existing loop around the football field, with the Little Luckiamute River wrapping the west and south sides. A legend notes the drawing is conceptual, that no survey has been performed, and that the 400-metre configuration remains a goal subject to site constraints.',
   caption:
-    'A finished synthetic track at San Jose City College. Falls City’s project is four lanes, and its final layout will be set by professional survey and engineering.',
+    'Conceptual overlay of the planned four-lane track on the Falls City site, prepared by Beynon Sports. No survey has been performed — the layout shown is a goal, not a confirmed design.',
 };
 
 /* Sits in the Track Surfacing step of the order-of-operations section, to
