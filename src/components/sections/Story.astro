@@ -1,6 +1,5 @@
 ---
 import { STORY } from '../../data/content.js';
-import MediaPlaceholder from '../MediaPlaceholder.astro';
 ---
 
 <section class="section section--purple on-dark" id="our-story">
@@ -30,21 +29,12 @@ import MediaPlaceholder from '../MediaPlaceholder.astro';
     </figure>
 
     <div class="story__bottom">
-      <div class="story__media" data-reveal>
-        <!-- [COMMUNITY / FOOTBALL GAME PHOTO] -->
-        <MediaPlaceholder
-          label="[COMMUNITY / FOOTBALL GAME PHOTO]"
-          note="A home game crowd around the field — families, grandparents, folding chairs. This is the picture that proves the field is a gathering place."
-          ratio="16 / 10"
-          variant="dark"
-        />
-      </div>
+      <p class="story__after" data-reveal>{STORY.afterQuote}</p>
 
       <div class="story__commit" data-reveal>
-        <p class="story__after">{STORY.afterQuote}</p>
         <p class="story__commitLabel">What Falls City brings</p>
         <ul class="story__list">
-          {STORY.contributions.map((c) => <li>{c}</li>)}
+          {STORY.contributions.map((c, i) => <li style={`--d:${i * 55}ms`}>{c}</li>)}
         </ul>
       </div>
     </div>
@@ -75,19 +65,17 @@ import MediaPlaceholder from '../MediaPlaceholder.astro';
   .story__quote blockquote span { display: block; }
   .story__quote blockquote span:last-child { color: var(--gold); }
 
-  .story__bottom { display: grid; gap: var(--space-lg); align-items: center; }
+  .story__bottom { display: grid; gap: var(--space-lg); align-items: start; }
 
-  .story__after { color: rgba(255,255,255,0.82); max-width: 50ch; }
+  .story__after { color: rgba(255,255,255,0.86); max-width: 46ch; font-size: var(--fs-lead); line-height: 1.55; }
 
   .story__commitLabel {
-    margin-top: var(--space-lg);
+    margin-top: 0;
     font-size: var(--fs-eyebrow); font-weight: 700;
     letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold);
   }
-  .story__list {
-    margin-top: var(--space-sm);
-    display: grid; gap: 0;
-  }
+  .story__list { margin-top: var(--space-sm); display: grid; gap: 0; }
+  @media (min-width: 540px) { .story__list { grid-template-columns: 1fr 1fr; column-gap: var(--space-lg); } }
   .story__list li {
     padding: 0.75rem 0;
     border-bottom: 1px solid rgba(255,255,255,0.14);
@@ -115,6 +103,6 @@ import MediaPlaceholder from '../MediaPlaceholder.astro';
 
   @media (min-width: 900px) {
     .story__top { grid-template-columns: 1fr 1fr; gap: var(--space-xl); }
-    .story__bottom { grid-template-columns: 1.1fr 0.9fr; gap: var(--space-xl); }
+    .story__bottom { grid-template-columns: 0.85fr 1.15fr; gap: var(--space-xl); }
   }
 </style>

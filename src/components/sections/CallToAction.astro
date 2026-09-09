@@ -1,7 +1,6 @@
 ---
 import { CTA } from '../../data/content.js';
 import ActionButton from '../ActionButton.astro';
-import MediaPlaceholder from '../MediaPlaceholder.astro';
 import { DONATION_URL, PARTNER_FORM_URL, VOLUNTEER_URL } from '../../config/site.js';
 import { CTA_IMAGE } from '../../data/content.js';
 ---
@@ -42,24 +41,6 @@ import { CTA_IMAGE } from '../../data/content.js';
       </div>
     </div>
 
-    <div class="cta__videos" data-reveal>
-      <!-- [STUDENT QUOTE VIDEO] -->
-      <MediaPlaceholder
-        label="[STUDENT QUOTE VIDEO]"
-        note="30–60s. One student answering: what would a real track change for you?"
-        ratio="16 / 9"
-        variant="dark"
-        kind="video"
-      />
-      <!-- [COMMUNITY QUOTE VIDEO] -->
-      <MediaPlaceholder
-        label="[COMMUNITY QUOTE VIDEO]"
-        note="30–60s. A parent, coach or longtime resident on what the field means to Falls City."
-        ratio="16 / 9"
-        variant="dark"
-        kind="video"
-      />
-    </div>
   </div>
 
   <div class="shell">
@@ -124,7 +105,7 @@ import { CTA_IMAGE } from '../../data/content.js';
     border-left: 2px solid var(--gold);
   }
 
-  .cta__inner { position: relative; display: grid; gap: var(--space-xl); align-items: center; }
+  .cta__inner { position: relative; }
 
   .cta__headline {
     font-size: var(--fs-display);
@@ -133,7 +114,8 @@ import { CTA_IMAGE } from '../../data/content.js';
     line-height: 1.0;
     text-wrap: balance;
   }
-  .cta__body { margin-top: var(--space-md); max-width: 30rem; }
+  .cta__copy { max-width: 44rem; }
+  .cta__body { margin-top: var(--space-md); max-width: 34rem; }
   .cta__body p { color: rgba(255,255,255,0.85); font-size: var(--fs-lead); line-height: 1.5; }
   .cta__actions { margin-top: var(--space-lg); }
 
@@ -177,7 +159,6 @@ import { CTA_IMAGE } from '../../data/content.js';
   }
 
   @media (min-width: 960px) {
-    .cta__inner { grid-template-columns: 1fr 1fr; }
     .cta__close { grid-template-columns: 1fr 1fr; align-items: end; }
   }
 </style>
