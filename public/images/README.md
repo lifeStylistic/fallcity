@@ -14,7 +14,7 @@ names exactly which photo belongs in it.
 | `[PROPOSED TRACK RENDERING]`              | `src/components/sections/BeforeAfter.astro` | `track-rendering.jpg`    |
 | `[STUDENT ATHLETE PHOTO]`                 | `src/components/sections/WhyItMatters.astro` | `student-athlete.jpg`   |
 | `[COMMUNITY / FOOTBALL GAME PHOTO]`       | `src/components/sections/Story.astro`     | `community-game.jpg`       |
-| `[AERIAL SITE IMAGE]`                     | `src/components/sections/Process.astro`   | `aerial-site.jpg`          |
+| ~~`[AERIAL SITE IMAGE]`~~                 | **Replaced** by `SiteSchematic.astro` — see below | drone shot still wanted |
 | `[STUDENT QUOTE VIDEO]`                   | `src/components/sections/CallToAction.astro` | video embed             |
 | `[COMMUNITY QUOTE VIDEO]`                 | `src/components/sections/CallToAction.astro` | video embed             |
 
@@ -161,3 +161,25 @@ it loads.
 When the Falls City rendering is ready, it can take the hero — but **move
 this photograph somewhere else rather than deleting it.** It is the strongest
 place-and-people image on the site.
+
+
+## The site schematic
+
+`src/components/SiteSchematic.astro` — an original inline SVG standing in for
+an aerial photograph in the how-it-works section.
+
+**Two rules if you edit it.** Keep the "not to scale" stamp inside the
+artwork, and add no dimensions, lane widths or radii. A drawing that looks
+surveyed implies confirmed geometry this project does not have, which is the
+one claim the executive summary consistently refuses to make.
+
+**It is a stand-in.** A drone photograph — straight down or a low oblique
+over the field and existing oval — is still the image this section wants,
+and is the single most useful image on the site for contractors and
+engineers. Replace the schematic with it, or with the civil engineer's
+drawing once one exists.
+
+**Do not substitute a mapping screenshot.** Satellite imagery in Google Maps
+and similar services is licensed from third parties, and a screenshot of it
+is not yours to publish — quite apart from the visible map pin making it
+obvious how it was made.

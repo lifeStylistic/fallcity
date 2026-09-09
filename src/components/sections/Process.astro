@@ -1,6 +1,6 @@
 ---
 import { PROCESS, SURFACE_IMAGE } from '../../data/content.js';
-import MediaPlaceholder from '../MediaPlaceholder.astro';
+import SiteSchematic from '../SiteSchematic.astro';
 const { scope, diligence } = PROCESS;
 ---
 
@@ -66,12 +66,10 @@ const { scope, diligence } = PROCESS;
 
     <div class="proc__lower">
       <div class="proc__media" data-reveal>
-        <!-- [AERIAL SITE IMAGE] -->
-        <MediaPlaceholder
-          label="[AERIAL SITE IMAGE]"
-          note="Drone shot straight down or at a low oblique angle over the field and existing oval. Best single image for showing partners the footprint."
-          ratio="4 / 3"
-        />
+        <!-- Original schematic, not traced from mapping imagery. Replace with
+             a drone photograph or the civil engineer's drawing when one
+             exists — see the component for why it must stay not-to-scale. -->
+        <SiteSchematic />
       </div>
 
       <!-- DUE DILIGENCE -->
