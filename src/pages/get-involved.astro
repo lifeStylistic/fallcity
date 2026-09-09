@@ -73,8 +73,10 @@ const intents = [
           {/* Required by Netlify — identifies which form was submitted. */}
           <input type="hidden" name="form-name" value="project-inquiry" />
 
-          {/* Honeypot. Hidden from people, irresistible to bots. */}
-          <p class="form__hp">
+          {/* Honeypot. Positioned off-screen, so it also needs aria-hidden and
+              tabindex="-1" — otherwise a screen-reader or keyboard user meets a
+              field they cannot see and are told to leave empty. */}
+          <p class="form__hp" aria-hidden="true">
             <label>Leave this field empty <input name="bot-field" tabindex="-1" autocomplete="off" /></label>
           </p>
 
@@ -298,7 +300,8 @@ const intents = [
     color: var(--ink);
     margin-bottom: 0.4rem;
   }
-  .req { color: var(--gold-deep); }
+  /* The required marker has to be legible on white, so it takes the text gold. */
+  .req { color: var(--gold-ink); }
   .field__opt {
     font-weight: 500; font-size: 0.78rem; color: var(--muted);
     text-transform: uppercase; letter-spacing: 0.1em; margin-left: 0.4rem;

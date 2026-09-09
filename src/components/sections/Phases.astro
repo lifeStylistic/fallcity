@@ -10,8 +10,8 @@ import { PHASES } from '../../data/content.js';
       <p class="lead phases__intro">{PHASES.intro}</p>
     </div>
 
-    <!-- Roadmap: a single continuous line with four stops, rather than four
-         disconnected cards, so the sequence reads as one path. -->
+    {/* Roadmap: a single continuous line with four stops, rather than four
+         disconnected cards, so the sequence reads as one path. */}
     <ol class="phases__track">
       {PHASES.items.map((item, i) => (
         <li class={`phase ${i === 0 ? 'phase--current' : ''}`} data-reveal style={`--d:${i * 90}ms`}>

@@ -5,11 +5,16 @@ import { NAV_LINKS, PERSONAL } from '../data/content.js';
    the menu never links to something that is not rendered. */
 const links = NAV_LINKS.filter((l) => l.href !== '#why-me' || PERSONAL.approved);
 import { DONATION_URL, SCHOOL_LOGO } from '../config/site.js';
+import { resolveAnchor } from '../utils/anchors.js';
+
+/* Section anchors resolve to the homepage when this header is rendered on
+   /get-involved or /thank-you, where those sections do not exist. */
+const anchor = (href) => resolveAnchor(href, Astro.url.pathname);
 ---
 
 <header class="nav" id="site-nav" data-nav>
   <div class="shell nav__inner">
-    <a class="nav__brand" href="#top">
+    <a class="nav__brand" href={anchor('#top')}>
       {SCHOOL_LOGO
         ? <img class="nav__crest" src={SCHOOL_LOGO} alt="Falls City Mountaineers" width="254" height="288" />
         : (
@@ -24,13 +29,13 @@ import { DONATION_URL, SCHOOL_LOGO } from '../config/site.js';
     </a>
 
     <nav class="nav__links" aria-label="Section navigation">
-      {links.map((link) => <a href={link.href}>{link.label}</a>)}
+      {links.map((link) => <a href={anchor(link.href)}>{link.label}</a>)}
     </nav>
 
     <div class="nav__actions">
       {DONATION_URL
         ? <a class="btn btn--purple nav__cta" href={DONATION_URL}>Donate</a>
-        : <a class="btn btn--purple nav__cta" href="#help">Help Out</a>}
+        : <a class="btn btn--purple nav__cta" href={anchor('#help')}>Help Out</a>}
     </div>
 
     <button
@@ -45,15 +50,15 @@ import { DONATION_URL, SCHOOL_LOGO } from '../config/site.js';
     </button>
   </div>
 
-  <!-- Mobile menu — hidden from assistive tech until opened. -->
+  {/* Mobile menu — hidden from assistive tech until opened. */}
   <div class="nav__mobile" id="mobile-menu" data-menu hidden>
     <nav class="nav__mobileLinks" aria-label="Section navigation">
-      {links.map((link) => <a href={link.href} data-menu-link>{link.label}</a>)}
+      {links.map((link) => <a href={anchor(link.href)} data-menu-link>{link.label}</a>)}
     </nav>
     <div class="nav__mobileCta">
       {DONATION_URL
         ? <a class="btn btn--purple" href={DONATION_URL} data-menu-link>Donate</a>
-        : <a class="btn btn--purple" href="#help" data-menu-link>Help Out</a>}
+        : <a class="btn btn--purple" href={anchor('#help')} data-menu-link>Help Out</a>}
     </div>
   </div>
 </header>

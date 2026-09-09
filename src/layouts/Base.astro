@@ -2,7 +2,7 @@
 import { SEO, PROJECT_NAME, CONTACT, SCHOOL_URL } from '../config/site.js';
 import '../styles/global.css';
 
-const { title = SEO.title, description = SEO.description } = Astro.props;
+const { title = SEO.title, description = SEO.description, noindex = false } = Astro.props;
 const canonical = new URL(Astro.url.pathname, Astro.site);
 const ogImage = new URL(SEO.ogImage, Astro.site);
 
@@ -41,14 +41,16 @@ const jsonLd = {
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
+    {/* Confirmation pages have nothing to rank for and should never be a
+        search result someone arrives on cold. */}
+    {noindex && <meta name="robots" content="noindex, follow" />}
 
-    <!-- FAVICON — replace public/favicon.svg with the real district mark -->
+    {/* FAVICON — replace public/favicon.svg with the real district mark */}
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="theme-color" content="#4B2E83" />
 
-    <!-- Open Graph / social sharing.
-         [ADD LATER] Replace public/og-image.svg with a real 1200x630 JPG
-         and update SEO.ogImage in src/config/site.js -->
+    {/* Open Graph / social sharing. og-image.jpg is a real 1200x630 raster —
+         no platform renders an SVG preview card. */}
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content={PROJECT_NAME} />
     <meta property="og:title" content={title} />
@@ -64,7 +66,7 @@ const jsonLd = {
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImage} />
 
-    <!-- Fonts: preconnect first so text paints fast. -->
+    {/* Fonts: preconnect first so text paints fast. */}
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -74,8 +76,8 @@ const jsonLd = {
 
     <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
 
-    <!-- Swap the no-js class immediately so reveal animations can run.
-         Inline and synchronous to avoid a flash of hidden content. -->
+    {/* Swap the no-js class immediately so reveal animations can run.
+         Inline and synchronous to avoid a flash of hidden content. */}
     <script is:inline>
       document.documentElement.classList.remove('no-js');
     </script>

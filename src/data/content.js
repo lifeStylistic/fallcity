@@ -43,7 +43,7 @@ export const PROBLEM = {
   headline: 'Our Kids Should Be Able to Compete at Home.',
   body: [
     'The track at Falls City High School is a dirt-and-gravel surface with no defined lanes and no formal drainage. It has never had a synthetic surface, and to our knowledge there has never been a major track improvement.',
-    'The surface is uneven. It becomes extremely muddy in wet weather and has areas that flood. It cannot host track-and-field competition — so our athletes travel to every meet, and our middle-school athletes are transported to other districts’ facilities simply to practice.',
+    'The surface is uneven. It becomes extremely muddy in wet weather and has areas that flood. It cannot host track-and-field competition — so our athletes travel to every meet, and our middle-school athletes are transported to facilities in other towns simply to practice.',
   ],
   stats: [
     { value: '50', label: 'High School Students', note: 'In a district serving fewer than 200' },
@@ -196,7 +196,7 @@ export const HOW_TO_HELP = {
     { title: 'Base & Paving', body: 'Aggregate, asphalt, concrete and related materials.' },
     { title: 'Engineering', body: 'Surveying, geotechnical, civil/site design and drainage.' },
     { title: 'Field Events', body: 'Long jump, high jump, shot put and discus components.' },
-    { title: 'Accessibility', body: 'Accessible routes and seating and access improvements.' },
+    { title: 'Accessibility', body: 'Accessible routes, seating and access improvements.' },
     { title: 'Athletic Amenities', body: 'Bleachers, fencing, signage and equipment.' },
     { title: 'Community Support', body: 'Volunteer coordination, food, transportation and outreach.' },
     { title: 'Financial Support', body: 'Restricted project donations and sponsorships.' },
@@ -210,7 +210,7 @@ export const HOW_TO_HELP = {
      the nine categories above; it is simply no longer singled out. */
   anchorTitle: 'The first step is not a single gift. It is a team.',
   anchorNote:
-    'A world-class track gets built when contractors, suppliers, engineers, funders and neighbors each bring what they have — materials, equipment, expertise, hours, money — and no one carries it alone. Every partner who commits makes the next one easier to find. All of it goes to the same place: the district, the students, and the vision.',
+    'A world-class track gets built when contractors, suppliers, engineers, funders and neighbors each bring what they have — materials, equipment, expertise, hours, money — and no one carries it alone. Every partner who commits makes the next one easier to find. All of it goes to the same place: the district, the students and the vision.',
 };
 
 /* --- 9. ONE CONTRIBUTION UNLOCKS THE NEXT ------------------------------ */
@@ -279,7 +279,7 @@ export const PROCESS = {
   eyebrow: 'How It Works',
   headline: 'You Cannot Build a Track Out of Order.',
   intro:
-    'A running track is not a parking lot. Each step below produces the information the next one needs — which is why the project begins with a survey rather than a shovel, and why an early contribution of professional services is worth as much to this project as a cheque.',
+    'A running track is not a parking lot. Each step below produces the information the next one needs — which is why the project begins with a survey rather than a shovel, and why an early contribution of professional services is worth as much to this project as a check.',
   steps: [
     {
       number: '1',
@@ -296,7 +296,7 @@ export const PROCESS = {
     {
       number: '3',
       title: 'Civil / Landscape Design',
-      body: 'Survey plus geotechnical becomes a grading, drainage and layout drawing.',
+      body: 'The survey and the geotechnical report become a grading, drainage and layout drawing.',
       why: 'Without a drawing, every number a contractor gives back is a guess with an exclusion list attached.',
     },
     {
@@ -460,7 +460,7 @@ export const VISION_IMAGE = {
      requires, so the caption below does not need to repeat it at length —
      but the alt text does, because a screen-reader user cannot read the
      legend. Do not replace this with a version lacking those caveats. */
-  alt: 'Conceptual overlay of the planned four-lane running track on an aerial view of the Falls City High School site. A purple oval traces the existing loop around the football field, with the Little Luckiamute River wrapping the west and south sides. A legend notes the drawing is conceptual, that no survey has been performed, and that the 400-metre configuration remains a goal subject to site constraints.',
+  alt: 'Conceptual overlay of the planned four-lane running track on an aerial view of the Falls City High School site. A purple oval traces the existing loop around the football field, with the Little Luckiamute River wrapping the west and south sides. A legend notes the drawing is conceptual, that no survey has been performed, and that the 400-meter configuration remains a goal subject to site constraints.',
   caption:
     'Conceptual overlay of the planned four-lane track on the Falls City site, prepared by Beynon Sports. No survey has been performed — the layout shown is a goal, not a confirmed design.',
 };

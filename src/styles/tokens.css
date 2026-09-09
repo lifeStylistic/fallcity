@@ -21,7 +21,11 @@
   --purple-deep:   #2E1B52;   /* darker purple for large fields + overlays */
   --purple-soft:   #6B4DA8;
   --gold:          #F2C94C;
-  --gold-deep:     #C99A16;   /* passes AA on white for small graphic text */
+  --gold-deep:     #C99A16;   /* accent gold for dots, rules and fills on white.
+                                 2.59:1 on white — decoration only, never text. */
+  --gold-ink:      #8A6508;   /* the text-safe gold: 5.3:1 on white, 4.9:1 on the
+                                 tinted sections. Use this whenever gold carries
+                                 words rather than shape. */
 
   /* --- Neutrals -------------------------------------------------------- */
   --ink:           #252525;

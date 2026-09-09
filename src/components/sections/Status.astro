@@ -81,9 +81,9 @@ const money = (n) =>
           A published fundraising goal and running total will appear here once
           professional assessment establishes the project’s scope and cost.
         </p>
-        <!-- [PLACEHOLDER] $AMOUNT_RAISED · $PROJECT_GOAL · %_FUNDED
+        {/* [PLACEHOLDER] $AMOUNT_RAISED · $PROJECT_GOAL · %_FUNDED
              Set FUNDRAISING_GOAL and AMOUNT_RAISED in src/config/site.js
-             and this block becomes a live progress bar automatically. -->
+             and this block becomes a live progress bar automatically. */}
       </div>
     )}
   </div>
@@ -141,7 +141,9 @@ const money = (n) =>
   .track--active .track__dot {
     background: var(--gold); box-shadow: 0 0 0 4px rgba(242,201,76,0.3);
   }
-  .track--active .track__value { color: var(--gold-deep); }
+  /* gold-ink, not gold-deep: this is 14px text on white, and the accent
+     gold only reaches 2.59:1 there. */
+  .track--active .track__value { color: var(--gold-ink); }
   .track--complete .track__dot { background: var(--purple); }
   .track--complete .track__value { color: var(--purple); }
   .track--future .track__dot { background: var(--line); opacity: 0.6; }

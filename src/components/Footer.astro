@@ -5,6 +5,10 @@ import {
   TAX_LANGUAGE, PROJECT_NAME, PARTNER_LOGOS,
 } from '../config/site.js';
 import { NAV_LINKS, PERSONAL } from '../data/content.js';
+import { resolveAnchor } from '../utils/anchors.js';
+
+/* Same as the header: fragments resolve to the homepage off the homepage. */
+const anchor = (href) => resolveAnchor(href, Astro.url.pathname);
 
 const year = new Date().getFullYear();
 
@@ -27,7 +31,7 @@ const actions = [
 <footer class="footer" id="contact">
   <div class="shell">
     <div class="footer__top">
-      <!-- CONTACT -->
+      {/* CONTACT */}
       <div class="footer__block">
         <p class="footer__label">Contact</p>
         <address class="footer__address">
@@ -41,15 +45,15 @@ const actions = [
         </address>
       </div>
 
-      <!-- NAVIGATE -->
+      {/* NAVIGATE */}
       <div class="footer__block">
         <p class="footer__label">Explore</p>
         <ul class="footer__list">
-          {links.map((l) => <li><a href={l.href}>{l.label}</a></li>)}
+          {links.map((l) => <li><a href={anchor(l.href)}>{l.label}</a></li>)}
         </ul>
       </div>
 
-      <!-- TAKE ACTION -->
+      {/* TAKE ACTION */}
       <div class="footer__block">
         <p class="footer__label">Take Action</p>
         <ul class="footer__list">
@@ -87,7 +91,7 @@ const actions = [
             </li>
           ))}
         </ul>
-        <!-- [PLACEHOLDER] PARTNER_LOGOS — add more in src/config/site.js -->
+        {/* [PLACEHOLDER] PARTNER_LOGOS — add more in src/config/site.js */}
       </div>
     )}
 
@@ -101,8 +105,8 @@ const actions = [
       {TAX_LANGUAGE
         ? <p class="footer__legal">{TAX_LANGUAGE}</p>
         : <p class="footer__legal footer__legal--pending">
-            <!-- [ADD LATER] Tax-deductibility language, once confirmed by the
-                 district business office. Do not publish a tax claim until then. -->
+            {/* [ADD LATER] Tax-deductibility language, once confirmed by the
+                 district business office. Do not publish a tax claim until then. */}
             Giving and tax-deductibility details will be published here alongside
             the project’s donation page.
           </p>}

@@ -19,10 +19,10 @@ const { approved, attribution } = PERSONAL;
 {approved && (
   <section class="section personal" id="why-me">
     <div class="shell personal__inner">
-      <!-- Three grid areas, not two nested columns. On mobile the signature
+      {/* Three grid areas, not two nested columns. On mobile the signature
            must fall AFTER her words — a signature closes a passage, it does
            not open one — while on desktop it belongs in the left rail under
-           the headline. Grid areas give both from one DOM order. -->
+           the headline. Grid areas give both from one DOM order. */}
       <div class="personal__head" data-reveal>
         <p class="eyebrow">{PERSONAL.eyebrow}</p>
         <h2 class="headline personal__headline">{PERSONAL.headline}</h2>
@@ -33,8 +33,8 @@ const { approved, attribution } = PERSONAL;
           {PERSONAL.paragraphs.map((p) => <p>{p}</p>)}
         </div>
 
-        <!-- The pull quote is the visual anchor of the section, standing in
-             for the portrait that is deliberately not here. -->
+        {/* The pull quote is the visual anchor of the section, standing in
+             for the portrait that is deliberately not here. */}
         <blockquote class="personal__quote" data-reveal>
           {PERSONAL.pullQuote}
         </blockquote>

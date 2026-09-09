@@ -10,9 +10,9 @@ import { UNLOCK_CHAIN } from '../../data/content.js';
       <p class="lead chain__intro">{UNLOCK_CHAIN.intro}</p>
     </div>
 
-    <!-- Cascade: each link is offset slightly further along on wide screens,
+    {/* Cascade: each link is offset slightly further along on wide screens,
          so the eye travels the same path the project does. On mobile it
-         collapses to a clean vertical stack with connectors. -->
+         collapses to a clean vertical stack with connectors. */}
     <ol class="chain">
       {UNLOCK_CHAIN.steps.map((s, i) => (
         <li
@@ -72,7 +72,7 @@ import { UNLOCK_CHAIN } from '../../data/content.js';
   }
 
   .link__arrow {
-    display: block; color: var(--gold-deep); width: 1.5rem; height: 1.5rem;
+    display: block; color: var(--gold-ink); width: 1.5rem; height: 1.5rem;
     margin: 0.5rem 0 0.5rem var(--space-md);
   }
   .link__arrow svg { width: 100%; height: 100%; }

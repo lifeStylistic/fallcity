@@ -267,7 +267,7 @@ than a committed donation, unless that commitment is confirmed in writing.
 fallcity/
 ├── public/                     Files served as-is
 │   ├── favicon.svg             Four-lane mark — replace with district crest
-│   ├── og-image.svg            Social sharing image — replace with 1200x630 JPG
+│   ├── og-image.jpg            1200×630 social sharing card
 │   └── images/
 │       ├── README.md           Which photo goes in which placeholder
 │       └── partners/           Partner logo files
@@ -394,12 +394,13 @@ environment needed for routine copy changes.
 
 ### Before public launch
 
-- [ ] Set the real domain in `astro.config.mjs` (`site:`)
-- [ ] Replace `public/og-image.svg` with a real 1200×630 **JPG** and update
-      `SEO.ogImage` — some social platforms will not render an SVG preview
+- [x] Set the site URL in `astro.config.mjs` (`site:`) — currently the Netlify
+      address; change it again when a custom domain is registered
+- [x] Real 1200×630 JPG social card at `public/og-image.jpg`
 - [ ] Replace `public/favicon.svg` with the district crest
 - [ ] Add real photography in place of the placeholders
-- [ ] Turn on Netlify form notifications (Forms → Settings)
+- [x] Netlify form detection enabled on the project
+- [ ] Turn on Netlify form notifications (Forms → Settings) — **still to do**
 - [ ] Send a test submission and confirm it arrives
 - [ ] Point `DONATION_URL` at a real giving page once one exists
 - [ ] Confirm and add tax-deductibility language

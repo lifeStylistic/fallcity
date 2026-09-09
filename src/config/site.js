@@ -141,7 +141,7 @@ export const PARTNER_SECTION = {
   eyebrow: 'Partners',
   headline: 'We Are Not Starting From Zero.',
   intro:
-    'This project already has industry partners engaged in the work — organizations that build competition running surfaces for a living and understand what this site will require. Their involvement is why the plan below is a real sequence of construction steps rather than a wish list.',
+    'This project already has industry partners engaged in the work — organizations that build competition running surfaces for a living and understand what this site will require. Their involvement is why this plan is a real sequence of construction steps rather than a wish list.',
 };
 
 /* ---------------------------------------------------------------------------
@@ -151,7 +151,9 @@ export const SEO = {
   title: 'The Falls City Four-Lane Project | 50 Students. One Community. Four Lanes.',
   description:
     'Falls City High School is seeking partners to build a competition-capable four-lane synthetic running track for 50 students and a rural Oregon community of 1,086. We don’t have the money. But we have the people.',
-  // [ADD LATER] Replace with a real 1200x630 image at public/og-image.jpg
-  ogImage: '/og-image.svg',
+  // Real 1200x630 JPEG built from the hero photograph. Kept as JPEG on
+  // purpose: Facebook, LinkedIn, iMessage and Slack will not render an SVG
+  // preview, so an SVG card shows as no card at all.
+  ogImage: '/og-image.jpg',
   locale: 'en_US',
 };

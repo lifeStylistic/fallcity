@@ -12,7 +12,7 @@ const { scope, diligence } = PROCESS;
       <p class="lead proc__intro">{PROCESS.intro}</p>
     </div>
 
-    <!-- ORDER OF OPERATIONS ------------------------------------------- -->
+    {/* ORDER OF OPERATIONS ------------------------------------------- */}
     <ol class="proc__steps">
       {PROCESS.steps.map((s) => (
         <li class="step" data-reveal>
@@ -43,10 +43,10 @@ const { scope, diligence } = PROCESS;
       ))}
     </ol>
 
-    <!-- PLANNING SCOPE -------------------------------------------------
+    {/* PLANNING SCOPE -------------------------------------------------
          These figures describe what a 400m four-lane build REQUIRES. They
          are a planning target, not a confirmed site measurement — Step 1 is
-         what confirms them. Keep the caveat visible if you edit this. -->
+         what confirms them. Keep the caveat visible if you edit this. */}
     <div class="proc__scope" data-reveal>
       <div class="proc__scopeHead">
         <p class="proc__scopeLabel">{scope.label}</p>

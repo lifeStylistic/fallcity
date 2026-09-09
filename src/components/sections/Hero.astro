@@ -6,7 +6,7 @@ import { DONATION_URL } from '../../config/site.js';
 ---
 
 <section class="hero on-dark" id="top">
-  <!-- Four lanes running the full height of the hero, behind everything. -->
+  {/* Four lanes running the full height of the hero, behind everything. */}
   <div class="hero__lanes" aria-hidden="true">
     <span></span><span></span><span></span><span></span>
   </div>
@@ -26,7 +26,7 @@ import { DONATION_URL } from '../../config/site.js';
       <p class="hero__body">{HERO.body}</p>
 
       <div class="btn-row hero__actions">
-        <!-- Primary CTA activates automatically once DONATION_URL is set. -->
+        {/* Primary CTA activates automatically once DONATION_URL is set. */}
         <ActionButton href={DONATION_URL} variant="primary" label={HERO.primaryCta} />
         <a class="btn btn--ghost" href="#the-vision">{HERO.secondaryCta}</a>
       </div>
