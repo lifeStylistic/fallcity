@@ -465,6 +465,36 @@ export const VISION_IMAGE = {
     'Conceptual overlay of the planned four-lane track on the Falls City site, prepared by Beynon Sports. No survey has been performed — the layout shown is a goal, not a confirmed design.',
 };
 
+/* --- INITIAL LAYOUT STUDY -----------------------------------------------
+   The drafting team's first fit study, opened full-screen from a link under
+   the conceptual rendering.
+
+   WHAT THIS IS: a test of whether a 400-meter four-lane geometry closes on
+   the ground that is actually there, with the event marks, exchange zones
+   and dimension tables a track layout carries.
+
+   WHAT IT IS NOT, AND WHY THE CAVEAT BELOW IS NOT OPTIONAL: the drawing
+   states a lane-one length of 400.000 meters. That number is the OUTPUT of
+   a geometry drawn over aerial imagery, not the result of measuring this
+   site. No survey has been performed. The executive summary deliberately
+   makes no final claim that 400m will fit, and neither does this page — the
+   study shows the layout the project is aiming at and is the reason Step 1
+   is a topographic survey. If you edit this, keep `note` intact; it is the
+   line that stops a fit study from reading as a confirmed design.        */
+export const LAYOUT_STUDY = {
+  src: '/images/reference/layout-study-1243.jpg',
+  width: 1243,
+  height: 668,
+  linkText: 'View the initial layout study',
+  alt:
+    'Initial four-lane track layout drawn over an aerial photograph of the Falls City High School field. The oval runs around the existing football field, with the running lanes marked and labelled at start lines, finish lines, hurdle positions and relay exchange zones for each event. Two tables sit over the field: one listing event colours and labels for the sprints, hurdles, relays and distance events, the other listing track dimensions — a total lane-one length of 400.000 meters, a straightaway hub distance of 84.150 meters, a lane-one radius of 36.600 meters and a lane width of 1.067 meters.',
+  caption:
+    'The drafting team’s initial fit study, testing a 400-meter four-lane geometry against the existing field, with event marks, relay exchange zones and dimension tables.',
+  note:
+    'Initial layout study only. It was drawn over aerial imagery, not measured on the ground — no survey has been performed, and the 400-meter configuration remains a goal until professional survey and engineering confirm it fits safely on the site.',
+};
+
+
 /* Sits in the Track Surfacing step of the order-of-operations section, to
    show what a synthetic system physically is next to gravel. One sample
    only — a row of them would read as a product selection the district has

@@ -1,5 +1,6 @@
 ---
-import { BEFORE_AFTER, VISION_IMAGE } from '../../data/content.js';
+import { BEFORE_AFTER, VISION_IMAGE, LAYOUT_STUDY } from '../../data/content.js';
+import Lightbox from '../Lightbox.astro';
 import MediaPlaceholder from '../MediaPlaceholder.astro';
 const { today, vision } = BEFORE_AFTER;
 ---
@@ -57,6 +58,19 @@ const { today, vision } = BEFORE_AFTER;
             {/* The caption is required, not decorative: this shows another
                 school's track, and the panel heading says "The Vision". */}
             <figcaption class="ba__caption">{VISION_IMAGE.caption}</figcaption>
+            {/* The drafters' fit study, full-screen. Sits under the rendering
+                because it is the same drawing taken one step further — and it
+                carries its own caveat, since it states a 400m figure. */}
+            <Lightbox
+              id="layout-study"
+              src={LAYOUT_STUDY.src}
+              alt={LAYOUT_STUDY.alt}
+              width={LAYOUT_STUDY.width}
+              height={LAYOUT_STUDY.height}
+              linkText={LAYOUT_STUDY.linkText}
+              caption={LAYOUT_STUDY.caption}
+              note={LAYOUT_STUDY.note}
+            />
           </figure>
         ) : (
           <MediaPlaceholder
