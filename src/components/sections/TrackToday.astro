@@ -37,8 +37,8 @@ const path = (name, w) => `/images/track/${name}-${w}.jpg`;
       </figure>
 
       <div class="today__rest">
-        {rest.map((p) => (
-          <figure class="shot" data-reveal>
+        {rest.map((p, i) => (
+          <figure class="shot" data-reveal style={`--d:${i * 90}ms`}>
             <img
               src={path(p.src, 600)}
               srcset={`${path(p.src, 600)} 600w, ${path(p.src, 1000)} 1000w`}
@@ -79,6 +79,7 @@ const path = (name, w) => `/images/track/${name}-${w}.jpg`;
      the row beneath it. object-position favours the lower-middle of the
      frame, which is where the standing water sits. */
   .shot--lead img {
+    border-radius: var(--radius-lg);
     aspect-ratio: 4 / 3;
     object-fit: cover;
     object-position: center 60%;
@@ -90,8 +91,11 @@ const path = (name, w) => `/images/track/${name}-${w}.jpg`;
     height: auto;
     display: block;
     border-radius: var(--radius);
-    /* A hairline keeps the darker photographs from bleeding into the ground. */
-    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.1);
+    /* Hairline to hold the photograph off the purple, plus real elevation so
+       the frames sit above the band rather than being pasted onto it. */
+    box-shadow:
+      0 0 0 1px rgba(255, 255, 255, 0.12),
+      var(--shadow-dark);
   }
 
   .shot figcaption {

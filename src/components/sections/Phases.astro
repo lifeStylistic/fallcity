@@ -14,7 +14,7 @@ import { PHASES } from '../../data/content.js';
          disconnected cards, so the sequence reads as one path. -->
     <ol class="phases__track">
       {PHASES.items.map((item, i) => (
-        <li class={`phase ${i === 0 ? 'phase--current' : ''}`} data-reveal>
+        <li class={`phase ${i === 0 ? 'phase--current' : ''}`} data-reveal style={`--d:${i * 90}ms`}>
           <div class="phase__meta">
             <span class="phase__num">Phase {item.number}</span>
             <span class="phase__tag">{item.tag}</span>
@@ -68,12 +68,16 @@ import { PHASES } from '../../data/content.js';
 
   .phase__dot {
     position: relative; z-index: 1; flex: none;
-    width: 0.9rem; height: 0.9rem; border-radius: 50%;
+    width: 0.95rem; height: 0.95rem; border-radius: 50%;
     background: var(--paper); border: 2px solid var(--line);
+    box-shadow: var(--shadow-xs);
   }
   .phase--current .phase__dot {
-    background: var(--gold); border-color: var(--gold);
-    box-shadow: 0 0 0 5px rgba(242, 201, 76, 0.28);
+    background: var(--grad-gold); border-color: transparent;
+    box-shadow:
+      0 0 0 5px rgba(242, 201, 76, 0.22),
+      0 0 0 11px rgba(242, 201, 76, 0.10),
+      0 4px 12px rgba(201, 154, 22, 0.35);
   }
 
   .phase__meta {
@@ -100,9 +104,11 @@ import { PHASES } from '../../data/content.js';
 
   .phases__note {
     margin-top: var(--space-lg);
-    padding: var(--space-md);
+    padding: var(--space-lg);
     background: var(--paper);
-    border-left: 3px solid var(--purple);
+    border-left: 4px solid var(--purple);
+    border-radius: 0 var(--radius) var(--radius) 0;
+    box-shadow: var(--shadow-sm);
   }
   .phases__note p { font-size: var(--fs-small); color: var(--ink-soft); line-height: 1.6; max-width: 80ch; }
   .phases__note strong { color: var(--ink); }

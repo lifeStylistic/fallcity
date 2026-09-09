@@ -60,12 +60,42 @@ a { color: inherit; }
 .section { padding-block: var(--space-2xl); position: relative; }
 .section--tint { background: var(--tint); }
 .section--warm { background: var(--paper-warm); }
-/* Dark sections are PURPLE, never grey or black — the campaign palette is
-   purple, gold and white. Two depths are provided so consecutive dark bands
-   stay distinguishable from each other. */
-.section--purple      { background: var(--purple); color: #fff; }
-.section--purple-deep { background: var(--purple-deep); color: #fff; }
-.section--tint-deep   { background: var(--tint-deep); }
+/* Dark sections are PURPLE, never grey or black. Filled with gradients
+   rather than flat colour — a few percent of shift is the difference between
+   a lit surface and a printed one. */
+.section--purple      { background: var(--grad-purple); color: #fff; }
+.section--purple-deep { background: var(--grad-deep); color: #fff; }
+.section--tint        { background: var(--grad-tint); }
+.section--tint-deep   { background: linear-gradient(170deg, var(--tint) 0%, var(--tint-deep) 100%); }
+
+/* Film grain over dark sections. At 3% it is invisible as texture but stops
+   large purple fields from banding, and is the single cheapest thing that
+   separates a considered page from a flat one. */
+.section--purple::after,
+.section--purple-deep::after,
+.hero::after,
+.cta::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.035;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+.section--purple, .section--purple-deep { position: relative; }
+
+/* Soft edges where a dark band meets the section above and below it, so the
+   page reads as one continuous surface rather than stacked slabs. */
+.section--purple::before,
+.section--purple-deep::before {
+  content: '';
+  position: absolute;
+  left: 0; right: 0; top: 0;
+  height: 120px;
+  pointer-events: none;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.16), transparent);
+}
 
 /* ===========================================================================
    THE FOUR-LANE MOTIF
@@ -134,19 +164,34 @@ a { color: inherit; }
     color var(--dur-fast) var(--ease), border-color var(--dur-fast) var(--ease),
     transform var(--dur-fast) var(--ease);
 }
-.btn:hover { transform: translateY(-2px); }
+.btn {
+  border-radius: var(--radius-pill);
+  transition: background var(--dur-fast) var(--ease-soft),
+    color var(--dur-fast) var(--ease-soft),
+    border-color var(--dur-fast) var(--ease-soft),
+    box-shadow var(--dur) var(--ease-out),
+    transform var(--dur) var(--ease-out);
+}
+.btn:hover { transform: translateY(-3px); }
 
-.btn--primary   { background: var(--gold); color: var(--ink); border-color: var(--gold); }
-.btn--primary:hover { background: #FFD966; border-color: #FFD966; }
+.btn--primary {
+  background: var(--grad-gold); color: var(--ink); border-color: transparent;
+  box-shadow: 0 4px 12px rgba(201, 154, 22, 0.28), 0 10px 28px rgba(201, 154, 22, 0.22);
+}
+.btn--primary:hover { box-shadow: 0 8px 20px rgba(201, 154, 22, 0.34), 0 18px 44px rgba(201, 154, 22, 0.28); }
 
-.btn--purple    { background: var(--purple); color: #fff; border-color: var(--purple); }
-.btn--purple:hover { background: var(--purple-soft); border-color: var(--purple-soft); }
+.btn--purple {
+  background: linear-gradient(140deg, var(--purple-soft), var(--purple));
+  color: #fff; border-color: transparent;
+  box-shadow: var(--shadow-md);
+}
+.btn--purple:hover { box-shadow: var(--shadow-lg); }
 
 .btn--outline   { background: transparent; color: var(--purple); border-color: var(--purple); }
-.btn--outline:hover { background: var(--purple); color: #fff; }
+.btn--outline:hover { background: var(--purple); color: #fff; box-shadow: var(--shadow-md); }
 
 .btn--ghost     { background: transparent; color: #fff; border-color: rgba(255,255,255,0.45); }
-.btn--ghost:hover { background: #fff; color: var(--ink); border-color: #fff; }
+.btn--ghost:hover { background: #fff; color: var(--ink); border-color: #fff; box-shadow: var(--shadow-dark); }
 
 /* An unconfigured CTA keeps its colour but switches to a dashed border and
    drops to a muted weight, so it reads as "not live yet" instead of looking
@@ -157,8 +202,12 @@ a { color: inherit; }
   transform: none;
   border-style: dashed;
   opacity: 0.82;
+  /* Critically: no elevation. The lit gradient and shadow the live buttons
+     now carry would make an inactive control read as the primary action. */
+  background: transparent !important;
+  box-shadow: none !important;
 }
-.btn.is-placeholder:hover { transform: none; }
+.btn.is-placeholder:hover { transform: none; box-shadow: none !important; }
 .btn--primary.is-placeholder { background: transparent; color: var(--gold); border-color: var(--gold); }
 .btn--purple.is-placeholder  { background: transparent; color: var(--purple); border-color: var(--purple); }
 .on-dark .btn--purple.is-placeholder { color: #fff; border-color: rgba(255,255,255,0.5); }
@@ -171,10 +220,15 @@ a { color: inherit; }
    SCROLL REVEAL — restrained: 12px rise + fade, once, on enter.
    Fully disabled for anyone who prefers reduced motion.
    =========================================================================== */
+/* Reveal now carries a slight lift and scale rather than a flat slide, and
+   honours an optional --d delay so grids stagger instead of snapping in as
+   one block. */
 [data-reveal] {
   opacity: 0;
-  transform: translateY(12px);
-  transition: opacity var(--dur-slow) var(--ease), transform var(--dur-slow) var(--ease);
+  transform: translateY(22px) scale(0.985);
+  transition:
+    opacity var(--dur-slow) var(--ease-out) var(--d, 0ms),
+    transform var(--dur-slow) var(--ease-out) var(--d, 0ms);
 }
 [data-reveal].is-visible { opacity: 1; transform: none; }
 

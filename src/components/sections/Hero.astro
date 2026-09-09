@@ -78,8 +78,9 @@ import { DONATION_URL } from '../../config/site.js';
     content: '';
     position: absolute; inset: 0;
     background:
-      radial-gradient(120% 90% at 85% 0%, rgba(107, 77, 168, 0.55) 0%, transparent 55%),
-      radial-gradient(90% 70% at 0% 100%, rgba(242, 201, 76, 0.10) 0%, transparent 60%);
+      radial-gradient(120% 90% at 85% 0%, rgba(122, 88, 190, 0.62) 0%, transparent 55%),
+      radial-gradient(90% 70% at 0% 100%, rgba(242, 201, 76, 0.13) 0%, transparent 60%),
+      radial-gradient(70% 60% at 30% 40%, rgba(70, 40, 130, 0.5) 0%, transparent 70%);
     pointer-events: none;
   }
 
@@ -90,7 +91,12 @@ import { DONATION_URL } from '../../config/site.js';
     padding-inline: var(--gutter);
     pointer-events: none;
   }
-  .hero__lanes span { border-right: 1px solid rgba(255, 255, 255, 0.07); }
+  /* Faded top and bottom so the lanes suggest structure rather than
+     dividing the hero into panels — at a flat 7% they read as seams. */
+  .hero__lanes span {
+    border-right: 1px solid transparent;
+    border-image: linear-gradient(to bottom, transparent, rgba(255,255,255,0.09) 35%, rgba(255,255,255,0.09) 65%, transparent) 1;
+  }
   .hero__lanes span:last-child { border-right: 0; }
 
   .hero__inner {
@@ -148,10 +154,25 @@ import { DONATION_URL } from '../../config/site.js';
     width: 100%;
     height: auto;
     display: block;
-    border-radius: var(--radius);
-    /* Faint warm ring so the dark edges of the photograph do not dissolve
-       into the purple ground behind it. */
-    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.14), 0 24px 60px rgba(0, 0, 0, 0.28);
+    border-radius: var(--radius-lg);
+    /* Hairline to hold the dark edges off the purple, then a deep ambient
+       shadow so the photograph sits above the page rather than in it. */
+    box-shadow:
+      0 0 0 1px rgba(255, 255, 255, 0.14),
+      var(--shadow-dark);
+    transform: translateZ(0);
+  }
+
+  /* A soft gold bloom behind the photograph — reads as light coming off the
+     image rather than a border around it. */
+  .hero__media { position: relative; }
+  .hero__media::before {
+    content: '';
+    position: absolute;
+    inset: -14% -10% -18%;
+    background: radial-gradient(60% 55% at 50% 45%, rgba(242, 201, 76, 0.20), transparent 70%);
+    filter: blur(28px);
+    pointer-events: none;
   }
 
   .hero__scroll {

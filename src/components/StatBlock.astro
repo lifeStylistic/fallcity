@@ -18,14 +18,23 @@ const { value, unit = '', label, note = '' } = Astro.props;
   .stat { padding-top: var(--space-md); }
   .stat__lanes { margin-bottom: var(--space-md); max-width: 3.5rem; }
 
+  /* Gradient numerals. The fallback colour matters — if background-clip is
+     unsupported the number must still be purple, not invisible. */
   .stat__value {
     font-family: var(--font-display);
     font-size: var(--fs-stat);
-    font-weight: 700;
+    font-weight: 800;
     line-height: 0.85;
     letter-spacing: -0.045em;
     color: var(--purple);
     font-variant-numeric: tabular-nums;
+    background: linear-gradient(155deg, var(--purple-soft) 0%, var(--purple) 45%, var(--purple-deep) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  @supports not (background-clip: text) {
+    .stat__value { -webkit-text-fill-color: currentColor; }
   }
 
   .stat__unit {

@@ -17,7 +17,7 @@ import { UNLOCK_CHAIN } from '../../data/content.js';
       {UNLOCK_CHAIN.steps.map((s, i) => (
         <li
           class={`link ${s.terminal ? 'link--terminal' : ''}`}
-          style={`--i:${i}`}
+          style={`--i:${i}; --d:${i * 70}ms`}
           data-reveal
         >
           <div class="link__inner">
@@ -48,11 +48,15 @@ import { UNLOCK_CHAIN } from '../../data/content.js';
 
   .link__inner {
     width: 100%;
-    padding: var(--space-md);
+    padding: var(--space-md) var(--space-lg);
     background: var(--paper);
-    border: 1px solid var(--line);
-    border-left: 3px solid var(--purple);
+    border: 1px solid rgba(75, 46, 131, 0.10);
+    border-left: 4px solid var(--purple);
+    border-radius: 0 var(--radius) var(--radius) 0;
+    box-shadow: var(--shadow-sm);
+    transition: box-shadow var(--dur) var(--ease-out), transform var(--dur) var(--ease-out);
   }
+  .link:hover .link__inner { box-shadow: var(--shadow-md); transform: translateX(4px); }
 
   .link__label {
     display: block;
@@ -75,9 +79,10 @@ import { UNLOCK_CHAIN } from '../../data/content.js';
 
   /* The payoff link is the one that changes colour — arriving somewhere. */
   .link--terminal .link__inner {
-    background: var(--purple-deep);
-    border-color: var(--purple-deep);
+    background: var(--grad-deep);
+    border-color: transparent;
     border-left-color: var(--gold);
+    box-shadow: var(--shadow-lg);
   }
   .link--terminal .link__label { color: var(--gold); }
   .link--terminal .link__body { color: rgba(255,255,255,0.78); }

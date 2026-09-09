@@ -50,6 +50,7 @@ const { today, vision } = BEFORE_AFTER;
               alt={VISION_IMAGE.alt}
               width="1300"
               height="849"
+              style="box-shadow: var(--shadow-dark); border-radius: var(--radius);"
               loading="lazy"
               decoding="async"
             />
@@ -78,9 +79,32 @@ const { today, vision } = BEFORE_AFTER;
 
   .ba__grid { display: grid; gap: var(--space-md); }
 
-  .ba__panel { padding: clamp(1.5rem, 3vw, 2.5rem); border-radius: var(--radius); }
-  .ba__panel--today  { background: var(--paper); border: 1px solid var(--line); }
-  .ba__panel--vision { background: var(--purple-deep); color: #fff; }
+  .ba__panel {
+    padding: clamp(1.5rem, 3vw, 2.75rem);
+    border-radius: var(--radius-lg);
+    position: relative;
+  }
+  .ba__panel--today {
+    background: var(--paper);
+    border: 1px solid rgba(75, 46, 131, 0.10);
+    box-shadow: var(--shadow-md);
+  }
+  .ba__panel--vision {
+    background: var(--grad-deep);
+    color: #fff;
+    box-shadow: var(--shadow-xl);
+    overflow: hidden;
+  }
+  /* Gold rake across the vision panel, so the two sides are not merely light
+     and dark but lit differently. */
+  .ba__panel--vision::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(80% 60% at 85% 0%, rgba(242, 201, 76, 0.14), transparent 65%);
+    pointer-events: none;
+  }
+  .ba__panel--vision > * { position: relative; }
 
   .ba__label { display: flex; align-items: center; gap: var(--space-sm); margin-bottom: var(--space-md); }
   .ba__labelText {
@@ -101,6 +125,7 @@ const { today, vision } = BEFORE_AFTER;
     object-position: center 62%;
     border-radius: var(--radius);
     display: block;
+    box-shadow: var(--shadow-md);
   }
 
   .ba__figure { margin: 0; }

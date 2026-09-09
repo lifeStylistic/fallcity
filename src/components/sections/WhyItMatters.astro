@@ -36,8 +36,8 @@ import MediaPlaceholder from '../MediaPlaceholder.astro';
       </div>
 
       <ul class="why__grid">
-        {WHY_IT_MATTERS.pillars.map((p) => (
-          <li class="why__card" data-reveal>
+        {WHY_IT_MATTERS.pillars.map((p, i) => (
+          <li class="why__card" data-reveal style={`--d:${i * 70}ms`}>
             <span class="why__num" aria-hidden="true">{p.number}</span>
             <h3 class="why__title">{p.title}</h3>
             <p class="why__body">{p.body}</p>
@@ -52,7 +52,7 @@ import MediaPlaceholder from '../MediaPlaceholder.astro';
   .why__head { margin-bottom: var(--space-xl); max-width: 30rem; }
 
   .why__figure { margin: 0; }
-  .why__figure img { width: 100%; height: auto; display: block; border-radius: var(--radius); }
+  .why__figure img { width: 100%; height: auto; display: block; border-radius: var(--radius-lg); box-shadow: var(--shadow-lg); }
   .why__figure figcaption {
     margin-top: 0.7rem;
     font-size: var(--fs-small);
@@ -67,7 +67,9 @@ import MediaPlaceholder from '../MediaPlaceholder.astro';
   .why__card {
     padding-top: var(--space-md);
     border-top: 2px solid var(--purple);
+    transition: transform var(--dur) var(--ease-out);
   }
+  .why__card:hover { transform: translateY(-4px); }
   .why__num {
     display: block;
     font-family: var(--font-display);

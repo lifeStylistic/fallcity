@@ -96,12 +96,17 @@ import { CTA_IMAGE } from '../../data/content.js';
     max-width: var(--max-width); margin-inline: auto; padding-inline: var(--gutter);
     pointer-events: none;
   }
-  .cta__lanes span { border-right: 1px solid rgba(255,255,255,0.06); }
+  .cta__lanes span {
+    border-right: 1px solid transparent;
+    border-image: linear-gradient(to bottom, transparent, rgba(255,255,255,0.08) 40%, rgba(255,255,255,0.08) 60%, transparent) 1;
+  }
   .cta__lanes span:last-child { border-right: 0; }
 
   .cta__banner { position: relative; margin: 0 0 var(--space-xl); }
   .cta__banner img {
     width: 100%;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-dark);
     aspect-ratio: 16 / 9;
     object-fit: cover;
     /* Source is 1.52:1, so even 16/9 crops vertically. Favour the upper

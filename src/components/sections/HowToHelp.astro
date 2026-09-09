@@ -13,8 +13,8 @@ import { DONATION_URL, PARTNER_FORM_URL, VOLUNTEER_URL } from '../../config/site
     </div>
 
     <ul class="help__grid">
-      {HOW_TO_HELP.categories.map((c) => (
-        <li class="help__card" data-reveal>
+      {HOW_TO_HELP.categories.map((c, i) => (
+        <li class="help__card" data-reveal style={`--d:${i * 55}ms`}>
           <div class="lanes lanes--purple help__lanes" aria-hidden="true">
             <span></span><span></span><span></span><span></span>
           </div>
@@ -47,21 +47,47 @@ import { DONATION_URL, PARTNER_FORM_URL, VOLUNTEER_URL } from '../../config/site
 
   .help__card {
     padding: var(--space-md);
-    background: var(--paper);
-    border: 1px solid var(--line);
-    transition: border-color var(--dur) var(--ease), transform var(--dur) var(--ease);
+    background: linear-gradient(170deg, #fff 0%, #FCFBFE 100%);
+    border: 1px solid transparent;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-sm);
+    transition:
+      box-shadow var(--dur) var(--ease-out),
+      transform var(--dur) var(--ease-out),
+      border-color var(--dur) var(--ease-out);
   }
-  .help__card:hover { border-color: var(--purple); transform: translateY(-3px); }
+  .help__card {
+    position: relative;
+    overflow: hidden;
+  }
+  /* Gold edge that wipes in on hover — motion with a reason, rather than a
+     colour change. */
+  .help__card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    background: var(--grad-gold);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform var(--dur) var(--ease-out);
+  }
+  .help__card:hover::before { transform: scaleX(1); }
+  .help__card:hover {
+    border-color: rgba(75, 46, 131, 0.16);
+    box-shadow: var(--shadow-lg);
+    transform: translateY(-6px);
+  }
 
-  .help__lanes { max-width: 2rem; margin-bottom: var(--space-sm); }
+  .help__lanes { max-width: 2.25rem; margin-bottom: var(--space-md); }
   .help__title { font-size: 1.15rem; margin-bottom: 0.4rem; }
   .help__body { font-size: var(--fs-small); color: var(--ink-soft); line-height: 1.55; }
 
   .help__anchor {
     margin-top: var(--space-lg);
-    padding: var(--space-md);
-    background: var(--tint);
-    border-left: 3px solid var(--gold);
+    padding: var(--space-lg);
+    background: var(--grad-tint);
+    border-left: 4px solid var(--gold);
+    border-radius: 0 var(--radius) var(--radius) 0;
+    box-shadow: var(--shadow-sm);
   }
   .help__anchorText { max-width: 72ch; color: var(--ink); font-size: var(--fs-body); }
 
