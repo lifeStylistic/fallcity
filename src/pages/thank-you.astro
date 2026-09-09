@@ -1,0 +1,132 @@
+---
+/* Netlify redirects here after a successful form submission (set by the
+   form's `action`). Kept deliberately short — the job is to confirm the
+   message arrived and give one way back. */
+import Base from '../layouts/Base.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import { CONTACT } from '../config/site.js';
+---
+
+<Base
+  title="Thank You | The Falls City Four-Lane Project"
+  description="Your message has been received by the Falls City Four-Lane Project."
+>
+  <Nav />
+
+  <main id="main">
+    <section class="ty on-dark">
+      <div class="ty__lanes" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
+      <div class="shell ty__inner">
+        <div class="ty__mark" aria-hidden="true">
+          <svg viewBox="0 0 48 48" role="presentation" focusable="false">
+            <circle cx="24" cy="24" r="22" fill="none" stroke="currentColor" stroke-width="1.5" opacity="0.35" />
+            <path d="M15 24.5 L21 30.5 L33 18" fill="none" stroke="currentColor"
+                  stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </div>
+
+        <h1 class="ty__title">Thank You. Message Received.</h1>
+
+        <p class="ty__lead">
+          Your inquiry has gone straight to {CONTACT.name} at {CONTACT.district}.
+          You can expect a reply with specifics — what the project needs, and when.
+        </p>
+
+        <p class="ty__quiet">
+          Nothing is committed by sending this. If you would rather talk it through,
+          reach {CONTACT.name} at <a href={`mailto:${CONTACT.email}`}>{CONTACT.email}</a>
+          or <a href={`tel:${CONTACT.phoneHref}`}>{CONTACT.phone}</a>.
+        </p>
+
+        <div class="btn-row ty__actions">
+          <a class="btn btn--primary" href="/">Back to the Project</a>
+          <a class="btn btn--ghost" href="/#the-plan">See the Plan</a>
+        </div>
+
+        <p class="ty__sign">
+          <span>50 Students.</span><span>One Community.</span><span>Four Lanes.</span>
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</Base>
+
+<style>
+  .ty {
+    position: relative;
+    background: var(--grad-deep);
+    color: #fff;
+    /* Fills the viewport so a short page does not leave the footer floating
+       halfway up the screen. */
+    min-height: calc(100vh - 5rem);
+    display: grid;
+    align-items: center;
+    padding-block: var(--space-2xl);
+    overflow: hidden;
+  }
+  .ty::before {
+    content: '';
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(100% 70% at 75% 0%, rgba(122, 88, 190, 0.55), transparent 60%),
+      radial-gradient(70% 60% at 10% 100%, rgba(242, 201, 76, 0.12), transparent 65%);
+    pointer-events: none;
+  }
+  .ty__lanes {
+    position: absolute; inset: 0;
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    max-width: var(--max-width); margin-inline: auto; padding-inline: var(--gutter);
+    pointer-events: none;
+  }
+  .ty__lanes span {
+    border-right: 1px solid transparent;
+    border-image: linear-gradient(to bottom, transparent, rgba(255,255,255,0.08) 40%, rgba(255,255,255,0.08) 60%, transparent) 1;
+  }
+  .ty__lanes span:last-child { border-right: 0; }
+
+  .ty__inner { position: relative; max-width: 46rem; }
+
+  .ty__mark { width: 3.5rem; color: var(--gold); margin-bottom: var(--space-lg); }
+  .ty__mark svg { width: 100%; height: auto; }
+
+  .ty__title {
+    font-size: var(--fs-display);
+    font-weight: 800;
+    letter-spacing: -0.035em;
+    line-height: 1.02;
+    text-wrap: balance;
+  }
+  .ty__lead {
+    margin-top: var(--space-md);
+    font-size: var(--fs-lead);
+    line-height: 1.55;
+    color: rgba(255, 255, 255, 0.86);
+    max-width: 52ch;
+  }
+  .ty__quiet {
+    margin-top: var(--space-md);
+    font-size: var(--fs-small);
+    color: rgba(255, 255, 255, 0.66);
+    max-width: 52ch;
+    line-height: 1.6;
+  }
+  .ty__quiet a { color: var(--gold); text-decoration: none; font-weight: 600; }
+  .ty__quiet a:hover { text-decoration: underline; }
+
+  .ty__actions { margin-top: var(--space-lg); }
+
+  .ty__sign {
+    margin-top: var(--space-2xl);
+    padding-top: var(--space-lg);
+    border-top: 1px solid rgba(255, 255, 255, 0.16);
+    font-family: var(--font-display);
+    font-size: clamp(1.1rem, 2.2vw, 1.6rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    display: flex; flex-wrap: wrap; gap: 0.5rem 0.75rem;
+  }
+  .ty__sign span:last-child { color: var(--gold); }
+</style>

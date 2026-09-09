@@ -15,7 +15,7 @@ District 57, Falls City, Oregon.
 - [Quick start](#quick-start)
 - [Where to edit content](#where-to-edit-content)
 - [Where to add images](#where-to-add-images)
-- [Where to add donation links](#where-to-add-donation-links)
+- [The inquiry form](#the-inquiry-form)
 - [Publishing the "Why I'm Asking" section](#publishing-the-why-im-asking-section)
 - [How to update fundraising progress](#how-to-update-fundraising-progress)
 - [How to update project status](#how-to-update-project-status)
@@ -111,20 +111,53 @@ header shows the four-lane campaign mark instead.
 
 ---
 
-## Where to add donation links
+## The inquiry form
 
-Open `src/config/site.js` and replace `null` with a URL in quotes:
+Every call to action on the site leads to **`/get-involved`**, an on-site form
+that collects submissions through **Netlify Forms**. No third-party service
+and no API keys — submissions appear in the Netlify dashboard for this
+project.
+
+### Before you publicise the site
+
+**Turn on form notifications**, or submissions will collect silently and
+nobody will know they arrived:
+
+> Netlify dashboard → this project → **Forms** → Settings → **Form
+> notifications** → add an email address.
+
+### Reading submissions
+
+Netlify dashboard → this project → **Forms** → `project-inquiry`. Each entry
+records how they want to help, name, email, phone, organisation, the scale of
+contribution and their message. Submissions can be exported to CSV.
+
+### How the buttons route
+
+All three buttons reach the same form, tagged so you can tell them apart:
 
 ```js
-export const DONATION_URL = 'https://www.givebutter.com/falls-city-track';
-export const PARTNER_FORM_URL = 'https://forms.gle/example';
-export const VOLUNTEER_URL = 'https://forms.gle/example2';
+export const DONATION_URL = '/get-involved?intent=donate';
+export const PARTNER_FORM_URL = '/get-involved?intent=partner';
+export const VOLUNTEER_URL = '/get-involved?intent=volunteer';
 ```
 
-Every "Donate", "Become a Partner" and "Volunteer" button across the site
-activates automatically. **While a URL is `null`, its button renders as a
-clearly disabled placeholder** with a dashed border rather than a dead link
-that silently goes nowhere.
+The `intent` parameter preselects the form's first question, so the submission
+records which button was clicked.
+
+### When a real giving page exists
+
+Once there is an online donation page (Givebutter, PayPal Giving, a district
+page), point `DONATION_URL` straight at it so money can be taken on the spot.
+**Leave the other two on the form** — a partner or volunteer inquiry needs a
+conversation, not a checkout.
+
+### Editing the form
+
+Fields live in `src/pages/get-involved.astro`. If you add one, give it a
+`name` attribute — Netlify captures fields by name — and a `<label for="…">`.
+Do not remove `data-netlify="true"` or the hidden `form-name` field: without
+either, the form keeps working visually while dropping every submission.
 
 ---
 
@@ -354,7 +387,9 @@ environment needed for routine copy changes.
       `SEO.ogImage` — some social platforms will not render an SVG preview
 - [ ] Replace `public/favicon.svg` with the district crest
 - [ ] Add real photography in place of the placeholders
-- [ ] Add donation, partner and volunteer URLs
+- [ ] Turn on Netlify form notifications (Forms → Settings)
+- [ ] Send a test submission and confirm it arrives
+- [ ] Point `DONATION_URL` at a real giving page once one exists
 - [ ] Confirm and add tax-deductibility language
 - [ ] Verify the district website URL in `SCHOOL_URL`
 

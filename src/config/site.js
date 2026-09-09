@@ -21,9 +21,23 @@ export const PROJECT_TAGLINE = '50 Students. One Community. Four Lanes.';
    Until then each button renders as a visibly inactive placeholder rather
    than a dead link that silently goes nowhere.
 --------------------------------------------------------------------------- */
-export const DONATION_URL = null;      // [ADD LATER] Online giving page
-export const PARTNER_FORM_URL = null;  // [ADD LATER] Project partner inquiry form
-export const VOLUNTEER_URL = null;     // [ADD LATER] Volunteer sign-up form
+/* These now point at the on-site inquiry form (/get-involved), which collects
+   submissions through Netlify Forms. The `intent` parameter preselects the
+   first question so the form reflects whichever button was clicked, while
+   everything still lands in one place for Jennifer to review.
+
+   IMPORTANT — turn on notifications before publicising the site:
+   Netlify dashboard → Forms → Settings → Form notifications → add an email.
+   Without that, submissions collect silently in the dashboard and nobody
+   knows they have arrived.
+
+   When a real online giving page exists (Givebutter, PayPal Giving, a
+   district page), point DONATION_URL at it directly and money can be taken
+   on the spot. Leave the other two on the form — a partner or volunteer
+   inquiry needs a conversation, not a checkout. */
+export const DONATION_URL = '/get-involved?intent=donate';
+export const PARTNER_FORM_URL = '/get-involved?intent=partner';
+export const VOLUNTEER_URL = '/get-involved?intent=volunteer';
 
 /* ---------------------------------------------------------------------------
    SCHOOL CREST / CAMPAIGN LOGO

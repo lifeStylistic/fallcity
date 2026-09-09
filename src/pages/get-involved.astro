@@ -1,0 +1,426 @@
+---
+/* ===========================================================================
+   GET INVOLVED — inquiry form
+   ---------------------------------------------------------------------------
+   Netlify Forms. Submissions appear under Forms in the Netlify dashboard for
+   this project; no third-party service and no API keys involved.
+
+   HOW IT WORKS
+   - `data-netlify="true"` plus the hidden `form-name` field is what Netlify
+     detects at deploy time. Both are required; removing either silently
+     breaks collection, and the form will appear to work while dropping every
+     submission.
+   - `data-netlify-honeypot` names a field real people never see. Bots fill
+     it in and those submissions are discarded.
+   - On success Netlify redirects to /thank-you.
+
+   ONE FORM, THREE DOORS
+   Donate, Become a Partner and Volunteer all land here, distinguished by an
+   `intent` query parameter that preselects the first question. One form means
+   one place for Jennifer to look, and one thing to maintain — but the
+   submission still records which button was clicked.
+
+   TO SEE SUBMISSIONS: Netlify dashboard → this project → Forms.
+   TO GET EMAIL ALERTS: Forms → Settings → Form notifications → add an email.
+   Do that before publicising the site, or enquiries will sit unread.
+=========================================================================== */
+import Base from '../layouts/Base.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import { CONTACT } from '../config/site.js';
+
+const intents = [
+  { value: 'financial',   label: 'A financial contribution' },
+  { value: 'materials',   label: 'Materials or equipment' },
+  { value: 'labor',       label: 'Labor, excavation or site work' },
+  { value: 'services',    label: 'Professional services (survey, engineering, design)' },
+  { value: 'track',       label: 'The track surface itself' },
+  { value: 'volunteer',   label: 'Volunteering time' },
+  { value: 'other',       label: 'Something else — I’ll explain below' },
+];
+---
+
+<Base
+  title="Get Involved | The Falls City Four-Lane Project"
+  description="Tell us how you would like to help build a four-lane track at Falls City High School — as a donor, a project partner, a contractor or a volunteer."
+>
+  <Nav />
+
+  <main id="main">
+    <section class="fh on-dark">
+      <div class="fh__lanes" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
+      <div class="shell fh__inner">
+        <p class="eyebrow">Get Involved</p>
+        <h1 class="fh__title">Tell Us How You’d Like to Help.</h1>
+        <p class="fh__lead">
+          Every contribution to this project is a specific, defined piece of work —
+          so the more you can tell us about what you have in mind, the faster we can
+          come back to you with something concrete.
+        </p>
+      </div>
+    </section>
+
+    <section class="section formsec">
+      <div class="shell formsec__inner">
+        <form
+          class="form"
+          name="project-inquiry"
+          method="POST"
+          data-netlify="true"
+          data-netlify-honeypot="bot-field"
+          action="/thank-you"
+        >
+          {/* Required by Netlify — identifies which form was submitted. */}
+          <input type="hidden" name="form-name" value="project-inquiry" />
+
+          {/* Honeypot. Hidden from people, irresistible to bots. */}
+          <p class="form__hp">
+            <label>Leave this field empty <input name="bot-field" tabindex="-1" autocomplete="off" /></label>
+          </p>
+
+          <fieldset class="form__set">
+            <legend class="form__legend">How would you like to help?</legend>
+            <div class="field">
+              <label class="field__label" for="intent">
+                I’m interested in contributing <span class="req" aria-hidden="true">*</span>
+              </label>
+              <div class="select">
+                <select id="intent" name="intent" required>
+                  {intents.map((i) => <option value={i.value}>{i.label}</option>)}
+                </select>
+              </div>
+            </div>
+          </fieldset>
+
+          <fieldset class="form__set">
+            <legend class="form__legend">About you</legend>
+
+            <div class="form__row">
+              <div class="field">
+                <label class="field__label" for="name">Name <span class="req" aria-hidden="true">*</span></label>
+                <input id="name" name="name" type="text" required autocomplete="name" />
+              </div>
+              <div class="field">
+                <label class="field__label" for="email">Email <span class="req" aria-hidden="true">*</span></label>
+                <input id="email" name="email" type="email" required autocomplete="email" />
+              </div>
+            </div>
+
+            <div class="form__row">
+              <div class="field">
+                <label class="field__label" for="phone">Phone</label>
+                <input id="phone" name="phone" type="tel" autocomplete="tel" />
+              </div>
+              <div class="field">
+                <label class="field__label" for="organization">Company or organization</label>
+                <input id="organization" name="organization" type="text" autocomplete="organization" />
+              </div>
+            </div>
+          </fieldset>
+
+          <fieldset class="form__set">
+            <legend class="form__legend">What you have in mind</legend>
+
+            {/* Deliberately optional and deliberately not called "amount".
+                A required money question on a first approach turns away small
+                donors and volunteers, and most of what this project needs is
+                in-kind rather than cash. */}
+            <div class="field">
+              <label class="field__label" for="scale">
+                Scale of contribution <span class="field__opt">optional</span>
+              </label>
+              <input
+                id="scale"
+                name="scale"
+                type="text"
+                placeholder="A dollar figure, a quantity of materials, days of equipment time — whatever fits"
+              />
+              <p class="field__help">
+                A rough idea is genuinely useful, and there is no figure too small.
+                In-kind contributions matter here as much as money.
+              </p>
+            </div>
+
+            <div class="field">
+              <label class="field__label" for="message">
+                Tell us about yourself and why this interests you <span class="req" aria-hidden="true">*</span>
+              </label>
+              <textarea id="message" name="message" rows="6" required></textarea>
+              <p class="field__help">
+                Any connection to Falls City, what your organization does, or what
+                you would want to know before committing — all of it helps.
+              </p>
+            </div>
+          </fieldset>
+
+          <div class="form__actions">
+            <button class="btn btn--primary" type="submit">Send Inquiry</button>
+            <p class="form__note">
+              Goes directly to {CONTACT.name} at {CONTACT.district}. No mailing list, no sharing.
+            </p>
+          </div>
+        </form>
+
+        <aside class="aside">
+          <div class="aside__card">
+            <div class="lanes lanes--purple aside__lanes" aria-hidden="true">
+              <span></span><span></span><span></span><span></span>
+            </div>
+            <h2 class="aside__title">Would rather just talk?</h2>
+            <p class="aside__body">
+              Email or call directly. A conversation is often faster than a form,
+              especially for contractors and suppliers with questions about the site.
+            </p>
+            <address class="aside__contact">
+              <strong>{CONTACT.name}</strong>
+              <span>{CONTACT.district}</span>
+              <a href={`mailto:${CONTACT.email}`}>{CONTACT.email}</a>
+              <a href={`tel:${CONTACT.phoneHref}`}>{CONTACT.phone}</a>
+            </address>
+          </div>
+
+          <div class="aside__card aside__card--quiet">
+            <h2 class="aside__title aside__title--sm">What happens next</h2>
+            <ol class="aside__steps">
+              <li>Your message goes straight to the project lead.</li>
+              <li>You’ll get a reply with specifics — what’s needed, and when.</li>
+              <li>Nothing is committed until you say so.</li>
+            </ol>
+          </div>
+        </aside>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</Base>
+
+<script is:inline>
+  /* Preselect the first question from ?intent=… so the button someone clicked
+     is reflected in the form. Progressive: without JavaScript the select
+     simply keeps its first option and the form still works. */
+  (function () {
+    var map = {
+      donate: 'financial',
+      partner: 'materials',
+      volunteer: 'volunteer',
+      track: 'track',
+      services: 'services',
+    };
+    var want = new URLSearchParams(window.location.search).get('intent');
+    var target = map[want] || want;
+    if (!target) return;
+    var sel = document.getElementById('intent');
+    if (sel && [].some.call(sel.options, function (o) { return o.value === target; })) {
+      sel.value = target;
+    }
+  })();
+</script>
+
+<style>
+  /* --- Page header band --- */
+  .fh {
+    position: relative;
+    background: var(--grad-deep);
+    color: #fff;
+    padding-block: clamp(3rem, 7vw, 5.5rem);
+    overflow: hidden;
+  }
+  .fh::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(110% 80% at 80% 0%, rgba(122, 88, 190, 0.55), transparent 60%);
+    pointer-events: none;
+  }
+  .fh__lanes {
+    position: absolute; inset: 0;
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    max-width: var(--max-width); margin-inline: auto; padding-inline: var(--gutter);
+    pointer-events: none;
+  }
+  .fh__lanes span {
+    border-right: 1px solid transparent;
+    border-image: linear-gradient(to bottom, transparent, rgba(255,255,255,0.08) 40%, rgba(255,255,255,0.08) 60%, transparent) 1;
+  }
+  .fh__lanes span:last-child { border-right: 0; }
+  .fh__inner { position: relative; }
+  .fh__title {
+    font-size: var(--fs-display);
+    font-weight: 800;
+    letter-spacing: -0.035em;
+    line-height: 1.02;
+    text-wrap: balance;
+  }
+  .fh__lead {
+    margin-top: var(--space-md);
+    max-width: 56ch;
+    font-size: var(--fs-lead);
+    line-height: 1.55;
+    color: rgba(255, 255, 255, 0.82);
+  }
+
+  /* --- Layout --- */
+  .formsec__inner { display: grid; gap: var(--space-xl); align-items: start; }
+
+  .form {
+    background: var(--paper);
+    border: 1px solid rgba(75, 46, 131, 0.10);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+    padding: clamp(1.5rem, 3.5vw, 2.75rem);
+  }
+
+  /* Honeypot: removed from the visual and accessibility trees alike, so it
+     cannot be reached by keyboard or announced by a screen reader. */
+  .form__hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+
+  .form__set { border: 0; padding: 0; margin: 0 0 var(--space-lg); }
+  .form__set:last-of-type { margin-bottom: var(--space-md); }
+  .form__legend {
+    font-size: var(--fs-eyebrow);
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--purple);
+    padding: 0 0 var(--space-sm);
+    width: 100%;
+    border-bottom: 1px solid var(--line);
+    margin-bottom: var(--space-md);
+  }
+
+  .form__row { display: grid; gap: var(--space-md); }
+  .field + .field, .form__row + .form__row { margin-top: var(--space-md); }
+
+  .field__label {
+    display: block;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 0.4rem;
+  }
+  .req { color: var(--gold-deep); }
+  .field__opt {
+    font-weight: 500; font-size: 0.78rem; color: var(--muted);
+    text-transform: uppercase; letter-spacing: 0.1em; margin-left: 0.4rem;
+  }
+  .field__help { margin-top: 0.45rem; font-size: var(--fs-small); color: var(--muted); line-height: 1.5; }
+
+  input[type='text'], input[type='email'], input[type='tel'], textarea, select {
+    width: 100%;
+    font: inherit;
+    color: var(--ink);
+    background: #FCFBFE;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-xs);
+    padding: 0.85rem 1rem;
+    transition: border-color var(--dur-fast) var(--ease-soft),
+                box-shadow var(--dur-fast) var(--ease-soft),
+                background var(--dur-fast) var(--ease-soft);
+  }
+  textarea { resize: vertical; min-height: 8rem; line-height: 1.6; }
+  input::placeholder, textarea::placeholder { color: #9A93A8; }
+
+  input:focus, textarea:focus, select:focus {
+    outline: none;
+    background: var(--paper);
+    border-color: var(--purple);
+    box-shadow: 0 0 0 4px rgba(75, 46, 131, 0.12);
+  }
+  /* Only flag a field the visitor has actually interacted with. `:invalid`
+     alone matches every empty required field on load, and `:placeholder-shown`
+     is no guard because it never matches a field that has no placeholder —
+     which is how Name, Email and the message box all rendered red before
+     anyone typed a character. `:user-invalid` is the correct selector: it
+     matches only after interaction or a submit attempt. Browsers without it
+     simply fall back to native validation messages, which is fine. */
+  input:user-invalid,
+  textarea:user-invalid,
+  select:user-invalid {
+    border-color: #C0392B;
+    background: #FEF8F7;
+  }
+  input:user-invalid:focus,
+  textarea:user-invalid:focus {
+    box-shadow: 0 0 0 4px rgba(192, 57, 43, 0.14);
+  }
+  /* And clear it again the moment the field is put right, so correcting a
+     mistake gives immediate feedback rather than leaving a red box behind. */
+  input:user-valid,
+  textarea:user-valid,
+  select:user-valid {
+    border-color: rgba(75, 46, 131, 0.35);
+    background: #FCFBFE;
+  }
+
+  .select { position: relative; }
+  .select::after {
+    content: '';
+    position: absolute; right: 1rem; top: 50%;
+    width: 0.5rem; height: 0.5rem;
+    border-right: 2px solid var(--purple);
+    border-bottom: 2px solid var(--purple);
+    transform: translateY(-70%) rotate(45deg);
+    pointer-events: none;
+  }
+  select { appearance: none; padding-right: 2.5rem; cursor: pointer; }
+
+  .form__actions {
+    display: flex; flex-wrap: wrap; align-items: center;
+    gap: var(--space-sm) var(--space-md);
+    padding-top: var(--space-md);
+    border-top: 1px solid var(--line);
+  }
+  .form__actions .btn { border: 2px solid transparent; }
+  .form__note { font-size: var(--fs-small); color: var(--muted); max-width: 34ch; }
+
+  /* --- Aside --- */
+  .aside { display: grid; gap: var(--space-md); }
+  .aside__card {
+    background: var(--grad-tint);
+    border: 1px solid rgba(75, 46, 131, 0.10);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    padding: var(--space-lg);
+  }
+  .aside__card--quiet { background: var(--paper); }
+  .aside__lanes { max-width: 2.5rem; margin-bottom: var(--space-md); }
+  .aside__title { font-size: 1.35rem; margin-bottom: 0.6rem; }
+  .aside__title--sm { font-size: 1.1rem; }
+  .aside__body { font-size: var(--fs-small); color: var(--ink-soft); line-height: 1.6; }
+
+  .aside__contact {
+    font-style: normal; display: grid; gap: 0.25rem;
+    margin-top: var(--space-md); padding-top: var(--space-md);
+    border-top: 1px solid rgba(75, 46, 131, 0.12);
+    font-size: var(--fs-small); color: var(--ink-soft);
+  }
+  .aside__contact strong { color: var(--ink); font-size: 1rem; }
+  .aside__contact a { color: var(--purple); text-decoration: none; font-weight: 600; }
+  .aside__contact a:hover { text-decoration: underline; }
+
+  .aside__steps { counter-reset: step; display: grid; gap: 0.7rem; margin-top: var(--space-sm); }
+  .aside__steps li {
+    counter-increment: step;
+    display: flex; gap: 0.7rem; align-items: flex-start;
+    font-size: var(--fs-small); color: var(--ink-soft); line-height: 1.5;
+  }
+  .aside__steps li::before {
+    content: counter(step);
+    flex: none;
+    width: 1.4rem; height: 1.4rem;
+    display: grid; place-items: center;
+    background: var(--purple); color: #fff;
+    border-radius: 50%;
+    font-size: 0.7rem; font-weight: 700;
+  }
+
+  @media (min-width: 620px) {
+    .form__row { grid-template-columns: 1fr 1fr; }
+    .field + .field { margin-top: 0; }
+    .form__row + .form__row { margin-top: var(--space-md); }
+    .form__set .field + .field { margin-top: var(--space-md); }
+  }
+  @media (min-width: 1000px) {
+    .formsec__inner { grid-template-columns: 1.5fr 0.85fr; }
+  }
+</style>
