@@ -201,8 +201,16 @@ export const HOW_TO_HELP = {
     { title: 'Community Support', body: 'Volunteer coordination, food, transportation and outreach.' },
     { title: 'Financial Support', body: 'Restricted project donations and sponsorships.' },
   ],
+  /* Replaces the executive summary's original framing, which named a donated
+     track surface as the ideal first contribution. That singled out one
+     product as THE ask and pointed it at manufacturers. The coalition framing
+     below keeps the useful part of the original idea — that early commitments
+     make later ones easier to secure — while asking people to join something
+     rather than hand over one expensive item. Track surface remains one of
+     the nine categories above; it is simply no longer singled out. */
+  anchorTitle: 'The first step is not a single gift. It is a team.',
   anchorNote:
-    'The ideal first major contribution is a complete or substantial synthetic track system. A donation of the track surface would give this project a foundation around which every other partner can be recruited.',
+    'A world-class track gets built when contractors, suppliers, engineers, funders and neighbors each bring what they have — materials, equipment, expertise, hours, money — and no one carries it alone. Every partner who commits makes the next one easier to find. All of it goes to the same place: the district, the students, and the vision.',
 };
 
 /* --- 9. ONE CONTRIBUTION UNLOCKS THE NEXT ------------------------------ */

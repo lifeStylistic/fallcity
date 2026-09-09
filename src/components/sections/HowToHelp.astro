@@ -25,6 +25,7 @@ import { DONATION_URL, PARTNER_FORM_URL, VOLUNTEER_URL } from '../../config/site
     </ul>
 
     <div class="help__anchor" data-reveal>
+      <p class="help__anchorTitle">{HOW_TO_HELP.anchorTitle}</p>
       <p class="help__anchorText">{HOW_TO_HELP.anchorNote}</p>
     </div>
 
@@ -89,7 +90,18 @@ import { DONATION_URL, PARTNER_FORM_URL, VOLUNTEER_URL } from '../../config/site
     border-radius: 0 var(--radius) var(--radius) 0;
     box-shadow: var(--shadow-sm);
   }
-  .help__anchorText { max-width: 72ch; color: var(--ink); font-size: var(--fs-body); }
+  .help__anchorTitle {
+    font-family: var(--font-display);
+    font-size: clamp(1.25rem, 2.2vw, 1.7rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+    color: var(--purple);
+    margin-bottom: 0.7rem;
+    max-width: 24ch;
+    text-wrap: balance;
+  }
+  .help__anchorText { max-width: 72ch; color: var(--ink-soft); font-size: var(--fs-body); line-height: 1.6; }
 
   .help__actions { margin-top: var(--space-lg); }
 
