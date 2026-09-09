@@ -248,12 +248,37 @@ a { color: inherit; }
 
 [data-reveal].is-visible { opacity: 1; transform: none; will-change: auto; }
 
-/* Section headings move as a unit but not in lockstep: the eyebrow arrives
-   first and the headline follows, which reads as one gesture rather than two
-   elements happening to animate together. */
-.reveal-head .eyebrow { transition-delay: 0ms; }
+/* Section headings run slower than the rest of the page. */
+.reveal-head {
+  transition-duration: var(--dur-title), var(--dur-title);
+}
+
+/* The eyebrow arrives first and the headline follows, so the pair reads as
+   one gesture rather than two elements happening to move at once.
+
+   These children need their OWN transition. A transition-delay on an element
+   that has no transition does nothing at all — which is exactly why the
+   earlier version of this stagger silently did nothing and the heading
+   animated as a single block.
+
+   Transform only, deliberately no opacity: the container already handles the
+   fade, so if these rules ever fail the text is still visible, merely
+   fractionally offset. */
+.reveal-head .eyebrow,
 .reveal-head .headline,
-.reveal-head .headline-lg { transition-delay: 90ms; }
+.reveal-head .headline-lg {
+  transform: translateY(16px);
+  transition: transform var(--dur-title) var(--ease-out);
+}
+.reveal-head.is-visible .eyebrow {
+  transform: none;
+  transition-delay: 80ms;
+}
+.reveal-head.is-visible .headline,
+.reveal-head.is-visible .headline-lg {
+  transform: none;
+  transition-delay: 240ms;
+}
 
 /* Horizontal entrances would otherwise widen the page while they play. */
 body { overflow-x: clip; }
@@ -261,7 +286,10 @@ body { overflow-x: clip; }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  [data-reveal] { opacity: 1 !important; transform: none !important; transition: none !important; }
+  [data-reveal],
+  .reveal-head .eyebrow,
+  .reveal-head .headline,
+  .reveal-head .headline-lg { opacity: 1 !important; transform: none !important; transition: none !important; }
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
@@ -269,5 +297,8 @@ body { overflow-x: clip; }
   }
 }
 
-/* If JavaScript never runs, content must still be visible. */
-.no-js [data-reveal] { opacity: 1; transform: none; }
+/* If JavaScript never runs, content must still be visible and in place. */
+.no-js [data-reveal],
+.no-js .reveal-head .eyebrow,
+.no-js .reveal-head .headline,
+.no-js .reveal-head .headline-lg { opacity: 1; transform: none; }

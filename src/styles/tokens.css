@@ -103,6 +103,9 @@
   --dur-fast:  180ms;
   --dur:       420ms;
   --dur-slow:  760ms;
+  /* Section headings run slower than everything else. They are the largest
+     things that move, and large type sliding at body-copy speed reads rushed. */
+  --dur-title: 1250ms;
   --ease-out:  cubic-bezier(0.22, 1, 0.36, 1);
   --ease-soft: cubic-bezier(0.4, 0, 0.2, 1);
 }
