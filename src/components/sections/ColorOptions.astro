@@ -1,0 +1,121 @@
+---
+import { COLOR_OPTIONS } from '../../data/content.js';
+import Lightbox from '../Lightbox.astro';
+
+/* The drafting team's two finished renderings.
+
+   Dark ground on purpose: these are the first images on the page that show
+   the track finished, and a dark surround is what lets a saturated red or
+   purple surface read as a surface rather than as a swatch.
+
+   Purple is listed first because it is the Mountaineers' color and reads as
+   the natural choice — but the section is deliberately framed as two options
+   the district picks between, not as a recommendation. The drawings carry
+   Beynon's title block and Beynon is the surfacing partner; a page that
+   quietly chose the color for the district would be the site making a
+   vendor's decision look like the customer's. */
+const { eyebrow, headline, intro, options, linkText, colorNote, note } = COLOR_OPTIONS;
+const path = (slug, w) => `/images/renderings/${slug}-${w}.jpg`;
+---
+
+<section class="section colors on-dark" id="color-options">
+  <div class="shell">
+    <div class="colors__head" class:list={["reveal-head"]} data-reveal="right">
+      <p class="eyebrow">{eyebrow}</p>
+      <h2 class="headline">{headline}</h2>
+      <p class="lead colors__intro">{intro}</p>
+    </div>
+
+    <div class="colors__grid">
+      {options.map((o, i) => (
+        <figure class="opt" data-reveal style={`--d:${i * 120}ms`}>
+          <img
+            class="opt__img"
+            src={path(o.slug, 1600)}
+            srcset={`${path(o.slug, 1000)} 1000w, ${path(o.slug, 1600)} 1600w`}
+            sizes="(min-width: 1000px) 46vw, 92vw"
+            alt={o.alt}
+            width={o.width}
+            height={o.height}
+            loading="lazy"
+            decoding="async"
+          />
+          <figcaption class="opt__body">
+            <p class="opt__sheet">{o.sheet}</p>
+            <h3 class="opt__name">{o.name}</h3>
+            <p class="opt__scheme">{o.scheme}</p>
+            <Lightbox
+              id={`sheet-${o.slug}`}
+              src={`/images/renderings/${o.slug}-sheet-2400.jpg`}
+              alt={`${o.alt} The full drawing sheet, including the title block naming Falls City High School, a 400 meter track, a scale of one inch to forty feet, and facility notes listing the proposed track colors.`}
+              width={2400}
+              height={1553}
+              linkText={linkText}
+              caption={`${o.sheet} — ${o.name}. ${o.scheme}`}
+              note={note}
+            />
+          </figcaption>
+        </figure>
+      ))}
+    </div>
+
+    <p class="colors__note" data-reveal>{colorNote}</p>
+  </div>
+</section>
+
+<style>
+  .colors { background: var(--purple-deep); color: #fff; }
+
+  .colors__head { max-width: 46rem; margin-bottom: var(--space-xl); }
+  .colors__intro { margin-top: var(--space-md); }
+
+  .colors__grid { display: grid; gap: var(--space-xl); }
+
+  /* Columns, so the two "view the full drawing" buttons sit on the same line
+     however many lines each colour description happens to run to. */
+  .opt { margin: 0; display: flex; flex-direction: column; height: 100%; }
+  .opt__img {
+    width: 100%; height: auto; display: block;
+    border-radius: var(--radius-lg);
+    /* Hairline plus real elevation, the same treatment the photographs of the
+       existing surface get — these sit above the band, not pasted onto it. */
+    box-shadow:
+      0 0 0 1px rgba(255, 255, 255, 0.12),
+      var(--shadow-dark);
+  }
+
+  .opt__body {
+    margin-top: var(--space-md);
+    flex: 1; display: flex; flex-direction: column;
+    align-items: flex-start;   /* the button hugs its label, not the column */
+  }
+  .opt__sheet {
+    font-size: var(--fs-eyebrow); font-weight: 700;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--gold);
+  }
+  .opt__name {
+    font-size: var(--fs-h3);
+    margin-top: 0.35rem;
+  }
+  .opt__scheme {
+    flex: 1; align-self: stretch;                 /* takes the slack, so the button lands at the foot */
+    margin-top: 0.5rem;
+    font-size: var(--fs-body); line-height: 1.55;
+    color: rgba(255, 255, 255, 0.78);
+    max-width: 46ch;
+  }
+
+  .colors__note {
+    margin-top: var(--space-xl);
+    padding-top: var(--space-md);
+    border-top: 1px solid rgba(255, 255, 255, 0.18);
+    max-width: 66ch;
+    font-size: var(--fs-small);
+    color: rgba(255, 255, 255, 0.72);
+  }
+
+  @media (min-width: 1000px) {
+    .colors__grid { grid-template-columns: 1fr 1fr; gap: var(--space-lg); }
+  }
+</style>

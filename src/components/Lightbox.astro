@@ -10,6 +10,11 @@
    opens the image, which is a perfectly good outcome. The script only
    upgrades that link into a dialog.
 
+   The behaviour lives in Base.astro, not here. Astro dedupes a component's
+   <style> but not its inline <script>, so with three lightboxes on a page
+   this file would ship three copies of the same IIFE and bind every handler
+   three times over.
+
    Built on <dialog> deliberately: showModal() gives the focus trap, the
    Escape handler, the inert background and the focus restore for free, and
    the top layer escapes both the ancestor transforms of the reveal system
@@ -52,7 +57,9 @@ const {
   </div>
 
   <div class="lb__stage" data-lb-stage>
-    <img src={src} alt={alt} width={width} height={height} decoding="async" />
+    {/* lazy: a closed dialog still costs a download otherwise, and these
+        sheets are ~900KB each. */}
+    <img src={src} alt={alt} width={width} height={height} loading="lazy" decoding="async" />
   </div>
 
   {(caption || note) && (
@@ -98,7 +105,11 @@ const {
     /* grid, not flow: the stage takes whatever the bar and footer leave, so
        the image is never pushed off the bottom of the screen. */
     display: grid;
-    grid-template-rows: auto 1fr auto;
+    /* minmax(0, 1fr), not 1fr: a bare 1fr floors at the row's content size,
+       which leaves the stage without a definite height — and a percentage
+       max-height on the image then resolves to none, so a tall drawing
+       overflowed and its title block was clipped away. */
+    grid-template-rows: auto minmax(0, 1fr) auto;
     overflow: hidden;
   }
   .lb:not([open]) { display: none; }
@@ -132,7 +143,15 @@ const {
   /* --- the image stage -------------------------------------------------- */
   .lb__stage {
     overflow: auto;
-    display: grid; place-items: center;
+    min-height: 0;
+    /* An explicit minmax(0, 1fr) track, not an implicit auto one. The image is
+       a grid item, so its max-height: 100% resolves against its grid AREA — and
+       an auto row sizes itself to the image, which makes the constraint
+       circular and lets a tall drawing overflow the clipped dialog, taking its
+       title block with it. A definite track breaks the loop. */
+    display: grid;
+    grid-template: minmax(0, 1fr) / minmax(0, 1fr);
+    place-items: center;
     padding: var(--space-md);
     /* Let touch users pinch the drawing rather than trapping the gesture. */
     touch-action: pan-x pan-y pinch-zoom;
@@ -185,84 +204,3 @@ const {
     .lbLink:hover { transform: none; }
   }
 </style>
-
-<script is:inline>
-  (function () {
-    document.querySelectorAll('[data-lightbox]').forEach(function (link) {
-      var dlg = document.getElementById(link.getAttribute('data-lightbox'));
-      if (!dlg || typeof dlg.showModal !== 'function') return;   /* keep the plain link */
-
-      var stage = dlg.querySelector('[data-lb-stage]');
-      var img = stage.querySelector('img');
-      var zoomBtn = dlg.querySelector('[data-lb-zoom]');
-
-      link.addEventListener('click', function (e) {
-        e.preventDefault();
-        dlg.showModal();
-      });
-
-      dlg.querySelector('[data-lb-close]').addEventListener('click', function () {
-        dlg.close();
-      });
-
-      /* Clicking the backdrop closes. The dialog fills the viewport, so the
-         only clicks that land on the element itself are outside its grid
-         rows — which is exactly the backdrop area. */
-      dlg.addEventListener('click', function (e) {
-        if (e.target === dlg) dlg.close();
-      });
-
-      function setZoom(on) {
-        stage.classList.toggle('is-zoomed', on);
-        zoomBtn.setAttribute('aria-pressed', String(on));
-        zoomBtn.textContent = on ? 'Fit to screen' : 'Zoom in';
-        if (on) {
-          /* Not simply naturalWidth: on a wide monitor the fitted view is
-             already close to native, so "zoom" would do nothing. Go to at
-             least twice the width the image currently occupies, so the
-             dimension tables get bigger on every screen size. */
-          var target = Math.max(img.naturalWidth, Math.round(stage.clientWidth * 2));
-          stage.style.setProperty('--natural-width', target + 'px');
-          /* Open centred on the middle of the drawing rather than its corner. */
-          stage.scrollLeft = (stage.scrollWidth - stage.clientWidth) / 2;
-          stage.scrollTop = (stage.scrollHeight - stage.clientHeight) / 2;
-        } else {
-          stage.scrollTo(0, 0);
-        }
-      }
-
-      zoomBtn.addEventListener('click', function () {
-        setZoom(!stage.classList.contains('is-zoomed'));
-      });
-      img.addEventListener('click', function () {
-        if (!stage.classList.contains('is-zoomed')) setZoom(true);
-      });
-
-      /* Drag to pan while zoomed — a mouse has no other way to move around a
-         drawing that is wider than the window. */
-      var panning = false, sx = 0, sy = 0, sl = 0, st = 0;
-      img.addEventListener('pointerdown', function (e) {
-        if (!stage.classList.contains('is-zoomed') || e.pointerType === 'touch') return;
-        panning = true; sx = e.clientX; sy = e.clientY;
-        sl = stage.scrollLeft; st = stage.scrollTop;
-        stage.classList.add('is-panning');
-        img.setPointerCapture(e.pointerId);
-        e.preventDefault();
-      });
-      img.addEventListener('pointermove', function (e) {
-        if (!panning) return;
-        stage.scrollLeft = sl - (e.clientX - sx);
-        stage.scrollTop = st - (e.clientY - sy);
-      });
-      ['pointerup', 'pointercancel'].forEach(function (type) {
-        img.addEventListener(type, function () {
-          panning = false;
-          stage.classList.remove('is-panning');
-        });
-      });
-
-      /* Always reopen fitted, whatever state it was left in. */
-      dlg.addEventListener('close', function () { setZoom(false); });
-    });
-  })();
-</script>

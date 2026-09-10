@@ -232,7 +232,7 @@ export const UNLOCK_CHAIN = {
 
 /* --- 10. PROJECT STATUS ------------------------------------------------ */
 /* Update `state` as the project advances. Allowed values, which control the
-   colour of the indicator dot:
+   color of the indicator dot:
      'active'      — in progress right now  (gold)
      'complete'    — finished               (purple)
      'not-started' — not begun yet          (grey)
@@ -451,7 +451,7 @@ export const VISION_IMAGE = {
   src: 'vision-rendering',
   /* Conceptual overlay produced by Beynon Sports' drafting team, showing the
      planned four-lane loop on the actual Falls City site. Purple surface,
-     matching the Mountaineers colours.
+     matching the Mountaineers colors.
 
      The drawing carries its own legend stating that it is conceptual, that
      no survey has been performed, that it was scaled from a map scale bar
@@ -464,6 +464,61 @@ export const VISION_IMAGE = {
   caption:
     'Conceptual overlay of the planned four-lane track on the Falls City site, prepared by Beynon Sports. No survey has been performed — the layout shown is a goal, not a confirmed design.',
 };
+
+/* --- COLOR OPTIONS ------------------------------------------------------
+   Two finished renderings from the Beynon drafting team, dated 09-09-2026,
+   showing the same 400-meter four-lane layout in two color schemes.
+
+   THE COLOUR CHOICE IS THE DISTRICT'S. The drawings say so themselves —
+   "all colors are illustrative only, owner to approve all colors prior to
+   ordering" — and the section is built around that rather than around a
+   recommendation. The purple option matches the Mountaineers palette and
+   therefore this whole site, which is exactly why the page must not appear
+   to be making the decision on the district's behalf.
+
+   The same caveat as the layout study applies and is repeated in `note`:
+   these are drawn over aerial imagery, not surveyed, and the 400m
+   configuration is still a goal. Do not drop that line.
+
+   Each card shows the drawing alone; the full sheet — title block, scale,
+   facility notes — opens full-screen.                                   */
+export const COLOR_OPTIONS = {
+  eyebrow: 'The Look',
+  headline: 'Two Options. One Decision the District Makes.',
+  intro:
+    'The drafting team has put the proposed layout into two color schemes. Both show the same four-lane track on the same ground — only the surface colors differ.',
+  options: [
+    {
+      slug: 'option-purple',
+      sheet: 'Option 2',
+      name: 'Mountaineer Purple',
+      scheme: 'Purple track and runway, with gold exchange zones.',
+      alt:
+        'Aerial rendering of the proposed Falls City track surfaced in purple, with gold relay exchange zones at the ends of the straightaways and white lane lines, wrapping the existing grass football field.',
+      width: 1600,
+      height: 902,
+    },
+    {
+      slug: 'option-red',
+      sheet: 'Option 1',
+      name: 'Beynon Red',
+      scheme:
+        'Red track and runway, with gold 4×100 relay and 100 m hurdle markings and purple 4×400 relay and 110 m hurdle markings.',
+      alt:
+        'Aerial rendering of the proposed Falls City track surfaced in red, with gold and purple event markings and white lane lines, wrapping the existing grass football field.',
+      width: 1600,
+      height: 902,
+    },
+  ],
+  linkText: 'View the full drawing',
+  /* Quoted from the sheets, because it is the drafters' own instruction and
+     carries more weight in their words than in ours. */
+  colorNote:
+    'All colors are illustrative only. The district approves all colors before anything is ordered.',
+  note:
+    'Both drawings show a 400-meter four-lane layout drawn over aerial imagery. No survey has been performed, and that configuration remains a goal until professional survey and engineering confirm it fits safely on the site.',
+};
+
 
 /* --- INITIAL LAYOUT STUDY -----------------------------------------------
    The drafting team's first fit study, opened full-screen from a link under
@@ -487,7 +542,7 @@ export const LAYOUT_STUDY = {
   height: 668,
   linkText: 'View the initial layout study',
   alt:
-    'Initial four-lane track layout drawn over an aerial photograph of the Falls City High School field. The oval runs around the existing football field, with the running lanes marked and labelled at start lines, finish lines, hurdle positions and relay exchange zones for each event. Two tables sit over the field: one listing event colours and labels for the sprints, hurdles, relays and distance events, the other listing track dimensions — a total lane-one length of 400.000 meters, a straightaway hub distance of 84.150 meters, a lane-one radius of 36.600 meters and a lane width of 1.067 meters.',
+    'Initial four-lane track layout drawn over an aerial photograph of the Falls City High School field. The oval runs around the existing football field, with the running lanes marked and labelled at start lines, finish lines, hurdle positions and relay exchange zones for each event. Two tables sit over the field: one listing event colors and labels for the sprints, hurdles, relays and distance events, the other listing track dimensions — a total lane-one length of 400.000 meters, a straightaway hub distance of 84.150 meters, a lane-one radius of 36.600 meters and a lane width of 1.067 meters.',
   caption:
     'The drafting team’s initial fit study, testing a 400-meter four-lane geometry against the existing field, with event marks, relay exchange zones and dimension tables.',
   note:
@@ -515,7 +570,7 @@ export const SURFACE_IMAGE = {
 export const CTA_IMAGE = {
   src: 'starting-line-bw',
   alt: 'Black and white photograph of three runners crouched at a starting line with their hands on the track, waiting to start.',
-  /* Black and white deliberately. The colour photographs on this page are
+  /* Black and white deliberately. The color photographs on this page are
      Falls City; this one is not, and monochrome keeps that distinction
      legible without a disclaimer doing the work. */
   caption: 'Athletes on the line. Falls City has never been able to host a start of its own.',
