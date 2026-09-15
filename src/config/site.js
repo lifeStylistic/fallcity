@@ -92,7 +92,15 @@ export const AMOUNT_RAISED = null;     // [ADD LATER] $AMOUNT_RAISED
 export const TAX_LANGUAGE = null;  // [ADD LATER — must be confirmed by the district]
 
 /* ---------------------------------------------------------------------------
-   CONTACT — from the executive summary
+   CONTACT
+   ---------------------------------------------------------------------------
+   Everything on the site — footer, inquiry page, confirmation page — reads
+   the phone number and email from here, so this is the only place to change
+   them.
+
+   NOTE ON THE PHONE NUMBER: the executive summary PDF lists (562) 964-1597.
+   The number below is Jennifer's work line and is the correct one to publish.
+   Do not "fix" it back to match the PDF.
 --------------------------------------------------------------------------- */
 export const CONTACT = {
   name: 'Jennifer Flores',
@@ -101,8 +109,8 @@ export const CONTACT = {
   street: '111 N. Main St.',
   cityStateZip: 'Falls City, OR 97344',
   email: 'jennifer.flores@fallscityschools.org',
-  phone: '(562) 964-1597',
-  phoneHref: '+15629641597',
+  phone: '(971) 612-1627',
+  phoneHref: '+19716121627',
 };
 
 /* ---------------------------------------------------------------------------

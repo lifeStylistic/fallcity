@@ -426,4 +426,4 @@ environment needed for routine copy changes.
 **Jennifer Flores**
 Falls City School District 57 / Falls City High School
 111 N. Main St., Falls City, OR 97344
-jennifer.flores@fallscityschools.org · (562) 964-1597
+jennifer.flores@fallscityschools.org · (971) 612-1627
